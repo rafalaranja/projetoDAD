@@ -49,7 +49,7 @@
     if (!editingTask.value) {
         return ''
       }
-      return props.operationType == 'insert' ? 'New Task' : 'Task #' + editingTask.value.id
+      return props.operationType == 'insert' ? 'New Vcard' : 'Task #' + editingTask.value.id
   })
 
   const save = () => {

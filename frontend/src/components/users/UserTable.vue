@@ -49,41 +49,45 @@ const editClick = (user) => {
 </script>
 
 <template>
-  <table class="table">
-    <thead>
-      <tr>
-        <th v-if="showId" class="align-middle">#</th>
-        <th v-if="showPhoto" class="align-middle">Photo</th>
-        <th class="align-middle">Name</th>
-        <th v-if="showEmail" class="align-middle">Email</th>
-        <th v-if="showAdmin" class="align-middle">Admin?</th>
-        <th v-if="showGender" class="align-middle">Gender</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="user in users" :key="user.id">
-        <td v-if="showId" class="align-middle">{{ user.id }}</td>
-        <td v-if="showPhoto" class="align-middle">
-          <img :src="photoFullUrl(user)" class="rounded-circle img_photo" />
-        </td>
-        <td class="align-middle">{{ user.name }}</td>
-        <td v-if="showEmail" class="align-middle">{{ user.email }}</td>
-        <td v-if="showAdmin" class="align-middle">{{ user.type == "A" ? "Sim" : "" }}</td>
-        <td v-if="showGender" class="align-middle">{{ user.gender_name }}</td>
-        <td class="text-end align-middle" v-if="showEditButton">
-          <div class="d-flex justify-content-end">
-            <button
-              class="btn btn-xs btn-light"
-              @click="editClick(user)"
-              v-if="showEditButton"
-            >
-              <i class="bi bi-xs bi-pencil"></i>
-            </button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">About</h1>
+    </div>
+    <div>
+      <h4><img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">Vcard</h4>
+      <h5>Introducing VCard - Redefining Online Transactions</h5>
+
+<p>Welcome to VCard, the groundbreaking solution set to revolutionize the way you conduct online transactions. If
+    you're in search of convenience, security, and efficiency in your financial operations, VCard is the answer.
+    Developed with state-of-the-art security technology, VCard offers a seamless online payment experience for users
+    worldwide.</p>
+
+<h6>Security First:</h6>
+<p>With VCard, the security of your financial data is our top priority. We employ cutting-edge encryption to ensure
+    that all your transactions are shielded from cyber threats. Feel at ease when making online purchases,
+    transfers, and payments, knowing that VCard is tirelessly working to keep your information secure.</p>
+
+<h6>Simple and Intuitive:</h6>
+<p>Simplicity is at the core of VCard. Our intuitive interface is designed to ensure that even users less familiar
+    with online transactions can navigate effortlessly. With just a few clicks, you can send or receive money, pay
+    bills, and make purchases, all without complications.</p>
+
+<h6>Globally Connected:</h6>
+<p>No matter where you are in the world, VCard provides global support. Conduct transactions with ease, regardless
+    of the currency or location of the recipient. Our currency conversion system is fast and efficient, allowing you
+    to take advantage of VCard anywhere on the planet.</p>
+
+<h6>Exceptional Customer Support:</h6>
+<p>At VCard, customer satisfaction is paramount. Our dedicated customer support is available 24/7 to assist with any
+    questions or issues you may have. We are committed to delivering the best possible experience to our users.</p>
+
+<h6>Conclusion:</h6>
+<p>In summary, VCard is more than just an online transaction platform—it's the key to simplifying and enhancing
+    your financial life. Join millions of satisfied users who trust VCard for their daily transactions. Download now
+    and discover how easy and secure it is to manage your money online with VCard. Transform your transactions,
+    transform your life.
+</p>
+    </div>
+    
 </template>
 
 <style scoped>

@@ -29,11 +29,11 @@ onMounted(async () => {
 
 
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow">
+  <nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top flex-md-nowrap p-0 shadow">
     <div class="container-fluid">
       <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
         <img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-        App name
+        Vcard
       </a>
       <button id="buttonSidebarExpandId" class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,18 +98,12 @@ onMounted(async () => {
                 Dashboard
               </router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :class="{ active: $route.name === 'CurrentTasks' }"
-                :to="{ name: 'CurrentTasks' }">
-                <i class="bi bi-list-stars"></i>
-                Current Tasks
-              </router-link>
-            </li>
+           
             <li class="nav-item d-flex justify-content-between align-items-center pe-3">
               <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Tasks' }"
                 :to="{ name: 'Tasks' }">
                 <i class="bi bi-list-check"></i>
-                Tasks
+                Vcards
               </router-link>
               <router-link class="link-secondary" :to="{ name: 'NewTask' }" aria-label="Add a new task">
                 <i class="bi bi-xs bi-plus-circle"></i>
@@ -118,21 +112,16 @@ onMounted(async () => {
             <li class="nav-item">
               <router-link class="nav-link" :class="{ active: $route.name === 'Projects' }" :to="{ name: 'Projects' }">
                 <i class="bi bi-files"></i>
-                Projects
+                Transactions
               </router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" :class="{ active: $route.name === 'Users' }" :to="{ name: 'Users' }">
                 <i class="bi bi-files"></i>
-                Team Members
+                About
               </router-link>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="bi bi-bar-chart-line"></i>
-                Reports
-              </a>
-            </li>
+            
           </ul>
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

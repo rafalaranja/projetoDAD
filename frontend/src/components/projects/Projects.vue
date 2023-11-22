@@ -102,7 +102,7 @@ onMounted(() => {
   </confirmation-dialog>
   <div class="d-flex justify-content-between">
     <div class="mx-2">
-      <h3 class="mt-4">Projects</h3>
+      <h3 class="mt-4">Transactions</h3>
     </div>
     <div class="mx-2 total-filtro">
       <h5 class="mt-4">Total: {{ totalProjects }}</h5>

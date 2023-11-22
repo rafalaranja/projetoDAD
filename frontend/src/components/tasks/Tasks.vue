@@ -45,7 +45,7 @@ const deletedTask = (deletedTask) => {
 const props = defineProps({
   tasksTitle: {
     type: String,
-    default: 'Tasks'
+    default: 'Vcards'
   },
   onlyCurrentTasks: {
     type: Boolean,
