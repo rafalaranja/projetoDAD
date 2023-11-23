@@ -7,7 +7,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import axios from 'axios'
 
-import Toast from "vue-toastification"
+import Toast from "vue-toastification" 
 // Import the Toast CSS (or use your own)!
 import "vue-toastification/dist/index.css"
 
@@ -19,7 +19,7 @@ import router from './router'
 
 const app = createApp(App)
 
-const serverBaseUrl = 'http://laravel.test'
+const serverBaseUrl = 'http://backend.test'
 app.provide('serverBaseUrl', serverBaseUrl)  
 // Default Axios configuration
 axios.defaults.baseURL = serverBaseUrl + '/api'

@@ -2,11 +2,19 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-
 import { useUserStore } from './stores/user.js'
 
-const userStore = useUserStore()
-
+const userStore = useUserStore() 
+const logout = async () => {
+ try {
+ await axios.post('logout')
+ toast.success('User has logged out of the application.')
+ delete axios.defaults.headers.common.Authorization
+ userStore.clearUser()
+ } catch (error) {
+ toast.error('There was a problem logging out of the application!')
+ }
+}
 const workInProgressProjects = ref([])
 onMounted(async () => {
   try {
@@ -19,7 +27,7 @@ onMounted(async () => {
 
 
     const userId = 1
-    const response = await axios.get("users/" + userId + "/projects/inprogress")
+    const response = await axios.get("users" )
     workInProgressProjects.value = response.data.data
   } catch (error) {
     console.log(error)
@@ -181,7 +189,7 @@ onMounted(async () => {
                   <li>
                     <hr class="dropdown-divider">
                   </li>
-                  <li><a class="dropdown-item" href="#">
+                  <li><a class="dropdown-item" @click.prevent="logout">
                       <i class="bi bi-arrow-right"></i>Logout
                     </a></li>
                 </ul>
