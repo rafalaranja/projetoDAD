@@ -7,10 +7,12 @@ const router = useRouter()
 
 const userStore = useUserStore()
 const logout = async () => {
-  if (await userStore.logout()) {
+  try {
+    await axios.post('logout')
     toast.success('User has logged out of the application.')
-    router.push({ name: 'home' })
-  } else {
+    delete axios.defaults.headers.common.Authorization
+    userStore.clearUser()
+  } catch (error) {
     toast.error('There was a problem logging out of the application!')
   }
 }
