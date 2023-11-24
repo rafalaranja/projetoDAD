@@ -3,30 +3,28 @@ import axios from 'axios'
 import { useToast } from "vue-toastification"
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import { useUserStore } from '../../stores/user.js'
+import { useUserStore } from '../../stores/users'
+const userStore = useUserStore()
 const toast = useToast()
 const router = useRouter()
-const userStore = useUserStore()
+
 const credentials = ref({
   username: '',
   password: ''
 })
+
 const emit = defineEmits(['login'])
 const login = async () => {
-  try {
-    const response = await axios.post('login', credentials.value)
-    toast.success('User ' + credentials.value.username + ' has entered the application.')
-    axios.defaults.headers.common.Authorization = "Bearer " + response.data.access_token
-    await userStore.loadUser()
+  if (await userStore.login(credentials.value)) {
+    toast.success('User ' + userStore.user.name + ' has entered the application.')
     emit('login')
     router.back()
-  }
-  catch (error) {
-    delete axios.defaults.headers.common.Authorization
+  } else {
     credentials.value.password = ''
     toast.error('User credentials are invalid!')
   }
 }
+
 </script>
 
 <template>
@@ -46,7 +44,7 @@ const login = async () => {
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-center">
-      <button type="button" class="btn btn-success px-5" @click="login">Login</button>
+      <button type="button" class="btn btn-primary px-5" @click="login">Login</button>
     </div>
   </form>
 </template>

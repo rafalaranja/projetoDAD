@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'users','vcards'
     ],
 
     /*
@@ -38,11 +38,11 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'users','vcards',
         ],
         'api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'users','vcards',
         ],
     ],
 
@@ -66,15 +66,16 @@ return [
     'providers' => [
         'users' => [
           'driver' => 'eloquent',
-          'model' => App\Models\User::class, //View_auth_users
-        ],
+          'model' => App\Models\User::class, App\Models\Vcard::class, //View_auth_users
+        ], 
+    ],
         
 
         //'users' => [
-          //   'driver' => 'database',
+          //   'driver' => 'view',
           //   'table' => 'view_auth_users',
          //],
-    ],
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +98,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'users','vcards',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\api\AuthController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ProjectController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,9 @@ use App\Http\Controllers\api\UserController;
 |
 */
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login']); 
 Route::middleware('auth:api')->group(function () {
-    /*Route::post('logout', [AuthController::class, 'logout']);*/
+    Route::post('logout', [AuthController::class, 'logout']);
     Route::get('users/me', [UserController::class, 'show_me']);
     Route::get('users', [UserController::class, 'index']);
     Route::get('users/{user}', [UserController::class, 'show'])
@@ -35,8 +36,9 @@ Route::middleware('auth:api')->group(function () {
     Route::put('projects/{project}', [ProjectController::class, 'update']);
     Route::get('users/{user}/projects', [ProjectController::class, 'getProjectsOfUser']);
     Route::get('users/{user}/projects/inprogress', [ProjectController::class, 'getProjectsInProgressOfUser']);
-*/
+    */
 });
+
 
 
 

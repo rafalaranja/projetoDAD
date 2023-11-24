@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class View_auth_user extends Model
 {
     use  HasFactory;
-    public $table = 'view_auth_users';
+    protected $table = 'view_auth_users';
+    
 
     /**
      * The attributes that are mass assignable.
@@ -16,6 +19,7 @@ class View_auth_user extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'username',
         'password',
     ];

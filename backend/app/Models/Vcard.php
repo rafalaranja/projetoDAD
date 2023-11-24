@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Vcard as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 class Vcard extends Model
 {
-    use HasFactory;
+    use HasFactory,HasApiTokens;
     protected $fillable = [
+        'phone_number',
         'name',
         'email',
         'password',

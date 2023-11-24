@@ -7,8 +7,7 @@ import TaskTable from "./TaskTable.vue"
 const router = useRouter()
 
 const loadTasks = async () => {
-  // Change later when authentication is implemented
-  const userId = 1
+  
   try {
     const response = await axios.get('users/' + userId + '/tasks')
     tasks.value = response.data.data

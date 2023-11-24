@@ -1,17 +1,16 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { useRouter, RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import { useUserStore } from './stores/user.js'
+import { useUserStore } from './stores/users'
+const router = useRouter()
 
 const userStore = useUserStore() 
 const logout = async () => {
- try {
- await axios.post('logout')
+ if (await userStore.logout()) {
  toast.success('User has logged out of the application.')
- delete axios.defaults.headers.common.Authorization
- userStore.clearUser()
- } catch (error) {
+ router.push({name: 'home'})
+ } else {
  toast.error('There was a problem logging out of the application!')
  }
 }
@@ -168,7 +167,7 @@ onMounted(async () => {
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image">
+                  <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image">
                   <span class="avatar-text">{{ userStore.userName }}</span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
