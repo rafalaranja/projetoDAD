@@ -7,12 +7,10 @@ const router = useRouter()
 
 const userStore = useUserStore()
 const logout = async () => {
-  try {
-    await axios.post('logout')
+  if (await userStore.logout()) {
     toast.success('User has logged out of the application.')
-    delete axios.defaults.headers.common.Authorization
-    userStore.clearUser()
-  } catch (error) {
+    router.push({ name: 'home' })
+  } else {
     toast.error('There was a problem logging out of the application!')
   }
 }
@@ -87,7 +85,9 @@ onMounted(async () => {
                 <hr class="dropdown-divider">
               </li>
               <li>
-                <a class="dropdown-item" href="#"><i class="bi bi-arrow-right"></i>Logout</a>
+                <a class="dropdown-item" @click.prevent="logout">
+                  <i class="bi bi-arrow-right"></i>Logout
+                </a>
               </li>
             </ul>
           </li>
@@ -175,8 +175,9 @@ onMounted(async () => {
                   <li>
                     <hr class="dropdown-divider">
                   </li>
-                  <li><a class="dropdown-item" @click.prevent="logout">
-                      <i class="bi bi-arrow-right"></i>Logout
+                  <li><a router-link class="nav-link" :class="{ active: $route.name === 'Logout' }"
+                      :to="{ name: 'Logout' }">
+                      <i class="bi bi-arrow-right"></i>Lo
                     </a></li>
                 </ul>
               </li>
