@@ -131,22 +131,7 @@ onMounted(async () => {
 
           </ul>
 
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>My Projects</span>
-            <router-link class="link-secondary" :to="{ name: 'NewProject' }" aria-label="Add a new project">
-              <i class="bi bi-xs bi-plus-circle"></i>
-            </router-link>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item" v-for="prj in workInProgressProjects" :key="prj.id">
-              <router-link class="nav-link w-100 me-3"
-                :class="{ active: $route.name == 'ProjectTasks' && $route.params.id == prj.id }"
-                :to="{ name: 'ProjectTasks', params: { id: prj.id } }">
-                <i class="bi bi-file-ruled"></i>
-                {{ prj.name }}
-              </router-link>
-            </li>
-          </ul>
+
 
           <div class="d-block d-md-none">
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
