@@ -16,6 +16,13 @@ const logout = async () => {
     toast.error('There was a problem logging out of the application!')
   }
 }
+socket.on('loggedIn', function (user) {
+        socket.join(user.id)
+        if (user.type == 'A') {
+            socket.join('administrator')
+        }    
+        console.log('User logged in:', user);
+    })
 const workInProgressProjects = ref([])
 onMounted(async () => {
   try {

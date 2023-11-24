@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ref, computed, inject } from 'vue'
 import { defineStore } from 'pinia'
+import {useToast} from "vue-toastification"
 import avatarNoneUrl from '@/assets/avatar-none.png'
 export const useUserStore = defineStore('user', () => {
     const serverBaseUrl = inject('serverBaseUrl')
@@ -8,6 +9,7 @@ export const useUserStore = defineStore('user', () => {
     const user = ref(null)
     const userName = computed(() => user.value?.name ?? 'Anonymous')
     const socket = inject("socket")
+    const toast  = useToast()
 
     const userPhotoUrl = computed(() =>
         user.value?.photo_url
@@ -27,6 +29,7 @@ export const useUserStore = defineStore('user', () => {
         delete axios.defaults.headers.common.Authorization
         user.value = null
     }
+    
     async function login(credentials) {
         try {
             const response = await axios.post('login', credentials)
@@ -34,7 +37,7 @@ export const useUserStore = defineStore('user', () => {
 
             sessionStorage.setItem("token" , response.data.access_token)
             
-            socket.emit('Loging123', response.data.data)
+            socket.emit('loggedIn', user.value)
             await loadUser()
             return true
         }
@@ -43,14 +46,24 @@ export const useUserStore = defineStore('user', () => {
             return false
         }
     }
+    socket.on('loggedIn', function (user) {
+        socket.join(user.id)
+        if (user.type == 'A') {
+            socket.join('administrator')
+        }    
+        console.log('User logged in:', user);
+    })
+    
     async function logout() {
         try {
             await axios.post('logout')
             clearUser()
+            socket.emit('loggedOut', user.value)
             return true
         } catch (error) {
             return false
         }
     }
+    
     return { user,userId, userName, userPhotoUrl, loadUser, clearUser, login, logout ,}
 })

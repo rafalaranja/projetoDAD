@@ -11,8 +11,16 @@ httpServer.listen(8080, () =>{
  console.log('listening on *:8080')
 })
 io.on('connection', (socket) => {
- console.log(`client ${socket.id} has connected`)
- socket.on('Login',(login)=>{
-    socket.broadcast.emit('Login',login)
- })
+console.log(`client ${socket.id} has connected`)
+socket.on('loggedIn', function (user) {
+    socket.join(user.id)
+    if (user.type == 'A') {
+        socket.join('administrator')
+    }    
+    console.log('User logged in:', user.name);
+})
+socket.on('loggedOut', function (user) {
+    socket.leave(user.id)
+    socket.leave('administrator')
+})
 })
