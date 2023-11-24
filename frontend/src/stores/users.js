@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', () => {
 
     const user = ref(null)
     const userName = computed(() => user.value?.name ?? 'Anonymous')
-    
+    const socket = inject("socket")
 
     const userPhotoUrl = computed(() =>
         user.value?.photo_url
@@ -33,7 +33,8 @@ export const useUserStore = defineStore('user', () => {
             axios.defaults.headers.common.Authorization = "Bearer " + response.data.access_token
 
             sessionStorage.setItem("token" , response.data.access_token)
-
+            
+            socket.emit('Loging123', response.data.data)
             await loadUser()
             return true
         }

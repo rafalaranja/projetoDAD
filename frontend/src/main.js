@@ -6,6 +6,7 @@ import "bootstrap"
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import axios from 'axios'
+import { io } from "socket.io-client"
 
 import Toast from "vue-toastification" 
 // Import the Toast CSS (or use your own)!
@@ -43,6 +44,8 @@ app.use(Toast, {
 
 app.use(createPinia())
 app.use(router)
+
+app.provide('socket', io("http://127.0.0.1:8080"))
 
 app.component('FieldErrorMessage', FieldErrorMessage)
 app.component('ConfirmationDialog', ConfirmationDialog)

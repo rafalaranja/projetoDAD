@@ -6,7 +6,7 @@ import { ref, watch, computed } from "vue"
 const toast = useToast()
 
 const props = defineProps({
-  tasks: {
+  vcards: {
     type: Array,
     default: () => [],
   },
