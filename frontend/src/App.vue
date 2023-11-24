@@ -5,14 +5,14 @@ import axios from 'axios'
 import { useUserStore } from './stores/users'
 const router = useRouter()
 
-const userStore = useUserStore() 
+const userStore = useUserStore()
 const logout = async () => {
- if (await userStore.logout()) {
- toast.success('User has logged out of the application.')
- router.push({name: 'home'})
- } else {
- toast.error('There was a problem logging out of the application!')
- }
+  if (await userStore.logout()) {
+    toast.success('User has logged out of the application.')
+    router.push({ name: 'home' })
+  } else {
+    toast.error('There was a problem logging out of the application!')
+  }
 }
 const workInProgressProjects = ref([])
 onMounted(async () => {
@@ -26,7 +26,7 @@ onMounted(async () => {
 
 
     const userId = 1
-    const response = await axios.get("users" )
+    const response = await axios.get("users")
     workInProgressProjects.value = response.data.data
   } catch (error) {
     console.log(error)
@@ -105,7 +105,7 @@ onMounted(async () => {
                 Dashboard
               </router-link>
             </li>
-           
+
             <li class="nav-item d-flex justify-content-between align-items-center pe-3">
               <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Tasks' }"
                 :to="{ name: 'Tasks' }">
@@ -128,7 +128,7 @@ onMounted(async () => {
                 About
               </router-link>
             </li>
-            
+
           </ul>
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
