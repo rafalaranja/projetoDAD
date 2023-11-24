@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Http\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class Vcard extends Model
+class Vcard extends Authenticatable
 {
-    use HasFactory,HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
         'phone_number',
         'name',
@@ -23,7 +26,7 @@ class Vcard extends Model
 
     protected $hidden = ['password', 'confirmation_code', 'created_at', 'updated_at', 'deleted_at'];
     protected $casts = [
-        'deleted_at' => 'null',
+        'phone_number' => 'null',
         'password' => 'hashed',
     ];
     public function getTotalTransitions()
