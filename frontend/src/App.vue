@@ -3,7 +3,9 @@ import { useRouter, RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { useUserStore } from './stores/users'
+import { useToast } from "vue-toastification"
 const router = useRouter()
+const toast = useToast()
 
 const userStore = useUserStore()
 const logout = async () => {
