@@ -13,6 +13,7 @@ use Laravel\Passport\HasApiTokens;
 class Vcard extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    
     protected $fillable = [
         'phone_number',
         'name',
