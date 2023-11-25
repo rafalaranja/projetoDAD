@@ -1,0 +1,4 @@
+node_modules
+vendor
+websocket/node_modules
+websocket/node_modules/.*.

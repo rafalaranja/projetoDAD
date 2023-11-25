@@ -66,7 +66,7 @@ return [
     'providers' => [
         'users' => [
           'driver' => 'eloquent',
-          'model' => App\Models\User::class, App\Models\Vcard::class, //View_auth_users
+          'model' => App\Models\User::class, App\Models\Vcard::class, //View_auth_users::class,
         ], 
     ],
         

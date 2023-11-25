@@ -18,6 +18,9 @@ use App\Http\Controllers\api\AuthController;
 */
 
 Route::post('login', [AuthController::class, 'login']); 
+Route::get('teste', function () {
+    return App\Models\View_auth_user::all();
+});
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('users/me', [UserController::class, 'show_me']);
