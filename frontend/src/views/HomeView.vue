@@ -1,6 +1,15 @@
+<script setup>
+
+import { useUserStore } from "../stores/users";
+const userStore = useUserStore();
+
+</script>
+
+
+
 <template>
-  <div class="about">
-    <h1>Home Page</h1>
+  <div class="h-100 d-flex align-items-center justify-content-center mt-5">
+    <h1>Welcome {{ userStore.userName }}</h1>
   </div>
 </template>
 
