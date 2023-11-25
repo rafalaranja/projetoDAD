@@ -78,14 +78,14 @@ onMounted(async () => {
 
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
-          <li v-if="userStore.userName=='Anonymous'"   class="nav-item">
-            <a class="nav-link" href="#" 
+          <li   class="nav-item">
+            <a class="nav-link" href="#"  v-if="userStore.userName=='Anonymous'"  
               ><i class="bi bi-person-check-fill"></i>
               Register
             </a>
           </li>
-          <li v-if="userStore.userName=='Anonymous'"   class="nav-item">
-            <router-link
+          <li  class="nav-item" v-if="userStore.userName=='Anonymous'"  >
+            <router-link 
               class="nav-link"
               :class="{ active: $route.name === 'Login' }"
               :to="{ name: 'Login' }"
@@ -94,7 +94,7 @@ onMounted(async () => {
               Login
             </router-link>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" >
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -110,11 +110,11 @@ onMounted(async () => {
               />
               <span class="avatar-text">{{ userStore.userName }}</span>
             </a>
-            <ul
+            <ul v-if="userStore.userName!='Anonymous'"  
               class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <li v-if="userStore.userName=='Anonymous'"  >
+              <li v-if="userStore.userName!='Anonymous'"  >
                 <router-link
                   class="dropdown-item"
                   :class="{
@@ -126,7 +126,7 @@ onMounted(async () => {
                   Profile
                 </router-link>
               </li>
-              <li v-if="userStore.userName=='Anonymous'"  >
+              <li v-if="userStore.userName!='Anonymous'"  >
                 <router-link
                   class="dropdown-item"
                   :class="{ active: $route.name === 'ChangePassword' }"
@@ -139,7 +139,7 @@ onMounted(async () => {
               <li>
                 <hr class="dropdown-divider" />
               </li>
-              <li v-if="userStore.userName=='Anonymous'"  >
+              <li v-if="userStore.userName!='Anonymous'"  >
                 <a class="dropdown-item" @click.prevent="logout">
                   <i class="bi bi-arrow-right"></i>Logout
                 </a>
