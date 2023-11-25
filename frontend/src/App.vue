@@ -78,13 +78,13 @@ onMounted(async () => {
 
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#"
+          <li v-if="userStore.userName=='Anonymous'"   class="nav-item">
+            <a class="nav-link" href="#" 
               ><i class="bi bi-person-check-fill"></i>
               Register
             </a>
           </li>
-          <li class="nav-item">
+          <li v-if="userStore.userName=='Anonymous'"   class="nav-item">
             <router-link
               class="nav-link"
               :class="{ active: $route.name === 'Login' }"
@@ -114,7 +114,7 @@ onMounted(async () => {
               class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
               aria-labelledby="navbarDropdownMenuLink"
             >
-              <li>
+              <li v-if="userStore.userName=='Anonymous'"  >
                 <router-link
                   class="dropdown-item"
                   :class="{
@@ -126,7 +126,7 @@ onMounted(async () => {
                   Profile
                 </router-link>
               </li>
-              <li>
+              <li v-if="userStore.userName=='Anonymous'"  >
                 <router-link
                   class="dropdown-item"
                   :class="{ active: $route.name === 'ChangePassword' }"
@@ -139,7 +139,7 @@ onMounted(async () => {
               <li>
                 <hr class="dropdown-divider" />
               </li>
-              <li>
+              <li v-if="userStore.userName=='Anonymous'"  >
                 <a class="dropdown-item" @click.prevent="logout">
                   <i class="bi bi-arrow-right"></i>Logout
                 </a>
