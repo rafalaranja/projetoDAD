@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users','vcards'
+        'passwords' => 'users'
     ],
 
     /*
@@ -38,11 +38,11 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users','vcards',
+            'provider' => 'users'
         ],
         'api' => [
             'driver' => 'passport',
-            'provider' => 'users','vcards',
+            'provider' => 'users'
         ],
     ],
 
@@ -66,7 +66,7 @@ return [
     'providers' => [
         'users' => [
           'driver' => 'eloquent',
-          'model' => App\Models\User::class, App\Models\Vcard::class, //View_auth_users::class,
+          'model' => App\Models\User::class //View_auth_users::class,
         ], 
     ],
         
