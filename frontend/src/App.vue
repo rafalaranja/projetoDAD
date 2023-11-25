@@ -59,7 +59,6 @@ onMounted(async () => {
         data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -73,39 +72,40 @@ onMounted(async () => {
               Login
             </router-link>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image" />
-              <span class="avatar-text">{{ userStore.userName }}</span>
-            </a>
-            <ul v-if="userStore.userName != 'Anonymous'" class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-              aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <router-link class="dropdown-item" :class="{
-                  active: $route.name == 'User' && $route.params.id == 1,
-                }" :to="{ name: 'User', params: { id: 1 } }">
-                  <i class="bi bi-person-square"></i>
-                  Profile
-                </router-link>
-              </li>
-              <li>
-                <router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
-                  :to="{ name: 'ChangePassword' }">
-                  <i class="bi bi-key-fill"></i>
-                  Change password
-                </router-link>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" @click.prevent="logout">
-                  <i class="bi bi-arrow-right"></i>Logout
-                </a>
-              </li>
-            </ul>
-          </li>
+          <div v-if="userStore.userName != 'Anonymous'">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image" />
+                <span class="avatar-text">{{ userStore.userName }}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                  <router-link class="dropdown-item" :class="{
+                    active: $route.name == 'User' && $route.params.id == 1,
+                  }" :to="{ name: 'User', params: { id: 1 } }">
+                    <i class="bi bi-person-square"></i>
+                    Profile
+                  </router-link>
+                </li>
+                <li>
+                  <router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
+                    :to="{ name: 'ChangePassword' }">
+                    <i class="bi bi-key-fill"></i>
+                    Change password
+                  </router-link>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" @click.prevent="logout">
+                    <i class="bi bi-arrow-right"></i>Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </div>
         </ul>
       </div>
     </div>
