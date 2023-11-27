@@ -26,7 +26,7 @@ const errors = ref(null)
 const confirmationLeaveDialog = ref(null)
 // String with the JSON representation after loading the project (new or edit)
 let originalValueStr = ''
-  
+
 const loadTask = async (id) => {
   originalValueStr = ''
   errors.value = null
@@ -34,13 +34,13 @@ const loadTask = async (id) => {
     task.value = newTask()
     originalValueStr = JSON.stringify(task.value)
   } else {
-      try {
-        const response = await axios.get('tasks/' + id)
-        task.value = response.data.data
-        originalValueStr = JSON.stringify(task.value)
-      } catch (error) {
-        console.log(error)
-      }
+    try {
+      const response = await axios.get('tasks/' + id)
+      task.value = response.data.data
+      originalValueStr = JSON.stringify(task.value)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
@@ -96,16 +96,16 @@ const props = defineProps({
 })
 
 
-const operation = computed( () => (!props.id || props.id < 0) ? 'insert' : 'update')
+const operation = computed(() => (!props.id || props.id < 0) ? 'insert' : 'update')
 
-  // beforeRouteUpdate was not fired correctly
-  // Used this watcher instead to update the ID
+// beforeRouteUpdate was not fired correctly
+// Used this watcher instead to update the ID
 watch(
   () => props.id,
   (newValue) => {
-      loadTask(newValue)
-    }, 
-  { immediate: true}
+    loadTask(newValue)
+  },
+  { immediate: true }
 )
 
 let nextCallBack = null
@@ -128,7 +128,7 @@ onBeforeRouteLeave((to, from, next) => {
   }
 })
 
-onMounted (async () => {
+onMounted(async () => {
   projects.value = []
   try {
     const response = await axios.get('projects')
@@ -141,21 +141,10 @@ onMounted (async () => {
 
 
 <template>
-  <confirmation-dialog
-    ref="confirmationLeaveDialog"
-    confirmationBtn="Discard changes and leave"
-    msg="Do you really want to leave? You have unsaved changes!"
-    @confirmed="leaveConfirmed"
-  >
-  </confirmation-dialog>  
+  <confirmation-dialog ref="confirmationLeaveDialog" confirmationBtn="Discard changes and leave"
+    msg="Do you really want to leave? You have unsaved changes!" @confirmed="leaveConfirmed">
+  </confirmation-dialog>
 
-  <task-detail
-    :operationType="operation"
-    :task="task"
-    :projects="projects"
-    :fixedProject="fixedProject"
-    :errors="errors"
-    @save="save"
-    @cancel="cancel"
-  ></task-detail>
+  <task-detail :operationType="operation" :task="task" :projects="projects" :fixedProject="fixedProject" :errors="errors"
+    @save="save" @cancel="cancel"></task-detail>
 </template>

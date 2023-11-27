@@ -116,24 +116,29 @@ onMounted(async () => {
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
-            <li class="nav-item">
+            <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
               <router-link class="nav-link" :class="{ active: $route.name === 'Dashboard' }" :to="{ name: 'Dashboard' }">
                 <i class="bi bi-house"></i>
                 Dashboard
               </router-link>
             </li>
 
-            <li class="nav-item d-flex justify-content-between align-items-center pe-3">
+            <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
               <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Tasks' }"
                 :to="{ name: 'Tasks' }">
                 <i class="bi bi-list-check"></i>
-                Vcards
-              </router-link>
-              <router-link class="link-secondary" :to="{ name: 'NewTask' }" aria-label="Add a new task">
-                <i class="bi bi-xs bi-plus-circle"></i>
+                Vcard
               </router-link>
             </li>
-            <li class="nav-item">
+
+            <li class="nav-item" v-else>
+              <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'NewTask' }"
+                :to="{ name: 'NewTask' }" aria-label="Add a new task">
+                <i class="bi bi-xs bi-plus-circle"></i>
+                Create Vcard
+              </router-link>
+            </li>
+            <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
               <router-link class="nav-link" :class="{ active: $route.name === 'Projects' }" :to="{ name: 'Projects' }">
                 <i class="bi bi-files"></i>
                 Transactions
