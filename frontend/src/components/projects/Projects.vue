@@ -34,7 +34,7 @@ const loadUsers = async () => {
 }
 
 const addProject = () => {
-    router.push({ name: 'NewProject' })
+  router.push({ name: 'NewProject' })
 }
 
 const editProject = (project) => {
@@ -58,31 +58,31 @@ const deleteProjectConfirmed = async () => {
   } catch (error) {
     console.log(error)
     toast.error(`It was not possible to delete Project ${projectToDeleteDescription.value}!`)
-  }  
+  }
 }
 
 const projectToDeleteDescription = computed(() => projectToDelete.value
-    ? `#${projectToDelete.value.id} (${projectToDelete.value.name})`
-    : "")
+  ? `#${projectToDelete.value.id} (${projectToDelete.value.name})`
+  : "")
 
-const filteredProjects = computed(()=>{
+const filteredProjects = computed(() => {
   return projects.value.filter(p =>
-      (!filterByResponsibleId.value
-        || filterByResponsibleId.value == p.responsible_id
-      ) &&
-      (!filterByStatus.value
-        || filterByStatus.value == p.status
-      ))
+    (!filterByResponsibleId.value
+      || filterByResponsibleId.value == p.responsible_id
+    ) &&
+    (!filterByStatus.value
+      || filterByStatus.value == p.status
+    ))
 })
 
-const totalProjects = computed(()=>{
+const totalProjects = computed(() => {
   return projects.value.reduce((c, p) =>
-      (!filterByResponsibleId.value
-        || filterByResponsibleId.value == p.responsible_id
-      ) &&
-        (!filterByStatus.value
-          || filterByStatus.value == p.status
-        ) ? c + 1 : c, 0)
+    (!filterByResponsibleId.value
+      || filterByResponsibleId.value == p.responsible_id
+    ) &&
+      (!filterByStatus.value
+        || filterByStatus.value == p.status
+      ) ? c + 1 : c, 0)
 })
 
 onMounted(() => {
@@ -93,12 +93,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <confirmation-dialog
-    ref="deleteConfirmationDialog"
-    confirmationBtn="Delete project"
-    :msg="`Do you really want to delete the project ${projectToDeleteDescription}?`"
-    @confirmed="deleteProjectConfirmed"
-  >
+  <confirmation-dialog ref="deleteConfirmationDialog" confirmationBtn="Delete project"
+    :msg="`Do you really want to delete the project ${projectToDeleteDescription}?`" @confirmed="deleteProjectConfirmed">
   </confirmation-dialog>
   <div class="d-flex justify-content-between">
     <div class="mx-2">
@@ -111,15 +107,8 @@ onMounted(() => {
   <hr>
   <div class="mb-3 d-flex justify-content-between flex-wrap">
     <div class="mx-2 mt-2 flex-grow-1 filter-div">
-      <label
-        for="selectStatus"
-        class="form-label"
-      >Filter by status:</label>
-      <select
-        class="form-select"
-        id="selectStatus"
-        v-model="filterByStatus"
-      >
+      <label for="selectStatus" class="form-label">Filter by status:</label>
+      <select class="form-select" id="selectStatus" v-model="filterByStatus">
         <option :value="null"></option>
         <option value="P">Pending</option>
         <option value="W">Work In Progress</option>
@@ -129,47 +118,30 @@ onMounted(() => {
       </select>
     </div>
     <div class="mx-2 mt-2 flex-grow-1 filter-div">
-      <label
-        for="selectOwner"
-        class="form-label"
-      >Filter by owner:</label>
-      <select
-        class="form-select"
-        id="selectOwner"
-        v-model="filterByResponsibleId"
-      >
+      <label for="selectOwner" class="form-label">Filter by owner:</label>
+      <select class="form-select" id="selectOwner" v-model="filterByResponsibleId">
         <option :value="null"></option>
-        <option
-          v-for="user in users"
-          :key="user.id"
-          :value="user.id"
-        >{{user.name}}</option>
+        <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
       </select>
     </div>
     <div class="mx-2 mt-2">
-      <button
-        type="button"
-        class="btn btn-success px-4 btn-addprj"
-        @click="addProject"
-      ><i class="bi bi-xs bi-plus-circle"></i>&nbsp; Add Project</button>
+      <button type="button" class="btn btn-success px-4 btn-addprj" @click="addProject"><i
+          class="bi bi-xs bi-plus-circle"></i>&nbsp; Add Project</button>
     </div>
   </div>
-  <project-table
-    :projects="filteredProjects"
-    :showId="true"
-    :showDates="true"
-    @edit="editProject"
-    @delete="deleteProject"
-  ></project-table>
+  <project-table :projects="filteredProjects" :showId="true" :showDates="true" @edit="editProject"
+    @delete="deleteProject"></project-table>
 </template>
 
 <style scoped>
 .filter-div {
   min-width: 12rem;
 }
+
 .total-filtro {
   margin-top: 0.35rem;
 }
+
 .btn-addprj {
   margin-top: 1.85rem;
 }
