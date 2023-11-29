@@ -1,4 +1,5 @@
 <script setup>
+import { useRouter, RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
@@ -15,8 +16,10 @@
   </div>
   <div class="card mb-3">
     <button type="button" class="btn btn-success btn-lg btn-block p-4">
-      <i class="bi bi-piggy-bank"></i>
-      Check Balance
+      <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Tasks' }" :to="{ name: 'Tasks' }">
+        <i class="bi bi-piggy-bank"></i>
+        Check Balance
+      </router-link>
     </button>
   </div>
   <div class="card mb-3">

@@ -109,6 +109,10 @@ onMounted(() => {
       <h3 class="pt-2">BALANCE</h3>
       <h5 class="card-text pb-3 pt-1">20.22€</h5>
     </div>
+    <div class="card-footer text-muted">
+      <h5>MAX DEBIT</h5>
+      30 000€
+    </div>
   </div>
 </template>
 
