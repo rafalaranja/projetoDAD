@@ -43,8 +43,8 @@ const router = createRouter({
       component: Dashboard,
     },
     {
-      path: "/tasks",
-      name: "Tasks",
+      path: "/vcard",
+      name: "Vcard",
       component: Tasks,
     },
     {
@@ -66,8 +66,8 @@ const router = createRouter({
       props: (route) => ({ id: parseInt(route.params.id) }),
     },
     {
-      path: "/projects",
-      name: "Projects",
+      path: "/transactions",
+      name: "Transactions",
       component: Projects,
     },
     {

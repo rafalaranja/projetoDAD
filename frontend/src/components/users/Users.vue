@@ -13,8 +13,8 @@ const totalUsers = computed(() => {
 })
 
 const loadUsers = async () => {
-    try {
-      const response = await axios.get('users')
+  try {
+    const response = await axios.get('users')
     users.value = response.data.data
 
   } catch (error) {
@@ -26,24 +26,20 @@ const editUser = (user) => {
   router.push({ name: 'User', params: { id: user.id } })
 }
 
-onMounted (() => {
+onMounted(() => {
   loadUsers()
 })
 </script>
 
 <template>
- 
-  <user-table
-    :users="users"
-    :showId="false"
-    @edit="editUser"
-  ></user-table>
+  <user-table :users="users" :showId="false" @edit="editUser"></user-table>
 </template>
 
 <style scoped>
 .filter-div {
   min-width: 12rem;
 }
+
 .total-filtro {
   margin-top: 2.3rem;
 }

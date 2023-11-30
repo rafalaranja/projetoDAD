@@ -16,7 +16,7 @@ import { useRouter, RouterLink, RouterView } from "vue-router";
   </div>
   <div class="card mb-3">
     <button type="button" class="btn btn-success btn-lg btn-block p-4">
-      <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Tasks' }" :to="{ name: 'Tasks' }">
+      <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Vcard' }" :to="{ name: 'Vcard' }">
         <i class="bi bi-piggy-bank"></i>
         Check Balance
       </router-link>

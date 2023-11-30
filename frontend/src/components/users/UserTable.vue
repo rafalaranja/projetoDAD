@@ -164,7 +164,7 @@ const editClick = (user) => {
     <thead>
       <tr>
         <th v-if="showId" class="align-middle">#</th>
-        <th v-if="showPhoto" class="align-middle">Photo 2</th>
+        <th v-if="showPhoto" class="align-middle">Photo</th>
         <th class="align-middle">Name</th>
         <th v-if="showUsername" class="align-middle">Phone Number</th>
         <th v-if="showAdmin" class="align-middle">Admin</th>
@@ -182,15 +182,8 @@ const editClick = (user) => {
           {{ user.user_type == "A" ? "Sim" : "Não" }}
         </td>
         <td class="text-end align-middle" v-if="showEditButton">
-          <div
-            class="d-flex justify-content-end"
-            v-if="canViewUserDetail(user.id)"
-          >
-            <button
-              class="btn btn-xs btn-light"
-              @click="editClick(user)"
-              v-if="showEditButton"
-            >
+          <div class="d-flex justify-content-end" v-if="canViewUserDetail(user.id)">
+            <button class="btn btn-xs btn-light" @click="editClick(user)" v-if="showEditButton">
               <i class="bi bi-xs bi-pencil"></i>
             </button>
           </div>
