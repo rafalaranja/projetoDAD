@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch, computed, inject } from "vue";
-import avatarNoneUrl from '@/assets/avatar-none.png'
+import avatarNoneUrl from "@/assets/avatar-none.png";
 
 const serverBaseUrl = inject("serverBaseUrl");
 
@@ -17,29 +17,29 @@ const props = defineProps({
 
 const emit = defineEmits(["save", "cancel"]);
 
-const editingUser = ref(props.user)
+const editingUser = ref(props.user);
 
 watch(
   () => props.user,
   (newUser) => {
-    editingUser.value = newUser
+    editingUser.value = newUser;
   },
   { immediate: true }
-)
+);
 
 const photoFullUrl = computed(() => {
   return editingUser.value.photo_url
     ? serverBaseUrl + "/storage/fotos/" + editingUser.value.photo_url
-    : avatarNoneUrl
-})
+    : avatarNoneUrl;
+});
 
 const save = () => {
   emit("save", editingUser.value);
-}
+};
 
 const cancel = () => {
   emit("cancel", editingUser.value);
-}
+};
 </script>
 
 <template>
@@ -59,7 +59,10 @@ const cancel = () => {
             required
             v-model="editingUser.name"
           />
-          <field-error-message :errors="errors" fieldName="name"></field-error-message>
+          <field-error-message
+            :errors="errors"
+            fieldName="name"
+          ></field-error-message>
         </div>
 
         <div class="mb-3 px-1">
@@ -73,7 +76,10 @@ const cancel = () => {
             required
             v-model="editingUser.email"
           />
-          <field-error-message :errors="errors" fieldName="email"></field-error-message>
+          <field-error-message
+            :errors="errors"
+            fieldName="email"
+          ></field-error-message>
         </div>
         <div class="d-flex ms-1 mt-4 flex-wrap justify-content-between">
           <div class="mb-3 me-3 flex-grow-1">
@@ -91,7 +97,10 @@ const cancel = () => {
                 User is Administrator
               </label>
             </div>
-            <field-error-message :errors="errors" fieldName="type"></field-error-message>
+            <field-error-message
+              :errors="errors"
+              fieldName="type"
+            ></field-error-message>
           </div>
           <div class="mb-3 ms-xs-3 flex-grow-1">
             <div class="form-check form-check-inline">
@@ -105,7 +114,9 @@ const cancel = () => {
                 v-model="editingUser.gender"
                 id="inputGenderM"
               />
-              <label class="form-check-label" for="inputGenderM">Masculino</label>
+              <label class="form-check-label" for="inputGenderM"
+                >Masculino</label
+              >
             </div>
             <div class="form-check form-check-inline">
               <input
@@ -117,9 +128,14 @@ const cancel = () => {
                 v-model="editingUser.gender"
                 id="inputGenderF"
               />
-              <label class="form-check-label" for="inputGenderF">Feminino</label>
+              <label class="form-check-label" for="inputGenderF"
+                >Feminino</label
+              >
             </div>
-            <field-error-message :errors="errors" fieldName="gender"></field-error-message>
+            <field-error-message
+              :errors="errors"
+              fieldName="gender"
+            ></field-error-message>
           </div>
         </div>
       </div>
@@ -133,8 +149,12 @@ const cancel = () => {
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-end">
-      <button type="button" class="btn btn-primary px-5" @click="save">Save</button>
-      <button type="button" class="btn btn-light px-5" @click="cancel">Cancel</button>
+      <button type="button" class="btn btn-primary px-5" @click="save">
+        Save
+      </button>
+      <button type="button" class="btn btn-light px-5" @click="cancel">
+        Cancel
+      </button>
     </div>
   </form>
 </template>
