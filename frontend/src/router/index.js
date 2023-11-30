@@ -4,12 +4,12 @@ import Dashboard from "../components/Dashboard.vue";
 import Login from "../components/auth/Login.vue";
 import ChangePassword from "../components/auth/ChangePassword.vue";
 import Tasks from "../components/tasks/Tasks.vue";
-import Projects from "../components/projects/Projects.vue";
+import Projects from "../components/transactions/Projects.vue";
 import User from "../components/users/User.vue";
 import Users from "../components/users/Users.vue";
-import ProjectTasks from "../components/projects/ProjectTasks.vue";
+import ProjectTasks from "../components/transactions/ProjectTasks.vue";
 import Task from "../components/tasks/Task.vue";
-import Project from "../components/projects/Project.vue";
+import Project from "../components/transactions/Project.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -104,6 +104,7 @@ onMounted(() => {
       <h5 class="mt-4">Total: {{ totalProjects }}</h5>
     </div>
   </div>
+  <!--
   <hr>
   <div class="mb-3 d-flex justify-content-between flex-wrap">
     <div class="mx-2 mt-2 flex-grow-1 filter-div">
@@ -124,11 +125,13 @@ onMounted(() => {
         <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
       </select>
     </div>
+
     <div class="mx-2 mt-2">
       <button type="button" class="btn btn-success px-4 btn-addprj" @click="addProject"><i
           class="bi bi-xs bi-plus-circle"></i>&nbsp; Add Project</button>
     </div>
   </div>
+  -->
   <project-table :projects="filteredProjects" :showId="true" :showDates="true" @edit="editProject"
     @delete="deleteProject"></project-table>
 </template>
