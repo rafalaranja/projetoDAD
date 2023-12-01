@@ -3,12 +3,12 @@ import HomeView from "../views/HomeView.vue";
 import Dashboard from "../components/Dashboard.vue";
 import Login from "../components/auth/Login.vue";
 import ChangePassword from "../components/auth/ChangePassword.vue";
-import Tasks from "../components/tasks/Tasks.vue";
+import Tasks from "../components/vcards/Vcards.vue";
 import Transactions from "../components/transactions/Transactions.vue";
 import User from "../components/users/User.vue";
 import Users from "../components/users/Users.vue";
 import TransactionTasks from "../components/transactions/TransactionTasks.vue";
-import Task from "../components/tasks/Task.vue";
+import Task from "../components/vcards/Task.vue";
 import Transaction from "../components/transactions/Transaction.vue";
 
 const router = createRouter({

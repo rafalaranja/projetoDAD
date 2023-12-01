@@ -5,7 +5,7 @@ import { ref, computed, onMounted } from 'vue'
 
 const router = useRouter()
 
-const loadTasks = async () => {
+const loadVCards = async () => {
 
   try {
     const response = await axios.get('users/' + userId + '/tasks')
@@ -24,17 +24,17 @@ const loadProjects = async () => {
   }
 }
 
-const addTask = () => {
-  router.push({ name: 'NewTask' })
+const addVCard = () => {
+  router.push({ name: 'NewVCard' })
 }
 
-const editTask = (task) => {
-  router.push({ name: 'Task', params: { id: task.id } })
+const editVCard = (task) => {
+  router.push({ name: 'VCard', params: { id: task.id } })
 }
 
 
-const deletedTask = (deletedTask) => {
-  let idx = tasks.value.findIndex((t) => t.id === deletedTask.id)
+const deletedVCard = (deletedVCard) => {
+  let idx = tasks.value.findIndex((t) => t.id === deletedVCard.id)
   if (idx >= 0) {
     tasks.value.splice(idx, 1)
   }
@@ -45,7 +45,7 @@ const props = defineProps({
     type: String,
     default: 'Vcards'
   },
-  onlyCurrentTasks: {
+  onlyCurrentVCards: {
     type: Boolean,
     default: false
   }
@@ -56,11 +56,11 @@ const projects = ref([])
 const filterByProjectId = ref(-1)
 const filterByCompleted = ref(-1)
 
-const filteredTasks = computed(() => {
+const filteredVCards = computed(() => {
   return tasks.value.filter(t =>
-    (props.onlyCurrentTasks && !t.completed)
+    (props.onlyCurrentVCards && !t.completed)
     ||
-    (!props.onlyCurrentTasks && (
+    (!props.onlyCurrentVCards && (
       (filterByProjectId.value == -1
         || filterByProjectId.value == t.project_id
       ) &&
@@ -71,11 +71,11 @@ const filteredTasks = computed(() => {
 
 })
 
-const totalTasks = computed(() => {
+const totalVCards = computed(() => {
   return tasks.value.reduce((c, t) =>
-    (props.onlyCurrentTasks && !t.completed)
+    (props.onlyCurrentVCards && !t.completed)
       ||
-      (!props.onlyCurrentTasks && (
+      (!props.onlyCurrentVCards && (
         (filterByProjectId.value == -1
           || filterByProjectId.value == t.project_id
         ) &&
@@ -89,7 +89,7 @@ const totalTasks = computed(() => {
 
 onMounted(() => {
   loadProjects()
-  loadTasks()
+  loadVCards()
 })
 </script>
 

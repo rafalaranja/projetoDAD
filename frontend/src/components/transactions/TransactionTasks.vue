@@ -3,8 +3,6 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref, watch, computed } from 'vue'
 
-import TaskTable from "../tasks/TaskTable.vue"
-
 const router = useRouter()
 
 const props = defineProps({
