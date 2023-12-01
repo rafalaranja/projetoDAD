@@ -66,18 +66,13 @@ const deleteClick = (transaction) => {
     </thead>
     <tbody>
       <tr v-for="transaction in transactions" :key="transaction.id">
-        <td v-if="showId">{{ transaction.id }}</td>
-        <td>{{ transaction.name }}</td>
-        <td>{{ transaction.status_name }}</td>
-        <td v-if="showResponsible">{{ transaction.responsible_name }}</td>
-        <td v-if="showDates">{{ transaction.preview_start_date }}</td>
-        <td v-if="showDates">{{ transaction.preview_end_date }}</td>
-        <td v-if="showDates">{{ transaction.real_start_date }}</td>
-        <td v-if="showDates">{{ transaction.real_end_date }}</td>
-
-
-        <td v-if="showBillInformation">{{ transaction.billed }}</td>
-        <td v-if="showBillInformation">{{ transaction.total_price }}</td>
+        <td>{{ transaction.vcard }}</td>
+        <td>{{ transaction.date }}</td>
+        <td>{{ transaction.type }}</td>
+        <td>{{ transaction.value }}</td>
+        <td>{{ transaction.payment_type }}</td>
+        <td>{{ transaction.payment_reference }}</td>
+        <td>{{ transaction.description }}</td>
         <td class="text-end" v-if="showEditButton || showDeleteButton">
           <div class="d-flex justify-content-end">
             <button class="btn btn-xs btn-light" @click="editClick(transaction)" v-if="showEditButton"><i

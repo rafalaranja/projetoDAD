@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\ProjectController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthController;
 
@@ -31,6 +31,8 @@ Route::middleware('auth:api')->group(function () {
         ->middleware('can:update,user');
     Route::patch('users/{user}/password', [UserController::class, 'update_password'])
         ->middleware('can:updatePassword,user');
+    Route::get('transactions', [TransactionController::class,'index']);
+    Route::get('transactions/{user}', [TransactionController::class,'showUser']);
     /*Route::get('projects', [ProjectController::class, 'index']);
     Route::get('projects/{project}', [ProjectController::class, 'show']);
     Route::get('projects/{project}/tasks', [ProjectController::class, 'showWithTasks']);

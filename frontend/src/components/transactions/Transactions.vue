@@ -99,7 +99,7 @@ onMounted(() => {
   </confirmation-dialog>
   <div class="d-flex justify-content-between">
     <div class="mx-2">
-      <h3 class="mt-4">Transactions</h3>
+      <h3 class="mt-4">Transactions</h3> 
     </div>
     <div class="mx-2 total-filtro">
       <h5 class="mt-4">Total: {{ totalTransactions }}</h5>
@@ -132,8 +132,9 @@ onMounted(() => {
           class="bi bi-xs bi-plus-circle"></i>&nbsp; Add transaction</button>
     </div>
   </div>
-  -->
-  <transaction-table :transactions="filteredTransactions" :showId="true" :showDates="true" @edit="editTransaction"
+-->
+
+  <transaction-table :transactions="transactions" :showId="false" :showDates="true" @edit="editTransaction"
     @delete="deleteTransaction"></transaction-table>
 </template>
 
