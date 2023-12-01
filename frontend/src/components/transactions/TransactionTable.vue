@@ -1,6 +1,6 @@
 <script setup>
 const props = defineProps({
-  projects: {
+  transactions: {
     type: Array,
     default: () => [],
   },
@@ -36,12 +36,12 @@ const props = defineProps({
 
 const emit = defineEmits(['edit', 'delete'])
 
-const editClick = (project) => {
-  emit('edit', project)
+const editClick = (transaction) => {
+  emit('edit', transaction)
 }
 
-const deleteClick = (project) => {
-  emit('delete', project)
+const deleteClick = (transaction) => {
+  emit('delete', transaction)
 }
 </script>
 
@@ -65,26 +65,26 @@ const deleteClick = (project) => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="project in projects" :key="project.id">
-        <td v-if="showId">{{ project.id }}</td>
-        <td>{{ project.name }}</td>
-        <td>{{ project.status_name }}</td>
-        <td v-if="showResponsible">{{ project.responsible_name }}</td>
-        <td v-if="showDates">{{ project.preview_start_date }}</td>
-        <td v-if="showDates">{{ project.preview_end_date }}</td>
-        <td v-if="showDates">{{ project.real_start_date }}</td>
-        <td v-if="showDates">{{ project.real_end_date }}</td>
+      <tr v-for="transaction in transactions" :key="transaction.id">
+        <td v-if="showId">{{ transaction.id }}</td>
+        <td>{{ transaction.name }}</td>
+        <td>{{ transaction.status_name }}</td>
+        <td v-if="showResponsible">{{ transaction.responsible_name }}</td>
+        <td v-if="showDates">{{ transaction.preview_start_date }}</td>
+        <td v-if="showDates">{{ transaction.preview_end_date }}</td>
+        <td v-if="showDates">{{ transaction.real_start_date }}</td>
+        <td v-if="showDates">{{ transaction.real_end_date }}</td>
 
 
-        <td v-if="showBillInformation">{{ project.billed }}</td>
-        <td v-if="showBillInformation">{{ project.total_price }}</td>
+        <td v-if="showBillInformation">{{ transaction.billed }}</td>
+        <td v-if="showBillInformation">{{ transaction.total_price }}</td>
         <td class="text-end" v-if="showEditButton || showDeleteButton">
           <div class="d-flex justify-content-end">
-            <button class="btn btn-xs btn-light" @click="editClick(project)" v-if="showEditButton"><i
+            <button class="btn btn-xs btn-light" @click="editClick(transaction)" v-if="showEditButton"><i
                 class="bi bi-xs bi-pencil"></i>
             </button>
 
-            <button class="btn btn-xs btn-light" @click="deleteClick(project)" v-if="showDeleteButton"><i
+            <button class="btn btn-xs btn-light" @click="deleteClick(transaction)" v-if="showDeleteButton"><i
                 class="bi bi-xs bi-x-square-fill"></i>
             </button>
           </div>

@@ -3,22 +3,22 @@ import axios from 'axios'
 import { useToast } from "vue-toastification"
 import { useRouter } from 'vue-router'
 import { ref, computed, onMounted } from 'vue'
-import ProjectTable from "./ProjectTable.vue"
+import transactionTable from "./TransactionTable.vue"
 
 const toast = useToast()
 const router = useRouter()
 
-const projects = ref([])
+const transactions = ref([])
 const users = ref([])
 const filterByResponsibleId = ref(null)
 const filterByStatus = ref('W')
-const projectToDelete = ref(null)
+const transactionToDelete = ref(null)
 const deleteConfirmationDialog = ref(null)
 
-const loadProjects = async () => {
+const loadTransactions = async () => {
   try {
-    const response = await axios.get('projects')
-    projects.value = response.data.data
+    const response = await axios.get('transactions')
+    transactions.value = response.data.data
   } catch (error) {
     console.log(error)
   }
@@ -33,40 +33,40 @@ const loadUsers = async () => {
   }
 }
 
-const addProject = () => {
-  router.push({ name: 'NewProject' })
+const addTransaction = () => {
+  router.push({ name: 'NewTransaction' })
 }
 
-const editProject = (project) => {
-  router.push({ name: 'Project', params: { id: project.id } })
+const editTransaction = (transaction) => {
+  router.push({ name: 'Transaction', params: { id: transaction.id } })
 }
 
-const deleteProject = (project) => {
-  projectToDelete.value = project
+const deleteTransaction = (transaction) => {
+  transactionToDelete.value = transaction
   deleteConfirmationDialog.value.show()
 }
 
-const deleteProjectConfirmed = async () => {
+const deleteTransactionConfirmed = async () => {
   try {
-    const response = await axios.delete('projects/' + projectToDelete.value.id)
-    let deletedProject = response.data.data
-    let idx = projects.value.findIndex((t) => t.id === deletedProject.id)
+    const response = await axios.delete('transactions/' + transactionToDelete.value.id)
+    let deletedTransaction = response.data.data
+    let idx = transactions.value.findIndex((t) => t.id === deletedTransaction.id)
     if (idx >= 0) {
-      projects.value.splice(idx, 1)
+      transactions.value.splice(idx, 1)
     }
-    toast.info(`Project ${projectToDeleteDescription.value} was deleted`)
+    toast.info(`Transaction ${transactionToDeleteDescription.value} was deleted`)
   } catch (error) {
     console.log(error)
-    toast.error(`It was not possible to delete Project ${projectToDeleteDescription.value}!`)
+    toast.error(`It was not possible to delete Transaction ${transactionToDeleteDescription.value}!`)
   }
 }
 
-const projectToDeleteDescription = computed(() => projectToDelete.value
-  ? `#${projectToDelete.value.id} (${projectToDelete.value.name})`
+const transactionToDeleteDescription = computed(() => transactionToDelete.value
+  ? `#${transactionToDelete.value.id} (${transactionToDelete.value.name})`
   : "")
 
-const filteredProjects = computed(() => {
-  return projects.value.filter(p =>
+const filteredTransactions = computed(() => {
+  return transactions.value.filter(p =>
     (!filterByResponsibleId.value
       || filterByResponsibleId.value == p.responsible_id
     ) &&
@@ -75,8 +75,8 @@ const filteredProjects = computed(() => {
     ))
 })
 
-const totalProjects = computed(() => {
-  return projects.value.reduce((c, p) =>
+const totalTransactions = computed(() => {
+  return transactions.value.reduce((c, p) =>
     (!filterByResponsibleId.value
       || filterByResponsibleId.value == p.responsible_id
     ) &&
@@ -87,21 +87,22 @@ const totalProjects = computed(() => {
 
 onMounted(() => {
   loadUsers()
-  loadProjects()
+  loadTransactions()
 })
 
 </script>
 
 <template>
-  <confirmation-dialog ref="deleteConfirmationDialog" confirmationBtn="Delete project"
-    :msg="`Do you really want to delete the project ${projectToDeleteDescription}?`" @confirmed="deleteProjectConfirmed">
+  <confirmation-dialog ref="deleteConfirmationDialog" confirmationBtn="Delete transaction"
+    :msg="`Do you really want to delete the transaction ${transactionToDeleteDescription}?`"
+    @confirmed="deleteTransactionConfirmed">
   </confirmation-dialog>
   <div class="d-flex justify-content-between">
     <div class="mx-2">
       <h3 class="mt-4">Transactions</h3>
     </div>
     <div class="mx-2 total-filtro">
-      <h5 class="mt-4">Total: {{ totalProjects }}</h5>
+      <h5 class="mt-4">Total: {{ totalTransactions }}</h5>
     </div>
   </div>
   <!--
@@ -127,13 +128,13 @@ onMounted(() => {
     </div>
 
     <div class="mx-2 mt-2">
-      <button type="button" class="btn btn-success px-4 btn-addprj" @click="addProject"><i
-          class="bi bi-xs bi-plus-circle"></i>&nbsp; Add Project</button>
+      <button type="button" class="btn btn-success px-4 btn-addprj" @click="addtransaction"><i
+          class="bi bi-xs bi-plus-circle"></i>&nbsp; Add transaction</button>
     </div>
   </div>
   -->
-  <project-table :projects="filteredProjects" :showId="true" :showDates="true" @edit="editProject"
-    @delete="deleteProject"></project-table>
+  <transaction-table :transactions="filteredTransactions" :showId="true" :showDates="true" @edit="editTransaction"
+    @delete="deleteTransaction"></transaction-table>
 </template>
 
 <style scoped>

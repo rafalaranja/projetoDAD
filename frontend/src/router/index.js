@@ -4,12 +4,12 @@ import Dashboard from "../components/Dashboard.vue";
 import Login from "../components/auth/Login.vue";
 import ChangePassword from "../components/auth/ChangePassword.vue";
 import Tasks from "../components/tasks/Tasks.vue";
-import Projects from "../components/transactions/Projects.vue";
+import Transactions from "../components/transactions/Transactions.vue";
 import User from "../components/users/User.vue";
 import Users from "../components/users/Users.vue";
-import ProjectTasks from "../components/transactions/ProjectTasks.vue";
+import TransactionTasks from "../components/transactions/TransactionTasks.vue";
 import Task from "../components/tasks/Task.vue";
-import Project from "../components/transactions/Project.vue";
+import Transaction from "../components/transactions/Transaction.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,18 +68,18 @@ const router = createRouter({
     {
       path: "/transactions",
       name: "Transactions",
-      component: Projects,
+      component: Transactions,
     },
     {
       path: "/projects/new",
-      name: "NewProject",
-      component: Project,
+      name: "NewTransaction",
+      component: Transaction,
       props: { id: -1 },
     },
     {
       path: "/projects/:id",
-      name: "Project",
-      component: Project,
+      name: "Transaction",
+      component: Transaction,
       props: (route) => ({ id: parseInt(route.params.id) }),
     },
 
@@ -98,15 +98,18 @@ const router = createRouter({
     },
     {
       path: "/projects/:id/tasks",
-      name: "ProjectTasks",
-      component: ProjectTasks,
+      name: "TransactionTasks",
+      component: TransactionTasks,
       props: (route) => ({ id: parseInt(route.params.id) }),
     },
     {
       path: "/projects/:id/tasks/new",
-      name: "NewTaskOfProject",
+      name: "NewTaskOfTransaction",
       component: Task,
-      props: (route) => ({ id: -1, fixedProject: parseInt(route.params.id) }),
+      props: (route) => ({
+        id: -1,
+        fixedTransaction: parseInt(route.params.id),
+      }),
     },
     {
       path: "/users",
