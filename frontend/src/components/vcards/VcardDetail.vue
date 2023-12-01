@@ -2,7 +2,7 @@
   import { ref, watch, computed } from 'vue'
 
   const props = defineProps({
-    task: {
+    vcard: {
       type: Object,
       required: true
     },
@@ -10,11 +10,11 @@
       type: String,
       default: 'insert'  // insert / update
     },
-    projects: {
+    transactions: {
       type: Array,
       required: true
     },
-    fixedProject: {
+    fixedTransaction: {
       type: Number,
       default: null
     },
@@ -26,38 +26,38 @@
 
   const emit = defineEmits(['save', 'cancel'])
 
-  const editingTask = ref(props.task)
+  const editingVcard = ref(props.vcard)
 
   watch(
-    () => props.task,
-    (newTask) => {
-      editingTask.value = newTask
+    () => props.vcard,
+    (newVcard) => {
+      editingVcard.value = newVcard
     }
   )
 
   watch(
-    () => props.fixedProject, 
-    (newFixedProject) => {
-      if (newFixedProject) {
-        editingTask.value.project_id = newFixedProject
+    () => props.fixedTransaction, 
+    (newFixedTransaction) => {
+      if (newFixedTransaction) {
+        editingVcard.value.transaction_id = newFixedTransaction
       }
     },
     { immediate: true }
   )
 
-  const taskTitle = computed( () => {
-    if (!editingTask.value) {
+  const vcardTitle = computed( () => {
+    if (!editingVcard.value) {
         return ''
       }
-      return props.operationType == 'insert' ? 'New Vcard' : 'Task #' + editingTask.value.id
+      return props.operationType == 'insert' ? 'New Vcard' : 'Vcard #' + editingVcard.value.id
   })
 
   const save = () => {
-    emit('save', editingTask.value)
+    emit('save', editingVcard.value)
   }
 
   const cancel = () => {
-    emit('cancel', editingTask.value)
+    emit('cancel', editingVcard.value)
   }
 </script>
 
@@ -67,7 +67,7 @@
     novalidate
     @submit.prevent="save"
   >
-    <h3 class="mt-5 mb-3">{{ taskTitle }}</h3>
+    <h3 class="mt-5 mb-3">{{ vcardTitle }}</h3>
     <hr>
 
     <div class="d-flex flex-wrap justify-content-between">
@@ -77,21 +77,21 @@
             class="form-check-input"
             :class="{ 'is-invalid': errors ? errors['completed'] : false }"
             type="checkbox"
-            v-model="editingTask.completed"
+            v-model="editingVcard.completed"
             id="inputCompleted"
           >
           <label
             class="form-check-label"
             for="inputCompleted"
           >
-            Task is Completed
+            Vcard is Completed
           </label>
           <field-error-message :errors="errors" fieldName="completed"></field-error-message>
         </div>
       </div>
       <div
         class="row mb-3 total_hours"
-        v-show="editingTask.completed"
+        v-show="editingVcard.completed"
       >
         <label
           for="inputHours"
@@ -103,8 +103,8 @@
             class="form-control"
             :class="{ 'is-invalid': errors ? errors['total_hours'] : false }"
             id="inputHours"
-            placeholder="Total hours to complete the task"
-            v-model="editingTask.total_hours"
+            placeholder="Total hours to complete the vcard"
+            v-model="editingVcard.total_hours"
           >
           <field-error-message :errors="errors" fieldName="total_hours"></field-error-message>
         </div>
@@ -121,32 +121,32 @@
         class="form-control"
         :class="{'is-invalid': errors ? errors['description']: false}"
         id="inputDescription"
-        placeholder="Task Description"
+        placeholder="Vcard Description"
         required
-        v-model="editingTask.description"
+        v-model="editingVcard.description"
       >
       <field-error-message :errors="errors" fieldName="description"></field-error-message>
     </div>
     <div class="mb-3">
       <label
-        for="inputProject"
+        for="inputTransaction"
         class="form-label"
-      >Project</label>
+      >Transaction</label>
       <select
         class="form-select"
-        :class="{ 'is-invalid': errors ? errors['project_id'] : false }"
-        id="inputProject"
-        :disabled="fixedProject"
-        v-model="editingTask.project_id"
+        :class="{ 'is-invalid': errors ? errors['transaction_id'] : false }"
+        id="inputTransaction"
+        :disabled="fixedTransaction"
+        v-model="editingVcard.transaction_id"
       >
-        <option :value="null">-- No Project --</option>
+        <option :value="null">-- No Transaction --</option>
         <option
-          v-for="prj in projects"
+          v-for="prj in transactions"
           :key="prj.id"
           :value="prj.id"
         >{{prj.name}}</option>
       </select>
-      <field-error-message :errors="errors" fieldName="project_id"></field-error-message>
+      <field-error-message :errors="errors" fieldName="transaction_id"></field-error-message>
     </div>
     <div class="mb-3">
       <label
@@ -158,7 +158,7 @@
         :class="{ 'is-invalid': errors ? errors['notes'] : false }"
         id="inputNotes"
         rows="4"
-        v-model="editingTask.notes"
+        v-model="editingVcard.notes"
       ></textarea>
       <field-error-message :errors="errors" fieldName="notes"></field-error-message>
     </div>

@@ -15,10 +15,10 @@ const loadVCards = async () => {
   }
 }
 
-const loadProjects = async () => {
+const loadTransactions = async () => {
   try {
-    const response = await axios.get('projects')
-    projects.value = response.data.data
+    const response = await axios.get('transactions')
+    transactions.value = response.data.data
   } catch (error) {
     console.log(error)
   }
@@ -52,8 +52,8 @@ const props = defineProps({
 })
 
 const tasks = ref([])
-const projects = ref([])
-const filterByProjectId = ref(-1)
+const transactions = ref([])
+const filterByTransactionId = ref(-1)
 const filterByCompleted = ref(-1)
 
 const filteredVCards = computed(() => {
@@ -61,8 +61,8 @@ const filteredVCards = computed(() => {
     (props.onlyCurrentVCards && !t.completed)
     ||
     (!props.onlyCurrentVCards && (
-      (filterByProjectId.value == -1
-        || filterByProjectId.value == t.project_id
+      (filterByTransactionId.value == -1
+        || filterByTransactionId.value == t.transaction_id
       ) &&
       (filterByCompleted.value == -1
         || filterByCompleted.value == 0 && !t.completed
@@ -76,8 +76,8 @@ const totalVCards = computed(() => {
     (props.onlyCurrentVCards && !t.completed)
       ||
       (!props.onlyCurrentVCards && (
-        (filterByProjectId.value == -1
-          || filterByProjectId.value == t.project_id
+        (filterByTransactionId.value == -1
+          || filterByTransactionId.value == t.transaction_id
         ) &&
         (filterByCompleted.value == -1
           || filterByCompleted.value == 0 && !t.completed
@@ -88,7 +88,7 @@ const totalVCards = computed(() => {
 
 
 onMounted(() => {
-  loadProjects()
+  loadTransactions()
   loadVCards()
 })
 </script>
