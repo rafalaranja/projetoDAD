@@ -1,9 +1,11 @@
 <script setup>
+import {Pagination} from 'vue-pagination-2'
 import axios from 'axios'
 import { useToast } from "vue-toastification"
 import { useRouter } from 'vue-router'
 import { ref, computed, onMounted } from 'vue'
 import transactionTable from "./TransactionTable.vue"
+
 
 const toast = useToast()
 const router = useRouter()
@@ -14,11 +16,16 @@ const filterByResponsibleId = ref(null)
 const filterByStatus = ref('W')
 const transactionToDelete = ref(null)
 const deleteConfirmationDialog = ref(null)
+const currentPage = ref(1);
+const pageSize = 10;
+
+
 
 const loadTransactions = async () => {
   try {
     const response = await axios.get('transactions')
     transactions.value = response.data.data
+    console.log('Total transactions: ',transactions.value.length);
   } catch (error) {
     console.log(error)
   }
@@ -76,19 +83,32 @@ const filteredTransactions = computed(() => {
 })
 
 const totalTransactions = computed(() => {
-  return transactions.value.reduce((c, p) =>
-    (!filterByResponsibleId.value
-      || filterByResponsibleId.value == p.responsible_id
-    ) &&
-      (!filterByStatus.value
-        || filterByStatus.value == p.status
-      ) ? c + 1 : c, 0)
+  return transactions.value.length
 })
+const paginatedItems = computed(() => {
+  if (Array.isArray(transactions.value)) {
+    const start = (currentPage.value - 1) * pageSize;
+    const end = start + pageSize;// Verifique se transactions.value é um array antes de chamar slice
+  
+    return transactions.value.slice(start, end);
+  } else {
+    // Trate o caso em que transactions.value não é um array, por exemplo, definindo um valor padrão
+    return [];
+  }
+});
+const totalPages = computed(() => Math.ceil(transactions.value.length / pageSize));
+
+const updatePage = (page) => {
+  currentPage.value = page;
+};
+
 
 onMounted(() => {
   loadUsers()
   loadTransactions()
+  console.log('Initial currentPage:', currentPage.value);
 })
+
 
 </script>
 
@@ -134,8 +154,17 @@ onMounted(() => {
   </div>
 -->
 
-  <transaction-table :transactions="transactions" :showId="false" :showDates="true" @edit="editTransaction"
+  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @edit="editTransaction"
     @delete="deleteTransaction"></transaction-table>
+    <pagination
+  :total="totalPages"
+  v-model="currentPage"
+  @input="updatePage"
+  :page-size="pageSize"
+  :show-ellipsis="true"
+  :show-first-last="true"
+></pagination>
+
 </template>
 
 <style scoped>

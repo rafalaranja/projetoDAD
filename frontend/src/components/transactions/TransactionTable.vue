@@ -73,17 +73,7 @@ const deleteClick = (transaction) => {
         <td>{{ transaction.payment_type }}</td>
         <td>{{ transaction.payment_reference }}</td>
         <td>{{ transaction.description }}</td>
-        <td class="text-end" v-if="showEditButton || showDeleteButton">
-          <div class="d-flex justify-content-end">
-            <button class="btn btn-xs btn-light" @click="editClick(transaction)" v-if="showEditButton"><i
-                class="bi bi-xs bi-pencil"></i>
-            </button>
-
-            <button class="btn btn-xs btn-light" @click="deleteClick(transaction)" v-if="showDeleteButton"><i
-                class="bi bi-xs bi-x-square-fill"></i>
-            </button>
-          </div>
-        </td>
+        
       </tr>
     </tbody>
   </table>
