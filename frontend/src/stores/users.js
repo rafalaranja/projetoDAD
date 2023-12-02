@@ -7,7 +7,11 @@ export const useUserStore = defineStore("user", () => {
   const serverBaseUrl = inject("serverBaseUrl");
 
   const user = ref(null);
+
   const userName = computed(() => user.value?.name ?? "Anonymous");
+
+  const userType = computed(() => user.value?.user_type ?? "M");
+
   const socket = inject("socket");
   const toast = useToast();
 
@@ -75,6 +79,7 @@ export const useUserStore = defineStore("user", () => {
     user,
     userId,
     userName,
+    userType,
     userPhotoUrl,
     loadUser,
     clearUser,
