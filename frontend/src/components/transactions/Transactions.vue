@@ -102,6 +102,13 @@ const updatePage = (page) => {
   currentPage.value = page;
 };
 
+const goToPreviousPage = () => {
+    updatePage(currentPage.value - 1);
+};
+
+const goToNextPage = () => {
+    updatePage(currentPage.value + 1);
+};
 
 onMounted(() => {
   loadUsers()
@@ -156,14 +163,12 @@ onMounted(() => {
 
   <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @edit="editTransaction"
     @delete="deleteTransaction"></transaction-table>
-    <pagination
-  :total="totalPages"
-  v-model="currentPage"
-  @input="updatePage"
-  :page-size="pageSize"
-  :show-ellipsis="true"
-  :show-first-last="true"
-></pagination>
+    
+<div class="pagination-controls">
+    <button @click="goToPreviousPage" :disabled="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button @click="goToNextPage" :disabled="currentPage === totalPages">Next</button>
+  </div>
 
 </template>
 
@@ -178,5 +183,11 @@ onMounted(() => {
 
 .btn-addprj {
   margin-top: 1.85rem;
+}
+.pagination-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
