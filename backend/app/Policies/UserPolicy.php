@@ -5,7 +5,7 @@ class UserPolicy
 {
  public function view(User $user, User $model)
  {
- return $user->type == "A" || $user->id == $model->id;
+    return true;
  }
  public function update(User $user, User $model)
  {

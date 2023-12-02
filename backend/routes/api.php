@@ -44,12 +44,9 @@ Route::middleware('auth:api')->group(function () {
     */
 });
 
-Route::get('users/{user}', [UserController::class, 'show'])
- ->middleware('can:view,user');
 Route::put('users/{user}', [UserController::class, 'update'])
  ->middleware('can:update,user');
 Route::patch('users/{user}/password', [UserController::class, 'update_password'])
  ->middleware('can:updatePassword,user');
-
 
 
