@@ -1,8 +1,10 @@
 <script setup>
 import { ref, watch, computed, inject } from "vue";
 import avatarNoneUrl from "@/assets/avatar-none.png";
+import { useUserStore } from "../../stores/users.js";
 
 const serverBaseUrl = inject("serverBaseUrl");
+const userStore = useUserStore();
 
 const props = defineProps({
   user: {
@@ -50,40 +52,62 @@ const cancel = () => {
       <div class="w-75 pe-4">
         <div class="mb-3">
           <label for="inputName" class="form-label">Name</label>
-          <input type="text" class="form-control" :class="{ 'is-invalid': errors ? errors['name'] : false }"
-            id="inputName" placeholder="User Name" required v-model="editingUser.name" />
-          <field-error-message :errors="errors" fieldName="name"></field-error-message>
+          <input
+            type="text"
+            class="form-control"
+            :class="{ 'is-invalid': errors ? errors['name'] : false }"
+            id="inputName"
+            placeholder="User Name"
+            required
+            v-model="editingUser.name"
+          />
+          <field-error-message
+            :errors="errors"
+            fieldName="name"
+          ></field-error-message>
         </div>
 
         <div class="mb-3 px-1">
           <label for="inputEmail" class="form-label">Email</label>
-          <input type="email" class="form-control" :class="{ 'is-invalid': errors ? errors['email'] : false }"
-            id="inputEmail" placeholder="Email" required v-model="editingUser.email" />
-          <field-error-message :errors="errors" fieldName="email"></field-error-message>
+          <input
+            type="email"
+            class="form-control"
+            :class="{ 'is-invalid': errors ? errors['email'] : false }"
+            id="inputEmail"
+            placeholder="Email"
+            required
+            v-model="editingUser.email"
+          />
+          <field-error-message
+            :errors="errors"
+            fieldName="email"
+          ></field-error-message>
         </div>
         <div class="d-flex ms-1 mt-4 flex-wrap justify-content-between">
           <div class="mb-3 me-3 flex-grow-1">
             <div class="form-check">
-              <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['type'] : false }" type="checkbox"
-                true-value="A" false-value="M" v-model="editingUser.type" id="inputType" />
-              <label class="form-check-label" for="inputType">
+              <input
+                v-if="editingUser.type === 'A' || userStore.type == 'A'"
+                class="form-check-input"
+                :class="{ 'is-invalid': errors ? errors['type'] : false }"
+                type="checkbox"
+                true-value="A"
+                false-value="M"
+                v-model="editingUser.type"
+                id="inputType"
+              />
+              <label
+                class="form-check-label"
+                for="inputType"
+                v-if="editingUser.userType === 'A' || userStore.userType == 'A'"
+              >
                 User is Administrator
               </label>
             </div>
-            <field-error-message :errors="errors" fieldName="type"></field-error-message>
-          </div>
-          <div class="mb-3 ms-xs-3 flex-grow-1">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['gender'] : false }" type="radio"
-                name="radioGender" value="M" required v-model="editingUser.gender" id="inputGenderM" />
-              <label class="form-check-label" for="inputGenderM">Masculino</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['gender'] : false }" type="radio"
-                name="radioGender" value="F" v-model="editingUser.gender" id="inputGenderF" />
-              <label class="form-check-label" for="inputGenderF">Feminino</label>
-            </div>
-            <field-error-message :errors="errors" fieldName="gender"></field-error-message>
+            <field-error-message
+              :errors="errors"
+              fieldName="type"
+            ></field-error-message>
           </div>
         </div>
       </div>
