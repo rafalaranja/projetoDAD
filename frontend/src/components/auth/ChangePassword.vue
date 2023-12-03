@@ -1,20 +1,38 @@
 <script setup>
-import { ref } from 'vue'
-  
+import { useToast } from "vue-toastification";
+import { useRouter } from "vue-router";
+import { useUserStore } from "../../stores/users.js";
+import { ref } from "vue";
+
+const toast = useToast();
+const router = useRouter();
+const userStore = useUserStore();
+
 const passwords = ref({
-  current_password: '',
-  password: '',
-  password_confirmation: ''
-})
+  current_password: "",
+  password: "",
+  password_confirmation: "",
+});
 
-const errors = ref(null)
+const errors = ref(null);
 
-const emit = defineEmits(['changedPassword'])
+const emit = defineEmits(["changedPassword"]);
 
-const changePassword = () => {
-    // FALTA FAZER A OPERAÇÃO PARA ALTERAR A SENHA
-    emit('changedPassword')
-}
+const changePassword = async () => {
+  try {
+    await userStore.changePassword(passwords.value);
+    toast.success("Password has been changed.");
+    emit("changedPassword");
+    router.back();
+  } catch (error) {
+    if (error.response.status == 422) {
+      errors.value = error.response.data.errors;
+      toast.error("Password has not been changed due to validation errors!");
+    } else {
+      toast.error("Password has not been changed due to unknown server error!");
+    }
+  }
+};
 </script>
 
 <template>
@@ -24,53 +42,57 @@ const changePassword = () => {
     @submit.prevent="changePassword"
   >
     <h3 class="mt-5 mb-3">Change Password</h3>
-    <hr>
+    <hr />
     <div class="mb-3">
       <div class="mb-3">
-        <label
-          for="inputCurrentPassword"
-          class="form-label"
-        >Current Password</label>
+        <label for="inputCurrentPassword" class="form-label"
+          >Current Password</label
+        >
         <input
           type="password"
           class="form-control"
           id="inputCurrentPassword"
           required
           v-model="passwords.current_password"
-        >
-        <field-error-message :errors="errors" fieldName="current_password"></field-error-message>
+        />
+        <field-error-message
+          :errors="errors"
+          fieldName="current_password"
+        ></field-error-message>
       </div>
     </div>
     <div class="mb-3">
       <div class="mb-3">
-        <label
-          for="inputPassword"
-          class="form-label"
-        >New Password</label>
+        <label for="inputPassword" class="form-label">New Password</label>
         <input
           type="password"
           class="form-control"
           id="inputPassword"
           required
           v-model="passwords.password"
-        >
-        <field-error-message :errors="errors" fieldName="password"></field-error-message>
+        />
+        <field-error-message
+          :errors="errors"
+          fieldName="password"
+        ></field-error-message>
       </div>
     </div>
     <div class="mb-3">
       <div class="mb-3">
-        <label
-          for="inputPasswordConfirm"
-          class="form-label"
-        >Password Confirmation</label>
+        <label for="inputPasswordConfirm" class="form-label"
+          >Password Confirmation</label
+        >
         <input
           type="password"
           class="form-control"
           id="inputPasswordConfirm"
           required
           v-model="passwords.password_confirmation"
-        >
-        <field-error-message :errors="errors" fieldName="password_confirmation"></field-error-message>
+        />
+        <field-error-message
+          :errors="errors"
+          fieldName="password_confirmation"
+        ></field-error-message>
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-center">
@@ -78,8 +100,9 @@ const changePassword = () => {
         type="button"
         class="btn btn-primary px-5"
         @click="changePassword"
-      >Change Password</button>
+      >
+        Change Password
+      </button>
     </div>
   </form>
 </template>
-
