@@ -34,15 +34,12 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['edit', 'delete'])
+const emit = defineEmits(['view'])
 
-const editClick = (transaction) => {
-  emit('edit', transaction)
-}
+const viewTransaction = (transaction) => {
+  emit("view", transaction);
+};
 
-const deleteClick = (transaction) => {
-  emit('delete', transaction)
-}
 </script>
 
 <template>
@@ -56,6 +53,7 @@ const deleteClick = (transaction) => {
         <th v-if="showDates">Value</th>
         <th v-if="showDates">Payment Type</th>
         <th v-if="showDates">Payment Reference</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +65,12 @@ const deleteClick = (transaction) => {
         <td>{{ transaction.value }}</td>
         <td>{{ transaction.payment_type }}</td>
         <td>{{ transaction.payment_reference }}</td>
+        <td>
+          <button class="btn btn-outline-dark p-0 mx-auto d-flex" @click="viewTransaction(transaction)"
+            v-if="showEditButton">
+            <i class="bi bi-eye mx-auto px-2"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
