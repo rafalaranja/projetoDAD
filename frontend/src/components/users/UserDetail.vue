@@ -46,68 +46,33 @@ const cancel = () => {
 
 <template>
   <form class="row g-3 needs-validation" novalidate @submit.prevent="save">
-    <h3 class="mt-5 mb-3">User #{{ editingUser.id }}</h3>
+    <h3 class="mt-5 mb-3">Edit {{ editingUser.name }} Profile</h3>
     <hr />
     <div class="d-flex flex-wrap justify-content-between">
       <div class="w-75 pe-4">
         <div class="mb-3">
           <label for="inputName" class="form-label">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            :class="{ 'is-invalid': errors ? errors['name'] : false }"
-            id="inputName"
-            placeholder="User Name"
-            required
-            v-model="editingUser.name"
-          />
-          <field-error-message
-            :errors="errors"
-            fieldName="name"
-          ></field-error-message>
+          <input type="text" class="form-control" :class="{ 'is-invalid': errors ? errors['name'] : false }"
+            id="inputName" placeholder="User Name" required v-model="editingUser.name" />
+          <field-error-message :errors="errors" fieldName="name"></field-error-message>
         </div>
 
         <div class="mb-3 px-1">
           <label for="inputEmail" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            :class="{ 'is-invalid': errors ? errors['email'] : false }"
-            id="inputEmail"
-            placeholder="Email"
-            required
-            v-model="editingUser.email"
-          />
-          <field-error-message
-            :errors="errors"
-            fieldName="email"
-          ></field-error-message>
+          <input type="email" class="form-control" :class="{ 'is-invalid': errors ? errors['email'] : false }"
+            id="inputEmail" placeholder="Email" required v-model="editingUser.email" />
+          <field-error-message :errors="errors" fieldName="email"></field-error-message>
         </div>
         <div class="d-flex ms-1 mt-4 flex-wrap justify-content-between">
           <div class="mb-3 me-3 flex-grow-1">
-            <div class="form-check">
-              <input
-                v-if="editingUser.type === 'A' || userStore.type == 'A'"
-                class="form-check-input"
-                :class="{ 'is-invalid': errors ? errors['type'] : false }"
-                type="checkbox"
-                true-value="A"
-                false-value="M"
-                v-model="editingUser.type"
-                id="inputType"
-              />
-              <label
-                class="form-check-label"
-                for="inputType"
-                v-if="editingUser.userType === 'A' || userStore.userType == 'A'"
-              >
+            <div class="form-check" v-if="editingUser.type === 'A' || userStore.type == 'A'">
+              <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['type'] : false }" type="checkbox"
+                true-value="A" false-value="M" v-model="editingUser.type" id="inputType" />
+              <label class="form-check-label" for="inputType">
                 User is Administrator
               </label>
             </div>
-            <field-error-message
-              :errors="errors"
-              fieldName="type"
-            ></field-error-message>
+            <field-error-message :errors="errors" fieldName="type"></field-error-message>
           </div>
         </div>
       </div>
@@ -121,7 +86,7 @@ const cancel = () => {
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-end">
-      <button type="button" class="btn btn-primary px-5" @click="save">
+      <button type="button" class="btn btn-success px-5" @click="save">
         Save
       </button>
       <button type="button" class="btn btn-light px-5" @click="cancel">
@@ -134,5 +99,11 @@ const cancel = () => {
 <style scoped>
 .total_hours {
   width: 26rem;
+}
+
+/* Change the checkbox color to green */
+input[type="checkbox"].form-check-input:checked {
+  background-color: #198754;
+  border-color: #198754;
 }
 </style>
