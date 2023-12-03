@@ -46,8 +46,8 @@ const deleteClick = (transaction) => {
 </script>
 
 <template>
-  <table class="table">
-    <thead>
+  <table class="table table-bordered table-hover">
+    <thead class="table-success">
       <tr>
         <th v-if="showId">ID</th>
         <th>VCard</th>
@@ -56,12 +56,6 @@ const deleteClick = (transaction) => {
         <th v-if="showDates">Value</th>
         <th v-if="showDates">Payment Type</th>
         <th v-if="showDates">Payment Reference</th>
-        <th v-if="showDates">Description</th>
-
-
-        <th v-if="showBillInformation">Billed</th>
-        <th v-if="showBillInformation">Total Price</th>
-        <th v-if="showEditButton || showDeleteButton"></th>
       </tr>
     </thead>
     <tbody>
@@ -72,8 +66,6 @@ const deleteClick = (transaction) => {
         <td>{{ transaction.value }}</td>
         <td>{{ transaction.payment_type }}</td>
         <td>{{ transaction.payment_reference }}</td>
-        <td>{{ transaction.description }}</td>
-        
       </tr>
     </tbody>
   </table>

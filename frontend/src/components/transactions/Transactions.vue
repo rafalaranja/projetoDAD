@@ -1,5 +1,5 @@
 <script setup>
-import {Pagination} from 'vue-pagination-2'
+import { Pagination } from 'vue-pagination-2'
 import axios from 'axios'
 import { useToast } from "vue-toastification"
 import { useRouter } from 'vue-router'
@@ -25,7 +25,7 @@ const loadTransactions = async () => {
   try {
     const response = await axios.get('transactions')
     transactions.value = response.data.data
-    console.log('Total transactions: ',transactions.value.length);
+    console.log('Total transactions: ', transactions.value.length);
   } catch (error) {
     console.log(error)
   }
@@ -89,7 +89,7 @@ const paginatedItems = computed(() => {
   if (Array.isArray(transactions.value)) {
     const start = (currentPage.value - 1) * pageSize;
     const end = start + pageSize;// Verifique se transactions.value é um array antes de chamar slice
-  
+
     return transactions.value.slice(start, end);
   } else {
     // Trate o caso em que transactions.value não é um array, por exemplo, definindo um valor padrão
@@ -103,11 +103,11 @@ const updatePage = (page) => {
 };
 
 const goToPreviousPage = () => {
-    updatePage(currentPage.value - 1);
+  updatePage(currentPage.value - 1);
 };
 
 const goToNextPage = () => {
-    updatePage(currentPage.value + 1);
+  updatePage(currentPage.value + 1);
 };
 
 onMounted(() => {
@@ -126,7 +126,7 @@ onMounted(() => {
   </confirmation-dialog>
   <div class="d-flex justify-content-between">
     <div class="mx-2">
-      <h3 class="mt-4">Transactions</h3> 
+      <h3 class="mt-4">Transactions</h3>
     </div>
     <div class="mx-2 total-filtro">
       <h5 class="mt-4">Total: {{ totalTransactions }}</h5>
@@ -163,13 +163,14 @@ onMounted(() => {
 
   <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @edit="editTransaction"
     @delete="deleteTransaction"></transaction-table>
-    
-<div class="pagination-controls">
-    <button @click="goToPreviousPage" :disabled="currentPage === 1">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button @click="goToNextPage" :disabled="currentPage === totalPages">Next</button>
-  </div>
 
+  <div class="pagination-controls">
+    <button type="button" class="btn btn-success" @click="goToPreviousPage"
+      :disabled="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button type="button" class="btn btn-success" @click="goToNextPage"
+      :disabled="currentPage === totalPages">Next</button>
+  </div>
 </template>
 
 <style scoped>
@@ -184,6 +185,7 @@ onMounted(() => {
 .btn-addprj {
   margin-top: 1.85rem;
 }
+
 .pagination-controls {
   margin-top: 10px;
   display: flex;
