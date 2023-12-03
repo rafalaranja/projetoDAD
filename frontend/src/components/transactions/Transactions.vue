@@ -42,18 +42,12 @@ const loadUsers = async () => {
   }
 }
 
-const addTransaction = () => {
-  router.push({ name: 'NewTransaction' })
-}
 
-const editTransaction = (transaction) => {
+const viewTransaction = (transaction) => {
   router.push({ name: 'Transaction', params: { id: transaction.id } })
 }
 
-const deleteTransaction = (transaction) => {
-  transactionToDelete.value = transaction
-  deleteConfirmationDialog.value.show()
-}
+
 
 const deleteTransactionConfirmed = async () => {
   try {
@@ -75,11 +69,11 @@ const transactionToDeleteDescription = computed(() => transactionToDelete.value
   : "")
 
 const filteredTransactions = computed(() => {
-  if(transactions.value.filter(p =>(userStore.userId == p.vcard)).length==0){
+  if (transactions.value.filter(p => (userStore.userId == p.vcard)).length == 0) {
     return transactions.value;
-  }else{
+  } else {
     return transactions.value.filter(p =>
-    (userStore.userId == p.vcard)
+      (userStore.userId == p.vcard)
     );
   }
 })
@@ -134,37 +128,8 @@ onMounted(() => {
       <h5 class="mt-4">Total: {{ totalTransactions }}</h5>
     </div>
   </div>
-  <!--
-  <hr>
-  <div class="mb-3 d-flex justify-content-between flex-wrap">
-    <div class="mx-2 mt-2 flex-grow-1 filter-div">
-      <label for="selectStatus" class="form-label">Filter by status:</label>
-      <select class="form-select" id="selectStatus" v-model="filterByStatus">
-        <option :value="null"></option>
-        <option value="P">Pending</option>
-        <option value="W">Work In Progress</option>
-        <option value="C">Completed</option>
-        <option value="I">Interrupted</option>
-        <option value="D">Discarded</option>
-      </select>
-    </div>
-    <div class="mx-2 mt-2 flex-grow-1 filter-div">
-      <label for="selectOwner" class="form-label">Filter by owner:</label>
-      <select class="form-select" id="selectOwner" v-model="filterByResponsibleId">
-        <option :value="null"></option>
-        <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
-      </select>
-    </div>
 
-    <div class="mx-2 mt-2">
-      <button type="button" class="btn btn-success px-4 btn-addprj" @click="addtransaction"><i
-          class="bi bi-xs bi-plus-circle"></i>&nbsp; Add transaction</button>
-    </div>
-  </div>
--->
-
-  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @edit="editTransaction"
-    @delete="deleteTransaction"></transaction-table>
+  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @view="viewTransaction"></transaction-table>
 
   <div class="pagination-controls">
     <button type="button" class="btn btn-success" @click="goToPreviousPage"
