@@ -168,6 +168,7 @@ const editClick = (user) => {
         <th class="align-middle">Name</th>
         <th v-if="showUsername" class="align-middle">Phone Number</th>
         <th v-if="showAdmin" class="align-middle">Admin</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>

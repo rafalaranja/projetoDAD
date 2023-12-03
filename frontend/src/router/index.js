@@ -77,12 +77,11 @@ const router = createRouter({
       props: { id: -1 },
     },
     {
-      path: "/projects/:id",
+      path: "/transactions/:id",
       name: "Transaction",
       component: Transaction,
       props: (route) => ({ id: parseInt(route.params.id) }),
     },
-
     {
       path: "/users",
       name: "Users",

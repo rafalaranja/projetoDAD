@@ -1,4 +1,11 @@
 <script setup>
+
+import { defineProps, defineEmits } from "vue";
+import { useUserStore } from "../../stores/users.js";
+import { computed } from "vue";
+
+const userStore = useUserStore();
+
 const props = defineProps({
   transactions: {
     type: Array,
@@ -31,14 +38,28 @@ const props = defineProps({
   showDeleteButton: {
     type: Boolean,
     default: true,
-  }
+  },
+  showVcard: {
+    type: Boolean,
+    default: false,
+  },
 })
+
+if (userStore.user.type == "A") {
+  props.showVcard = true;
+  console.log("showVcard: ", props.showVcard);
+  console.log("userStore.user.type: ", userStore.user.type);
+}
 
 const emit = defineEmits(['view'])
 
 const viewTransaction = (transaction) => {
   emit("view", transaction);
 };
+
+const shouldShowVcard = computed(() => {
+  return userStore.user.type == "A" || props.showVcard;
+});
 
 </script>
 
@@ -47,7 +68,7 @@ const viewTransaction = (transaction) => {
     <thead class="table-success">
       <tr>
         <th>ID</th>
-        <th>VCard</th>
+        <th v-if="shouldShowVcard">VCard</th>
         <th>Date</th>
         <th v-if="showResponsible">Type</th>
         <th v-if="showDates">Value</th>
@@ -59,7 +80,7 @@ const viewTransaction = (transaction) => {
     <tbody>
       <tr v-for="transaction in transactions" :key="transaction.id">
         <td>{{ transaction.id }}</td>
-        <td>{{ transaction.vcard }}</td>
+        <td v-if="shouldShowVcard">{{ transaction.vcard }}</td>
         <td>{{ transaction.date }}</td>
         <td>{{ transaction.type }}</td>
         <td>{{ transaction.value }}</td>
