@@ -5,11 +5,13 @@ import { useToast } from "vue-toastification"
 import { useRouter } from 'vue-router'
 import { ref, computed, onMounted } from 'vue'
 import transactionTable from "./TransactionTable.vue"
+import { useUserStore } from "../../stores/users"
 
 
 const toast = useToast()
 const router = useRouter()
 
+const userStore = useUserStore();
 const transactions = ref([])
 const users = ref([])
 const filterByResponsibleId = ref(null)
@@ -73,30 +75,30 @@ const transactionToDeleteDescription = computed(() => transactionToDelete.value
   : "")
 
 const filteredTransactions = computed(() => {
-  return transactions.value.filter(p =>
-    (!filterByResponsibleId.value
-      || filterByResponsibleId.value == p.responsible_id
-    ) &&
-    (!filterByStatus.value
-      || filterByStatus.value == p.status
-    ))
+  if(transactions.value.filter(p =>(userStore.userId == p.vcard)).length==0){
+    return transactions.value;
+  }else{
+    return transactions.value.filter(p =>
+    (userStore.userId == p.vcard)
+    );
+  }
 })
 
 const totalTransactions = computed(() => {
-  return transactions.value.length
+  return filteredTransactions.value.length
 })
 const paginatedItems = computed(() => {
-  if (Array.isArray(transactions.value)) {
+  if (Array.isArray(filteredTransactions.value)) {
     const start = (currentPage.value - 1) * pageSize;
     const end = start + pageSize;// Verifique se transactions.value é um array antes de chamar slice
 
-    return transactions.value.slice(start, end);
+    return filteredTransactions.value.slice(start, end);
   } else {
     // Trate o caso em que transactions.value não é um array, por exemplo, definindo um valor padrão
     return [];
   }
 });
-const totalPages = computed(() => Math.ceil(transactions.value.length / pageSize));
+const totalPages = computed(() => Math.ceil(filteredTransactions.value.length / pageSize));
 
 const updatePage = (page) => {
   currentPage.value = page;
