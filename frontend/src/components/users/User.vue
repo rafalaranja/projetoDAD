@@ -21,7 +21,7 @@ const newUser = () => {
     name: "",
     email: "",
     user_type: "",
-    gender: "M",
+    gender: "A",
     photo_url: null,
   };
 };
@@ -105,9 +105,18 @@ onBeforeRouteLeave((to, from, next) => {
 </script>
 
 <template>
-  <confirmation-dialog ref="confirmationLeaveDialog" confirmationBtn="Discard changes and leave"
-    msg="Do you really want to leave? You have unsaved changes!" @confirmed="leaveConfirmed">
+  <confirmation-dialog
+    ref="confirmationLeaveDialog"
+    confirmationBtn="Discard changes and leave"
+    msg="Do you really want to leave? You have unsaved changes!"
+    @confirmed="leaveConfirmed"
+  >
   </confirmation-dialog>
 
-  <user-detail :user="user" :errors="errors" @save="save" @cancel="cancel"></user-detail>
+  <user-detail
+    :user="user"
+    :errors="errors"
+    @save="save"
+    @cancel="cancel"
+  ></user-detail>
 </template>
