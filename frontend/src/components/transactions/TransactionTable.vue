@@ -49,7 +49,7 @@ const deleteClick = (transaction) => {
   <table class="table table-bordered table-hover">
     <thead class="table-success">
       <tr>
-        <th v-if="showId">ID</th>
+        <th>ID</th>
         <th>VCard</th>
         <th>Date</th>
         <th v-if="showResponsible">Type</th>
@@ -60,6 +60,7 @@ const deleteClick = (transaction) => {
     </thead>
     <tbody>
       <tr v-for="transaction in transactions" :key="transaction.id">
+        <td>{{ transaction.id }}</td>
         <td>{{ transaction.vcard }}</td>
         <td>{{ transaction.date }}</td>
         <td>{{ transaction.type }}</td>
