@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserTable;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
@@ -46,7 +47,7 @@ class UserController extends Controller
         return response()->json(['data' => $user], 200);
     }
 
-    public function update_password(UpdateUserPasswordRequest $request, User $user)
+    public function update_password(UpdateUserPasswordRequest $request, UserTable $user)
     {
         $user->password = bcrypt($request->validated()['password']);
         $user->save();
