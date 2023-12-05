@@ -30,8 +30,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('users/{user}', [UserController::class, 'update'])
         ->middleware('can:update,user');
 
-        Route::patch('users/{user}/password', [UserController::class, 'update_password']);
-       // ->middleware('can:updatePassword,user');
+    
 
     Route::get('transactions', [TransactionController::class,'index']);
     Route::get('transactions/{user}', [TransactionController::class,'showUser']);
@@ -49,5 +48,6 @@ Route::middleware('auth:api')->group(function () {
 Route::put('users/{user}', [UserController::class, 'update'])
  ->middleware('can:update,user');
 
-
+Route::patch('users/{user}/password', [UserController::class, 'update_password']);
+       // ->middleware('can:updatePassword,user');
 

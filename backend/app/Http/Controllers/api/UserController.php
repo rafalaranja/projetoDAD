@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\UserTable;
+use App\Models\userTable;
+use App\Models\VCard;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
@@ -23,34 +25,49 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, UserTable $user)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'sometimes|required|min:6',
-            // Add more validation rules as needed
-        ]);
+        $dataToSave = $request->validated();
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+        $base64ImagePhoto = array_key_exists("base64ImagePhoto", $dataToSave) ?
+            $dataToSave["base64ImagePhoto"] : ($dataToSave["base64ImagePhoto"] ?? null);
+        $deletePhotoOnServer = array_key_exists("deletePhotoOnServer", $dataToSave) && $dataToSave["deletePhotoOnServer"];
+        unset($dataToSave["base64ImagePhoto"]);
+        unset($dataToSave["deletePhotoOnServer"]);
+
+        $user->fill($dataToSave);
+
+        // Delete previous photo file if a new file is uploaded or the photo is to be deleted
+        if ($user->photo_url && ($deletePhotoOnServer || $base64ImagePhoto)) {
+            if (Storage::exists('public/fotos/' . $user->photo_url)) {
+                Storage::delete('public/fotos/' . $user->photo_url);
+            }
+            $user->photo_url = null;
         }
 
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+        // Create a new photo file from base64 content
+        if ($base64ImagePhoto) {
+            $user->photo_url = $this->storeBase64AsFile($user, $base64ImagePhoto);
         }
-
-        $user->update($request->all());
-
-        return response()->json(['data' => $user], 200);
+        $user->save();
+        return new UserResource($user);
     }
 
-    public function update_password(UpdateUserPasswordRequest $request, UserTable $user)
+    public function update_password(UpdateUserPasswordRequest $request, $id)
     {
+        if (strlen($id) == 1) {
+            $user = userTable::find($id);
+        } else if (strlen($id) == 9) {
+            $user = VCard::find($id);
+        }
+    
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    
         $user->password = bcrypt($request->validated()['password']);
         $user->save();
+    
         return new UserResource($user);
     }
     public function show_me(Request $request)
