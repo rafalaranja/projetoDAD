@@ -78,6 +78,7 @@ const save = () => {
     const userToSave = editingUser.value;
     userToSave.deletePhotoOnServer = deletePhotoOnTheServer.value;
     userToSave.base64ImagePhoto = editingImageAsBase64.value;
+
     emit("save", userToSave);
   } catch (error) {
     console.error("Error in save function:", error);
@@ -160,12 +161,6 @@ const cancel = () => {
             <img :src="photoFullUrl" class="w-100" />
           </div>
           <div class="mt-3 d-flex justify-content-between flex-wrap">
-            <input
-              type="file"
-              id="inputPhoto"
-              @change="changePhotoFile"
-              style="display: none"
-            />
             <label for="inputPhoto" class="btn btn-dark flex-grow-1 mx-1"
               >Carregar</label
             >
@@ -184,7 +179,21 @@ const cancel = () => {
               Apagar
             </button>
           </div>
+          <div>
+            <field-error-message
+              :errors="errors"
+              fieldName="base64ImagePhoto"
+            ></field-error-message>
+          </div>
         </div>
+        <input
+          type="file"
+          class="form-control visually-hidden"
+          id="inputPhoto"
+          accept="image/*"
+          ref="inputPhotoFile"
+          @change="changePhotoFile"
+        />
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-end">

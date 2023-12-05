@@ -11,9 +11,18 @@ use App\Models\VCard;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
+use App\Services\Base64Services;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    private function storeBase64AsFile(VCard $user, String $base64String)
+    {
+        $targetDir = storage_path('app/public/fotos');
+        $newfilename = $user->phone_number . "_" . rand(1000,9999);
+        $base64Service = new Base64Services();
+        return $base64Service->saveFile($base64String, $targetDir, $newfilename);
+    }
     public function index()
     {
         $users = User::all();
@@ -25,7 +34,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update(UpdateUserRequest $request, UserTable $user)
+    public function update(UpdateUserRequest $request, VCard $user)
     {
         $dataToSave = $request->validated();
 
@@ -52,6 +61,8 @@ class UserController extends Controller
         $user->save();
         return new UserResource($user);
     }
+
+
 
     public function update_password(UpdateUserPasswordRequest $request, $id)
     {
