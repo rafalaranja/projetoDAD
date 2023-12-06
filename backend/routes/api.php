@@ -29,11 +29,11 @@ Route::middleware('auth:api')->group(function () {
         ->middleware('can:view,user');
     Route::put('users/{user}', [UserController::class, 'update']);
         //->middleware('can:update,user');
-
     
-
     Route::get('transactions', [TransactionController::class,'index']);
-    Route::get('transactions/{user}', [TransactionController::class,'showUser']);
+    Route::get('transactions/{transaction}', [TransactionController::class,'show']);
+    
+    
     /*Route::get('projects', [ProjectController::class, 'index']);
     Route::get('projects/{project}', [ProjectController::class, 'show']);
     Route::get('projects/{project}/tasks', [ProjectController::class, 'showWithTasks']);
@@ -50,4 +50,5 @@ Route::middleware('auth:api')->group(function () {
 
 Route::patch('users/{user}/password', [UserController::class, 'update_password']);
        // ->middleware('can:updatePassword,user');
+       Route::post('transactions',[TransactionController::class,'store']);
 
