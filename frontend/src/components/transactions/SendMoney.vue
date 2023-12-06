@@ -1,5 +1,11 @@
-<script>
+<script setup>
+import { ref } from 'vue';
 
+let quantity = ref('');
+
+const validateInput = () => {
+    quantity.value = quantity.value.replace(/[^0-9.]/g, '');
+};
 </script>
 
 <template>
@@ -36,10 +42,10 @@
             <h5 class="mt-4">Quantity:</h5>
             <form>
                 <div class="form-group">
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Enter Quantity">
-                    <small id="emailHelp" class="form-text text-muted">Enter a number (use a comma to separate
-                        decimal places)</small>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Quantity" v-model.number="quantity" @input="validateInput">
+                    <small id="emailHelp" class="form-text text-muted">Enter a number (use a dot to separate decimal
+                        places)</small>
                 </div>
             </form>
 
