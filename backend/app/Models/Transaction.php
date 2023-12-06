@@ -27,6 +27,7 @@ class Transaction extends Model
     ['id',
     'vcard',
     'date',
+    'datetime',
     'type',
     'value',
     'old_balance',
@@ -35,6 +36,9 @@ class Transaction extends Model
     'payment_reference',
     'description',
     'category_id',
+    ];
+    protected $casts = [
+        'datetime' => 'datetime',
     ];
 
     public function vcards() : BelongsTo

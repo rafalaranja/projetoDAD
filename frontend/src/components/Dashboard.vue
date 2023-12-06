@@ -10,8 +10,11 @@ import { useRouter, RouterLink, RouterView } from "vue-router";
   <!--CARDS-->
   <div class="card mb-3">
     <button type="button" class="btn btn-success btn-lg btn-block p-4">
-      <i class="bi bi-cash-stack"></i>
-      Send Money
+      <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'SendMoney' }"
+        :to="{ name: 'SendMoney' }">
+        <i class="bi bi-cash-stack"></i>
+        Send Money
+      </router-link>
     </button>
   </div>
   <div class="card mb-3">
