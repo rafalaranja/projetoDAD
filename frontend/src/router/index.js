@@ -10,6 +10,7 @@ import Users from "../components/users/Users.vue";
 import TransactionTasks from "../components/transactions/TransactionTasks.vue";
 import Task from "../components/vcards/Vcard.vue";
 import Transaction from "../components/transactions/Transaction.vue";
+import SendMoney from "../components/transactions/SendMoney.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,6 +70,11 @@ const router = createRouter({
       path: "/transactions",
       name: "Transactions",
       component: Transactions,
+    },
+    {
+      path: "/transactions/send",
+      name: "SendMoney",
+      component: SendMoney,
     },
     {
       path: "/projects/new",
