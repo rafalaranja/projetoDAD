@@ -49,95 +49,50 @@ onMounted(async () => {
 </script>
 
 <template>
-  <nav
-    class="navbar navbar-expand-md navbar-dark bg-success sticky-top flex-md-nowrap p-0 shadow"
-  >
+  <nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top flex-md-nowrap p-0 shadow">
     <div class="container-fluid">
       <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
-        <img
-          src="@/assets/logo.svg"
-          alt=""
-          width="30"
-          height="24"
-          class="d-inline-block align-text-top"
-        />
+        <img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
         Vcard
       </a>
-      <button
-        id="buttonSidebarExpandId"
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button id="buttonSidebarExpandId" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a
-              class="nav-link"
-              href="#"
-              v-if="userStore.userName == 'Anonymous'"
-              ><i class="bi bi-person-check-fill"></i>
+            <a class="nav-link" href="#" v-if="userStore.userName == 'Anonymous'"><i class="bi bi-person-check-fill"></i>
               Register
             </a>
           </li>
           <li class="nav-item" v-if="userStore.userName == 'Anonymous'">
-            <router-link
-              class="nav-link"
-              :class="{ active: $route.name === 'Login' }"
-              :to="{ name: 'Login' }"
-            >
+            <router-link class="nav-link" :class="{ active: $route.name === 'Login' }" :to="{ name: 'Login' }">
               <i class="bi bi-box-arrow-in-right"></i>
               Login
             </router-link>
           </li>
           <div v-if="userStore.userName != 'Anonymous'">
             <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  :src="userStore.userPhotoUrl"
-                  class="rounded-circle z-depth-0 avatar-img"
-                  alt="avatar image"
-                />
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image" />
                 <span class="avatar-text">{{ userStore.userName }}</span>
               </a>
-              <ul
-                class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
+              <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                  <router-link
-                    class="dropdown-item"
-                    :class="{
-                      active:
-                        $route.name == 'User' &&
-                        $route.params.id == userStore.userId,
-                    }"
-                    :to="{ name: 'User', params: { id: userStore.userId } }"
-                    @click="clickMenuOption"
-                  >
+                  <router-link class="dropdown-item" :class="{
+                    active:
+                      $route.name == 'User' &&
+                      $route.params.id == userStore.userId,
+                  }" :to="{ name: 'User', params: { id: userStore.userId } }" @click="clickMenuOption">
                     <i class="bi bi-person-square"></i>
                     Profile
                   </router-link>
                 </li>
                 <li>
-                  <router-link
-                    class="dropdown-item"
-                    :class="{ active: $route.name === 'ChangePassword' }"
-                    :to="{ name: 'ChangePassword' }"
-                  >
+                  <router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
+                    :to="{ name: 'ChangePassword' }">
                     <i class="bi bi-key-fill"></i>
                     Change password
                   </router-link>
@@ -160,61 +115,40 @@ onMounted(async () => {
 
   <div class="container-fluid">
     <div class="row">
-      <nav
-        id="sidebarMenu"
-        class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-      >
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link
-                class="nav-link"
-                :class="{ active: $route.name === 'Dashboard' }"
-                :to="{ name: 'Dashboard' }"
-              >
+              <router-link class="nav-link" :class="{ active: $route.name === 'Dashboard' }" :to="{ name: 'Dashboard' }">
                 <i class="bi bi-house"></i>
                 Dashboard
               </router-link>
             </li>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link
-                class="nav-link w-100 me-3"
-                :class="{ active: $route.name === 'Vcard' }"
-                :to="{ name: 'Vcard' }"
-              >
+              <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Vcard' }"
+                :to="{ name: 'Vcard' }">
                 <i class="bi bi-credit-card"></i>
                 Vcard
               </router-link>
             </li>
             <li class="nav-item" v-else>
-              <router-link
-                class="nav-link w-100 me-3"
-                :class="{ active: $route.name === 'NewTask' }"
-                :to="{ name: 'NewTask' }"
-                aria-label="Add a new task"
-              >
+              <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'NewTask' }"
+                :to="{ name: 'NewTask' }" aria-label="Add a new task">
                 <i class="bi bi-plus-circle"></i>
                 Create Vcard
               </router-link>
             </li>
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link
-                class="nav-link"
-                :class="{ active: $route.name === 'Users' }"
-                :to="{ name: 'Users' }"
-              >
+              <router-link class="nav-link" :class="{ active: $route.name === 'Users' }" :to="{ name: 'Users' }">
                 <i class="bi bi-people"></i>
                 Users
               </router-link>
             </li>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link
-                class="nav-link"
-                :class="{ active: $route.name === 'Transactions' }"
-                :to="{ name: 'Transactions' }"
-              >
+              <router-link class="nav-link" :class="{ active: $route.name === 'Transactions' }"
+                :to="{ name: 'Transactions' }">
                 <i class="bi bi-bar-chart-line"></i>
                 Transactions
               </router-link>
@@ -222,66 +156,39 @@ onMounted(async () => {
           </ul>
 
           <div class="d-block d-md-none">
-            <h6
-              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
-            >
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>User</span>
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="#"
-                  ><i class="bi bi-person-check-fill"></i>
+                <a class="nav-link" href="#"><i class="bi bi-person-check-fill"></i>
                   Register
                 </a>
               </li>
               <li class="nav-item">
-                <router-link
-                  class="nav-link"
-                  :class="{ active: $route.name === 'Login' }"
-                  :to="{ name: 'Login' }"
-                >
+                <router-link class="nav-link" :class="{ active: $route.name === 'Login' }" :to="{ name: 'Login' }">
                   <i class="bi bi-box-arrow-in-right"></i>
                   Login
                 </router-link>
               </li>
               <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    :src="userStore.userPhotoUrl"
-                    class="rounded-circle z-depth-0 avatar-img"
-                    alt="avatar image"
-                  />
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image" />
                   <span class="avatar-text">{{ userStore.userName }}</span>
                 </a>
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="navbarDropdownMenuLink2"
-                >
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                   <li>
-                    <router-link
-                      class="dropdown-item"
-                      :class="{
-                        active: $route.name == 'User' && $route.params.id == 1,
-                      }"
-                      :to="{ name: 'User', params: { id: 1 } }"
-                    >
+                    <router-link class="dropdown-item" :class="{
+                      active: $route.name == 'User' && $route.params.id == 1,
+                    }" :to="{ name: 'User', params: { id: 1 } }">
                       <i class="bi bi-person-square"></i>
                       Profile
                     </router-link>
                   </li>
                   <li>
-                    <router-link
-                      class="dropdown-item"
-                      :class="{ active: $route.name === 'ChangePassword' }"
-                      :to="{ name: 'ChangePassword' }"
-                    >
+                    <router-link class="dropdown-item" :class="{ active: $route.name === 'ChangePassword' }"
+                      :to="{ name: 'ChangePassword' }">
                       <i class="bi bi-key-fill"></i>
                       Change password
                     </router-link>
@@ -290,12 +197,8 @@ onMounted(async () => {
                     <hr class="dropdown-divider" />
                   </li>
                   <li>
-                    <a
-                      router-link
-                      class="nav-link"
-                      :class="{ active: $route.name === 'Logout' }"
-                      :to="{ name: 'Logout' }"
-                    >
+                    <a router-link class="nav-link" :class="{ active: $route.name === 'Logout' }"
+                      :to="{ name: 'Logout' }">
                       <i class="bi bi-arrow-right"></i>Lo
                     </a>
                   </li>
