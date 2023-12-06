@@ -52,7 +52,7 @@ Route::patch('users/{user}/password', [UserController::class, 'update_password']
 
         //->middleware('can:updatePassword,user');
 
-Route::patch('users/{user}/pin', [UserController::class, 'update_pin'])->middleware('can:updatePassword,user');
+Route::patch('users/{user}/pin', [UserController::class, 'update_pin']);//->middleware('can:updatePassword,user');
 
        // ->middleware('can:updatePassword,user');
        Route::post('transactions',[TransactionController::class,'store']);
