@@ -11,9 +11,10 @@ use App\Models\VCard;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
+use App\Http\Requests\UpdateUserPinRequest;
 use App\Services\Base64Services;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     private function storeBase64AsFile(VCard $user, String $base64String)
@@ -84,6 +85,27 @@ class UserController extends Controller
     public function show_me(Request $request)
     {
         return new UserResource($request->user());
+    }
+
+
+    public function update_pin(UpdateUserPinRequest $request, $id)
+    {
+        $user = VCard::find($id);
+    
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }        
+    
+        // Verificar se a senha do usuário é a mesma que a passada no request
+        if (!Hash::check($request->validated()['current_password'], $user->password)) {
+            return response()->json(['error' => 'Invalid password'], 401);
+        }
+    
+        $user->confirmation_code = bcrypt($request->validated()['pin']);
+    
+        $user->save();
+    
+        return new UserResource($user);
     }
 
    /* public function login(Request $request)

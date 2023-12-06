@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import Dashboard from "../components/Dashboard.vue";
 import Login from "../components/auth/Login.vue";
 import ChangePassword from "../components/auth/ChangePassword.vue";
+import ChangePin from "../components/auth/ChangePin.vue";
 import Tasks from "../components/vcards/Vcard.vue";
 import Transactions from "../components/transactions/Transactions.vue";
 import User from "../components/users/User.vue";
@@ -36,6 +37,11 @@ const router = createRouter({
       path: "/password",
       name: "ChangePassword",
       component: ChangePassword,
+    },
+    {
+      path: "/pin",
+      name: "ChangePin",
+      component: ChangePin,
     },
     {
       path: "/dashboard",

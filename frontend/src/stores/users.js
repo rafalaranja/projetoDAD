@@ -87,6 +87,19 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  // Em userStore
+  async function changePin(pins) {
+    if (userId.value < 0) {
+      throw "Anonymous users cannot change the password!";
+    }
+    try {
+      await axios.patch(`users/${user.value.id}/pin`, pins);
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   return {
     user,
     userId,
@@ -98,5 +111,6 @@ export const useUserStore = defineStore("user", () => {
     login,
     logout,
     changePassword,
+    changePin,
   };
 });

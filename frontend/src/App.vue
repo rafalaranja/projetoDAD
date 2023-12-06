@@ -143,6 +143,16 @@ onMounted(async () => {
                   </router-link>
                 </li>
                 <li>
+                  <router-link
+                    class="dropdown-item"
+                    :class="{ active: $route.name === 'ChangePin' }"
+                    :to="{ name: 'ChangePin' }"
+                  >
+                    <i class="bi bi-key-fill"></i>
+                    Change Pin
+                  </router-link>
+                </li>
+                <li>
                   <hr class="dropdown-divider" />
                 </li>
                 <li>
@@ -284,6 +294,16 @@ onMounted(async () => {
                     >
                       <i class="bi bi-key-fill"></i>
                       Change password
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link
+                      class="dropdown-item"
+                      :class="{ active: $route.name === 'ChangePassword' }"
+                      :to="{ name: 'ChangePassword' }"
+                    >
+                      <i class="bi bi-key-fill"></i>
+                      Change Pin
                     </router-link>
                   </li>
                   <li>
