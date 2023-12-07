@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
-let quantity = ref('');
+const selectedVCard = ref('');
+const selectedPaymentOption = ref('');
+const quantity = ref(0);
 
 const validateInput = () => {
-    if (this.quantity < 0) {
-        this.quantity = 0;
+    if (quantity.value < 0) {
+        quantity.value = 0;
     }
 };
 
@@ -18,14 +20,14 @@ const validateInput = () => {
     <div class="card">
         <div class="card-body">
             <h5 class="mt-2">Send to:</h5>
-            <select id="inputState" class="form-control">
-                <option disabled selected value> Select a VCard </option>
+            <select id="inputState" class="form-control" v-model="selectedVCard">
+                <option disabled value="">Select a VCard</option>
                 <option>932313102</option>
                 <option>933230965</option>
             </select>
             <h5 class="mt-4">Payment Type:</h5>
-            <select id="inputState" class="form-control">
-                <option disabled selected value> Select a Payment Option </option>
+            <select id="inputState" class="form-control" v-model="selectedPaymentOption">
+                <option disabled value="">Select a Payment Option</option>
                 <option>MBWay</option>
                 <option>IBAN</option>
             </select>
@@ -38,8 +40,6 @@ const validateInput = () => {
                         places)</small>
                 </div>
             </form>
-
-
             <div class="d-flex justify-content-center mx-5 mt-4">
                 <button type="button" class="btn btn-success btn-lg mt-3">SEND</button>
             </div>
