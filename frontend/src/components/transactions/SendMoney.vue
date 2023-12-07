@@ -4,8 +4,11 @@ import { ref } from 'vue';
 let quantity = ref('');
 
 const validateInput = () => {
-    quantity.value = quantity.value.replace(/[^0-9.]/g, '');
+    if (this.quantity < 0) {
+        this.quantity = 0;
+    }
 };
+
 </script>
 
 <template>
@@ -15,34 +18,21 @@ const validateInput = () => {
     <div class="card">
         <div class="card-body">
             <h5 class="mt-2">Send to:</h5>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select VCard
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </div>
+            <select id="inputState" class="form-control">
+                <option disabled selected value> Select a VCard </option>
+                <option>932313102</option>
+                <option>933230965</option>
+            </select>
             <h5 class="mt-4">Payment Type:</h5>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Payment Type
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                    <a class="dropdown-item" href="#">MBWay</a>
-                    <a class="dropdown-item" href="#">Paypal</a>
-                    <a class="dropdown-item" href="#">Credit Card</a>
-                </div>
-            </div>
-
+            <select id="inputState" class="form-control">
+                <option disabled selected value> Select a Payment Option </option>
+                <option>MBWay</option>
+                <option>IBAN</option>
+            </select>
             <h5 class="mt-4">Quantity:</h5>
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Enter Quantity" v-model.number="quantity" @input="validateInput">
                     <small id="emailHelp" class="form-text text-muted">Enter a number (use a dot to separate decimal
                         places)</small>
