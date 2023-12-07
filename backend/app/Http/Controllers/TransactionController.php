@@ -13,11 +13,12 @@ use Carbon\Carbon;
 class TransactionController extends Controller
 {
     public function index(){
+        
         $transactions = Transaction::all();
         return response ()->json(['data'=>$transactions],200);
     }
-    public function show($id){
-        $transaction = Transaction::find($id);
+    public function show(Transaction $transaction){
+        $transaction = Transaction::find($transaction);
         if(!$transaction){
             return response()->json(['message'=> 'Transaction not found'],404);
         }
