@@ -31,7 +31,8 @@ Route::middleware('auth:api')->group(function () {
         //->middleware('can:update,user');
     
     Route::get('transactions', [TransactionController::class,'index']);
-    Route::get('transactions/{transaction}', [TransactionController::class,'show']);
+    Route::get('transactions/{transaction}', [TransactionController::class,'show']) ->middleware('can:view,transaction');
+    
     
     
     /*Route::get('projects', [ProjectController::class, 'index']);
@@ -48,9 +49,9 @@ Route::middleware('auth:api')->group(function () {
 ///Route::put('users/{user}', [UserController::class, 'update'])
  //->middleware('can:update,user');
 
-Route::patch('users/{user}/password', [UserController::class, 'update_password']);
+Route::patch('users/{user}/password', [UserController::class, 'update_password'])
 
-        //->middleware('can:updatePassword,user');
+        ->middleware('can:updatePassword,user');
 
 Route::patch('users/{user}/pin', [UserController::class, 'update_pin']);//->middleware('can:updatePassword,user');
 

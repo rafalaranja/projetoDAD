@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\userTable;
+use App\Models\Admin;
 use App\Models\VCard;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UpdateUserRequest;
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function update_password(UpdateUserPasswordRequest $request, $id)
     {
         if (strlen($id) == 1) {
-            $user = userTable::find($id);
+            $user = Admin::find($id);
         } else if (strlen($id) == 9) {
             $user = VCard::find($id);
         }
