@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\VcardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::middleware('auth:api')->group(function () {
         //->middleware('can:update,user');
     
     Route::get('transactions', [TransactionController::class,'index']);
-    Route::get('transactions/{transaction}', [TransactionController::class,'show']) ->middleware('can:view,transaction');
+    Route::get('transactions/{transaction}', [TransactionController::class,'show'])->middleware('can:view,transaction');
     
     
     
@@ -56,6 +57,9 @@ Route::patch('users/{user}/password', [UserController::class, 'update_password']
 Route::patch('users/{user}/pin', [UserController::class, 'update_pin']);//->middleware('can:updatePassword,user');
 
        // ->middleware('can:updatePassword,user');
-       Route::post('transactions',[TransactionController::class,'store']);
+Route::post('transactions',[TransactionController::class,'store']);
+
+
+Route::post('/vcard/new', [VcardController::class, 'store']);
 
 
