@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\NewVcardRequest;
+use App\Http\Requests\DeleteVcardRequest;
 use App\Services\Base64Services;
 use App\Http\Resources\VcardResource;
 use App\Models\VCard;
@@ -45,6 +46,24 @@ class VcardController extends Controller
         $vcard->save();
     
         return new VcardResource($vcard);
+    }
+
+    public function destroy(DeleteVcardRequest $request)
+    {
+        $user = $request->user(); // Obtém o usuário logado
+    
+        if ($user) {
+            $vcard = VCard::find($user->id); // Obtém o VCard do usuário logado
+    
+            if ($vcard) {
+                $vcard->delete();
+                return response()->json(null, 204);
+            } else {
+                return response()->json(['error' => 'VCard not found'], 404);
+            }
+        } else {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
     }
     
 }

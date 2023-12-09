@@ -11,6 +11,7 @@ import Users from "../components/users/Users.vue";
 import TransactionTasks from "../components/transactions/TransactionTasks.vue";
 import Task from "../components/vcards/Vcard.vue";
 import vcardNew from "../components/vcards/vcardNew.vue";
+import DeleteVcard from "../components/vcards/DeleteVcard.vue";
 import Transaction from "../components/transactions/Transaction.vue";
 import SendMoney from "../components/transactions/SendMoney.vue";
 
@@ -54,6 +55,11 @@ const router = createRouter({
       path: "/vcard",
       name: "Vcard",
       component: Tasks,
+    },
+    {
+      path: "/deleteVcard",
+      name: "deleteVcard",
+      component: DeleteVcard,
     },
     {
       path: "/tasks/current",

@@ -152,6 +152,16 @@ onMounted(async () => {
                   </router-link>
                 </li>
                 <li>
+                  <router-link
+                    class="dropdown-item"
+                    :class="{ active: $route.name === 'deleteVcard' }"
+                    :to="{ name: 'deleteVcard' }"
+                  >
+                    <i class="bi bi-x"></i>
+                    Delete Vcard
+                  </router-link>
+                </li>
+                <li>
                   <hr class="dropdown-divider" />
                 </li>
                 <li>
