@@ -2,9 +2,10 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toastification";
-import { useRouter, onBeforeRouteLeave } from "vue-router";
+import { useRouter } from "vue-router";
 import "vue-toastification/dist/index.css";
 
+const router = useRouter();
 const toast = useToast();
 
 const form = ref({
@@ -49,7 +50,7 @@ const submitForm = () => {
     .post("/vcard/new", formData)
     .then((response) => {
       emit("save", response.data);
-      //router.push("/login");
+      router.push("/login");
       toast.success("vCard criado com sucesso!");
     })
     .catch((error) => {
