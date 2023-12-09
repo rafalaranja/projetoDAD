@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useToast } from "vue-toastification";
+import { useRouter, onBeforeRouteLeave } from "vue-router";
+import "vue-toastification/dist/index.css";
+
+const toast = useToast();
 
 const form = ref({
   name: "",
@@ -32,18 +37,33 @@ const emit = defineEmits(["save"]);
 
 const submitForm = () => {
   const formData = new FormData();
+
   for (const key in form.value) {
+    if (key === "photo" && form.value[key] === null) {
+      continue;
+    }
     formData.append(key, form.value[key]);
   }
 
   axios
     .post("/vcard/new", formData)
     .then((response) => {
-      console.log(response.data);
+      emit("save", response.data);
+      //router.push("/login");
+      toast.success("vCard criado com sucesso!");
     })
     .catch((error) => {
-      if (error.response && error.response.data.errors) {
-        errors.value = error.response.data.errors;
+      console.log(error.response);
+      if (error.response && error.response.data) {
+        if (
+          error.response.data.message.includes("Integrity constraint violation")
+        ) {
+          toast.error("Este número de telefone já existe.");
+        } else {
+          toast.error(error.response.data.message);
+        }
+      } else {
+        toast.error("Ocorreu um erro ao criar o vCard!");
       }
     });
 };

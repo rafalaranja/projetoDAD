@@ -26,6 +26,7 @@ class VcardController extends Controller
         // Os dados já foram validados pelo NewVcardRequest
         $validated = $request->validated();
        
+       
     
         // Criação do novo vCard
         $vcard = new VCard();
