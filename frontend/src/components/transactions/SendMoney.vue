@@ -1,9 +1,14 @@
 <script setup>
 import { ref } from 'vue';
+import { defineProps, defineEmits } from "vue";
 
-const selectedVCard = ref('');
-const selectedPaymentOption = ref('');
-const quantity = ref(0);
+const props = defineProps({
+  vcards: {
+    type: Array,
+    default: () => [],
+  },
+});
+let quantity = ref('');
 
 const validateInput = () => {
     if (quantity.value < 0) {
@@ -20,14 +25,18 @@ const validateInput = () => {
     <div class="card">
         <div class="card-body">
             <h5 class="mt-2">Send to:</h5>
-            <select id="inputState" class="form-control" v-model="selectedVCard">
-                <option disabled value="">Select a VCard</option>
+            <select id="inputState" class="form-control">
+                <option disabled selected value> Select a VCard </option>
                 <option>932313102</option>
                 <option>933230965</option>
             </select>
+            <select id="inputState" class="form-control" >
+                <option disabled selected value > Select a VCard </option>
+                <option v-for="vcard in vcards" :key="vcard.phone_number" >{{vcard.phone_number}}</option>
+            </select>
             <h5 class="mt-4">Payment Type:</h5>
-            <select id="inputState" class="form-control" v-model="selectedPaymentOption">
-                <option disabled value="">Select a Payment Option</option>
+            <select id="inputState" class="form-control">
+                <option disabled selected value> Select a Payment Option </option>
                 <option>MBWay</option>
                 <option>IBAN</option>
             </select>
@@ -40,6 +49,8 @@ const validateInput = () => {
                         places)</small>
                 </div>
             </form>
+
+
             <div class="d-flex justify-content-center mx-5 mt-4">
                 <button type="button" class="btn btn-success btn-lg mt-3">SEND</button>
             </div>
