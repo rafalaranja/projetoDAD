@@ -11,7 +11,6 @@ const props = defineProps({
   }
 })
 
-
 const currentTransaction = ref(props.transaction)
 
 watch(
@@ -21,12 +20,6 @@ watch(
   }
 )
 
-const transactionTitle = computed(() => {
-  if (!currentTransaction.value) {
-    return ''
-  }
-  return 'Transaction #' + currentTransaction.value.id
-})
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -35,7 +28,7 @@ const formatDate = (dateString) => {
 
 </script>
 <template>
-  <h3 class="mt-5 mb-3">{{ transactionTitle }}</h3>
+  <h3 class="mt-5 mb-3">Transaction #{{ currentTransaction.id }}</h3>
   <hr>
   <div class="card">
     <div class="card-header bg-dark text-white">

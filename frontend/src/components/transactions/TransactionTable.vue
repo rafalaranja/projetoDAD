@@ -55,7 +55,7 @@ const emit = defineEmits(['view'])
 
 const viewTransaction = (transaction) => {
   emit("view", transaction);
-  console.log(transaction)
+  console.log(transaction);
 };
 
 const shouldShowVcard = computed(() => {

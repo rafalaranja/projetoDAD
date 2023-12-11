@@ -96,7 +96,7 @@ const props = defineProps({
 })
 
 const operation = computed(() => {
-  return (!props.id || props.id < 0) ? 'insert' : 'update'
+  return (!props.id || props.id < 0) ? 'insert' : 's'
 })
 
 watch(

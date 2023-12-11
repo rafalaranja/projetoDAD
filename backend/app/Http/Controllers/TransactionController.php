@@ -18,12 +18,8 @@ class TransactionController extends Controller
         return response ()->json(['data'=>$transactions],200);
     }
     public function show(Transaction $transaction){
-        $transaction = Transaction::find($transaction);
-        if(!$transaction){
-            return response()->json(['message'=> 'Transaction not found'],404);
-        }
-        return response()->json(['data'=>$transaction],200);
-
+        return new TransactionResource($transaction);
+        //$transaction = Transaction::find($transaction);
     }
     public function store(Request $request)
     {
