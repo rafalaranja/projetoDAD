@@ -23,7 +23,7 @@ const login = async () => {
     // );
     // emit('login')
     socket.emit("login", userStore.user); // porque o store do user é assincrono
-    router.back();
+    router.push("/dashboard");
   } else {
     credentials.value.password = "";
     toast.error("User credentials are invalid!");
