@@ -105,7 +105,7 @@ export const useUserStore = defineStore("user", () => {
       throw "Anonymous users cannot change the password!";
     }
     try {
-      await axios.delete(`vcard/${user.value.id}/delete`, {
+      await axios.delete(`users/${user.value.id}/delete`, {
         data: credentials,
       });
       return true;
