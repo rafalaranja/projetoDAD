@@ -38,7 +38,7 @@ class TransactionController extends Controller
         }
 
         if($request->input('value') > $vcard->balance){
-            return response()->json(['No cash'], 425);
+            return response()->json(['No cash'], 425); 
         }
         $new_balance = $vcard->balance;
         if($request->input('type') == 'D'){
