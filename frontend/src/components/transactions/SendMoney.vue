@@ -3,10 +3,10 @@ import { ref } from 'vue';
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({
-  vcards: {
-    type: Array,
-    default: () => [],
-  },
+    vcards: {
+        type: Array,
+        default: () => [],
+    },
 });
 let quantity = ref('');
 
@@ -29,10 +29,6 @@ const validateInput = () => {
                 <option disabled selected value> Select a VCard </option>
                 <option>932313102</option>
                 <option>933230965</option>
-            </select>
-            <select id="inputState" class="form-control" >
-                <option disabled selected value > Select a VCard </option>
-                <option v-for="vcard in vcards" :key="vcard.phone_number" >{{vcard.phone_number}}</option>
             </select>
             <h5 class="mt-4">Payment Type:</h5>
             <select id="inputState" class="form-control">

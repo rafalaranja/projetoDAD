@@ -14,6 +14,7 @@ import vcardNew from "../components/vcards/vcardNew.vue";
 import DeleteVcard from "../components/vcards/DeleteVcard.vue";
 import Transaction from "../components/transactions/Transaction.vue";
 import SendMoney from "../components/transactions/SendMoney.vue";
+import Statistics from "../components/Statistics.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +79,11 @@ const router = createRouter({
       name: "Task",
       component: Task,
       props: (route) => ({ id: parseInt(route.params.id) }),
+    },
+    {
+      path: "/statistics",
+      name: "Statistics",
+      component: Statistics,
     },
     {
       path: "/transactions",
