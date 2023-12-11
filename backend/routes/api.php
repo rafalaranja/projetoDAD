@@ -33,8 +33,7 @@ Route::middleware('auth:api')->group(function () {
     
     Route::get('transactions', [TransactionController::class,'index']);
     Route::get('transactions/{transaction}', [TransactionController::class,'show'])->middleware('can:view,transaction');
-    Route::delete('users/{user}/delete', [VcardController::class, 'destroy']);
-    
+    Route::get('vcards', [VcardController::class, 'index']);
     
     
     /*Route::get('projects', [ProjectController::class, 'index']);
@@ -61,7 +60,7 @@ Route::patch('users/{user}/pin', [UserController::class, 'update_pin']);//->midd
 Route::post('transactions',[TransactionController::class,'store']);
 
 
-Route::post('/vcard/new', [VcardController::class, 'store']);
-
+Route::post('vcard/new', [VcardController::class, 'store']);
+Route::delete('users/{user}/delete', [VcardController::class, 'destroy']);
 
 

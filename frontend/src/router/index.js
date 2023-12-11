@@ -4,7 +4,7 @@ import Dashboard from "../components/Dashboard.vue";
 import Login from "../components/auth/Login.vue";
 import ChangePassword from "../components/auth/ChangePassword.vue";
 import ChangePin from "../components/auth/ChangePin.vue";
-import Tasks from "../components/vcards/Vcard.vue";
+import Vcards from "../components/vcards/Vcard.vue";
 import Transactions from "../components/transactions/Transactions.vue";
 import User from "../components/users/User.vue";
 import Users from "../components/users/Users.vue";
@@ -55,7 +55,7 @@ const router = createRouter({
     {
       path: "/vcard",
       name: "Vcard",
-      component: Tasks,
+      component: Vcards,
     },
     {
       path: "/deleteVcard/",
@@ -65,7 +65,7 @@ const router = createRouter({
     {
       path: "/tasks/current",
       name: "CurrentTasks",
-      component: Tasks,
+      component: Vcards,
       props: { onlyCurrentTasks: true, tasksTitle: "Current Tasks" },
     },
     {
@@ -91,7 +91,7 @@ const router = createRouter({
       component: Transactions,
     },
     {
-      path: "/transactions/send",
+      path: "/transactions/sendMoney",
       name: "SendMoney",
       component: SendMoney,
     },
@@ -139,6 +139,11 @@ const router = createRouter({
       path: "/users",
       name: "Users",
       component: Users,
+    },
+    {
+      path: "/vcards",
+      name: "Vcards",
+      component: Vcards,
     },
     {
       path: "/users/:id",

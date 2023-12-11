@@ -13,7 +13,6 @@ use Carbon\Carbon;
 class TransactionController extends Controller
 {
     public function index(){
-        
         $transactions = Transaction::all();
         return response ()->json(['data'=>$transactions],200);
     }
@@ -35,19 +34,32 @@ class TransactionController extends Controller
         $vcard = VCard::find($request->input('vcard')); 
 
         if(!$vcard){
-            return response()->json(['No Vcard' => $validator->errors()], 423);
+            return response()->json(['No Vcard'], 423);
         }
 
         if($request->input('value') > $vcard->balance){
-            return response()->json(['No cash'=> $validator->error()], 425);
+            return response()->json(['No cash'], 425); 
         }
         $new_balance = $vcard->balance;
         if($request->input('type') == 'D'){
             $new_balance = $vcard->balance - $request->input('value');
+            if($request->input('payment_type') == 'VCARD'){
+                $customRequest = new Request([
+                    'vcard'=> $request->input('pair_vcard'),
+                    'date' =>  Carbon::now(),
+                    'datetime' =>  Carbon::now(),
+                    'type' => 'C',
+                    'value'=> $request->input('value'),
+                    'pair_vcard' => $request->input('vcard'),
+                    'payment_type' => 'VCARD',
+                    'payment_reference' => $request->input('vcard'),
+                    'description'=> $request->input('description'),
+                ]);
+                $this->store($customRequest);
+            }
         }else{
             $new_balance = $vcard->balance + $request->input('value');
         }
-       
         $newTransaction = Transaction::create([
             'vcard' => $request->input('vcard'),
             'date' =>  Carbon::now(),
