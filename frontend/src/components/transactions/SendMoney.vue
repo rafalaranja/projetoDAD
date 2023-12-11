@@ -1,13 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { defineProps, defineEmits } from "vue";
+import axios from 'axios';
 
-const props = defineProps({
-    vcards: {
-        type: Array,
-        default: () => [],
-    },
-});
+
+const vcards = ref('');
 let quantity = ref('');
 
 const validateInput = () => {
@@ -15,7 +12,24 @@ const validateInput = () => {
         quantity.value = 0;
     }
 };
-
+const loadVcards = async () => {
+  try {
+    const response = await axios.get('vcards')
+    vcards.value = response.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+onMounted(async () => {
+  vcards.value = [];
+  try {
+    const response = await axios.get("vcards");
+    vcards.value = response.data.data;
+    console.log(vcards);
+  } catch (error) {
+    console.log(error);
+  }
+});
 </script>
 
 <template>
@@ -26,9 +40,8 @@ const validateInput = () => {
         <div class="card-body">
             <h5 class="mt-2">Send to:</h5>
             <select id="inputState" class="form-control">
-                <option disabled selected value> Select a VCard </option>
-                <option>932313102</option>
-                <option>933230965</option>
+                <option disabled selected value > Select a VCard </option>
+                <option v-for="vcard in vcards" :key="vcard.id">{{vcard.phone_number}}</option>
             </select>
             <h5 class="mt-4">Payment Type:</h5>
             <select id="inputState" class="form-control">

@@ -20,6 +20,11 @@ class VcardController extends Controller
         $base64Service = new Base64Services();
         return $base64Service->saveFile($base64String, $targetDir, $newfilename);
     }
+    public function index(){
+        
+        $vcard = Vcard::all();
+        return response ()->json(['data'=>$vcard],200);
+    }
 
     public function store(NewVcardRequest $request)
     {
