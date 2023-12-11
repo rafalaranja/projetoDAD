@@ -58,7 +58,7 @@ const router = createRouter({
       component: Vcards,
     },
     {
-      path: "/deleteVcard",
+      path: "/deleteVcard/",
       name: "deleteVcard",
       component: DeleteVcard,
     },

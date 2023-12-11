@@ -22,7 +22,7 @@ const deleteVCard = async () => {
     await userStore.deleteVcard(credentials);
     toast.success("VCard deleted successfully!");
     emit("deletedVCard");
-    router.back();
+    router.push("/login"); // Redireciona para a página de login
   } catch (error) {
     console.log(error);
     if (error.response && error.response.status == 422) {
