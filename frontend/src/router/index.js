@@ -16,6 +16,8 @@ import Transaction from "../components/transactions/Transaction.vue";
 import SendMoney from "../components/transactions/SendMoney.vue";
 import Statistics from "../components/Statistics.vue";
 
+import { useUserStore } from "../stores/users";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -149,6 +151,16 @@ const router = createRouter({
       props: (route) => ({ id: parseInt(route.params.id) }),
     },
   ],
+});
+
+let handlingFirstRoute = true;
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
+  if (handlingFirstRoute) {
+    handlingFirstRoute = false;
+    await userStore.restoreToken();
+  }
+  return next();
 });
 
 export default router;

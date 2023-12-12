@@ -32,6 +32,7 @@ export const useUserStore = defineStore("user", () => {
   }
   function clearUser() {
     delete axios.defaults.headers.common.Authorization;
+    sessionStorage.removeItem("token");
     user.value = null;
   }
 
@@ -63,6 +64,17 @@ export const useUserStore = defineStore("user", () => {
   socket.on("loggedOut", function (user) {
     toast.success("User " + user.name + " has left the application.");
   });
+
+  async function restoreToken() {
+    let storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      axios.defaults.headers.common.Authorization = "Bearer " + storedToken;
+      await loadUser();
+      return true;
+    }
+    clearUser();
+    return false;
+  }
 
   async function logout() {
     try {
@@ -127,5 +139,6 @@ export const useUserStore = defineStore("user", () => {
     changePassword,
     changePin,
     deleteVcard,
+    restoreToken,
   };
 });

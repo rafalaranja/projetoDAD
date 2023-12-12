@@ -15,7 +15,7 @@ const logout = async () => {
   socket.emit("logout", userStore.user);
   if (await userStore.logout()) {
     //toast.success("User has logged out of the application.");
-    router.push({ name: "home" });
+    router.push({ name: "Dashboard" });
   } else {
     toast.error("There was a problem logging out of the application!");
   }
@@ -30,22 +30,6 @@ const logout = async () => {
 // socket.on("loggedIn", function (name) {
 //   toast.info("User " + name + " has entered the application.");
 // });
-const workInProgressProjects = ref([]);
-onMounted(async () => {
-  try {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common.Authorization = "Bearer " + token;
-      userStore.loadUser();
-    }
-
-    const userId = 1;
-    const response = await axios.get("users");
-    workInProgressProjects.value = response.data.data;
-  } catch (error) {
-    console.log(error);
-  }
-});
 </script>
 
 <template>
