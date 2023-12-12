@@ -15,8 +15,8 @@ const userStore = useUserStore();
     <vcard-detail></vcard-detail>
 
 
-    <!--CARDS-->
-    <div class="card mb-3">
+    <!--BUTTONS-->
+    <div class="d-flex justify-content-around">
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'SendMoney' }"
           :to="{ name: 'SendMoney' }">
@@ -24,17 +24,13 @@ const userStore = useUserStore();
           Send Money
         </router-link>
       </button>
-    </div>
-    <div class="card mb-3">
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <i class="bi bi-chat-dots"></i>
         Ask For Money
       </button>
-    </div>
-    <div class="card mb-3">
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <i class="bi bi-receipt-cutoff"></i>
-        Pay Bill
+        Pay Bills
       </button>
     </div>
   </div>
