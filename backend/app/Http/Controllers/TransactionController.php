@@ -13,8 +13,8 @@ use Carbon\Carbon;
 class TransactionController extends Controller
 {
     public function index(){
-        $transactions = Transaction::paginate(10);
-        return $transactions;
+        $transactions = Transaction::all();
+        return response ()->json(['data'=>$transactions],200);
     }
     public function show(Transaction $transaction){
         return new TransactionResource($transaction);
