@@ -61,11 +61,6 @@ onMounted(async () => {
       </button>
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#" v-if="userStore.userName == 'Anonymous'"><i class="bi bi-person-check-fill"></i>
-              Register
-            </a>
-          </li>
           <li class="nav-item" v-if="userStore.userName == 'Anonymous'">
             <router-link class="nav-link" :class="{ active: $route.name === 'Login' }" :to="{ name: 'Login' }">
               <i class="bi bi-box-arrow-in-right"></i>
