@@ -35,13 +35,12 @@ const loadVcards = async () => {
 const submitForm = async () => {
   try {
     if(form.payment_type==="MBWay"){
-      const response = await axios.post("/transactions", form);
+      let response = await axios.post("/transactions", form);
       const vcard = form.vcard;
       form.vcard = form.payment_reference;
       form.payment_reference = vcard;
       form.type='C'
       response = await axios.post("/transactions", form);
-      toast.success("Transação feita com sucesso!");
       router.push("/transactions");
     }else{
       console.log(form);
