@@ -27,7 +27,8 @@ const loadTransactions = async () => {
   try {
     const response = await axios.get('transactions')
     transactions.value = response.data.data
-    console.log('Total transactions: ', transactions.value.length);
+    //console.log('Total transactions: ', transactions.value.length);
+
   } catch (error) {
     console.log(error)
   }
@@ -129,7 +130,8 @@ onMounted(() => {
     </div>
   </div>
 
-  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @view="viewTransaction"></transaction-table>
+  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true"
+    @view="viewTransaction"></transaction-table>
 
   <div class="pagination-controls">
     <button type="button" class="btn btn-success" @click="goToPreviousPage"

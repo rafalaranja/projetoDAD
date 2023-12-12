@@ -103,8 +103,8 @@ watch(
   () => props.id,
   (newValue) => {
     loadTransaction(newValue)
-  }, 
-  { immediate: true}
+  },
+  { immediate: true }
 )
 
 let nextCallBack = null
