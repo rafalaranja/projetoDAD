@@ -23,7 +23,7 @@ const login = async () => {
     // );
     // emit('login')
     socket.emit("login", userStore.user); // porque o store do user é assincrono
-    router.push("/dashboard");
+    router.push("/");
   } else {
     credentials.value.password = "";
     toast.error("User credentials are invalid!");
@@ -38,25 +38,13 @@ const login = async () => {
     <div class="mb-3">
       <div class="mb-3">
         <label for="inputUsername" class="form-label">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputUsername"
-          required
-          v-model="credentials.username"
-        />
+        <input type="text" class="form-control" id="inputUsername" required v-model="credentials.username" />
       </div>
     </div>
     <div class="mb-3">
       <div class="mb-3">
         <label for="inputPassword" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="inputPassword"
-          required
-          v-model="credentials.password"
-        />
+        <input type="password" class="form-control" id="inputPassword" required v-model="credentials.password" />
       </div>
     </div>
     <div class="mb-3 d-flex justify-content-center">

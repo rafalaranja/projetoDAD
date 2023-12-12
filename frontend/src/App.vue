@@ -140,11 +140,6 @@ onMounted(async () => {
             </li>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'Vcard' }"
-                :to="{ name: 'Vcard' }">
-                <i class="bi bi-credit-card"></i>
-                Vcard
-              </router-link>
             </li>
             <li class="nav-item" v-else>
               <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'NewTask' }"
@@ -153,6 +148,7 @@ onMounted(async () => {
                 Create Vcard
               </router-link>
             </li>
+            <hr>
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
               <router-link class="nav-link" :class="{ active: $route.name === 'Users' }" :to="{ name: 'Users' }">
                 <i class="bi bi-people"></i>

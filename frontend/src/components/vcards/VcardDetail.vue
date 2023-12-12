@@ -11,12 +11,6 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="d-flex justify-content-between">
-    <div class="mx-2">
-      <h3 class="mt-4">VCard</h3>
-    </div>
-  </div>
-  <hr>
   <div class="card text-center m-4">
     <div class="card-header bg-dark text-white">
       <h5>933282291</h5>

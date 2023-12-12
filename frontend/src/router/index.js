@@ -21,8 +21,8 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      name: "Dashboard",
+      component: Dashboard,
     },
     {
       path: "/about",
@@ -46,11 +46,6 @@ const router = createRouter({
       path: "/pin",
       name: "ChangePin",
       component: ChangePin,
-    },
-    {
-      path: "/dashboard",
-      name: "Dashboard",
-      component: Dashboard,
     },
     {
       path: "/vcard",
