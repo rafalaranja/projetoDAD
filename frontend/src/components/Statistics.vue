@@ -1,14 +1,29 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import Chart from 'chart.js/auto';
+import axios from 'axios';
 
 const canvasRef = ref(null);    //graph1
 const pieCanvasRef = ref(null); //graph2
+const statistics = ref([]);
 
-onMounted(() => {
+const loadStatistics = async () => {
+  try {
+    const response = await axios.get("statistics");
+    statistics.value = response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+  
+};
+
+
+onMounted(async () => {
     const ctx = canvasRef.value.getContext('2d');
     const pieCtx = pieCanvasRef.value.getContext('2d');
 
+    loadStatistics();
+    
     new Chart(ctx, {
         type: 'bar',
         data: {

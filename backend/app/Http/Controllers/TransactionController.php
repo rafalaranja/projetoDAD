@@ -66,10 +66,17 @@ class TransactionController extends Controller
     
     $vcard->balance = $new_balance;
     
-
+    
     $vcard->save();
 
 
     return new TransactionResource($newTransaction);
 }
+
+public function loadStatistics(){
+    $statistics = Transaction::all();
+    return $statistics;
+}
+
+
 }
