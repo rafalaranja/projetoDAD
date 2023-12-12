@@ -70,5 +70,16 @@ class VcardController extends Controller
             return response()->json(['error' => 'User not authenticated'], 401);
         }
     }
+
+    public function load($user)
+{
+    $vcard = VCard::where('phone_number', $user)->first();
+
+    if ($vcard) {
+        return new VcardResource($vcard);
+    } else {
+        return response()->json(['error' => 'VCard not found'], 404);
+    }
+}
     
 }

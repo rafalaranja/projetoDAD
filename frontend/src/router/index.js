@@ -15,6 +15,7 @@ import DeleteVcard from "../components/vcards/DeleteVcard.vue";
 import Transaction from "../components/transactions/Transaction.vue";
 import SendMoney from "../components/transactions/SendMoney.vue";
 import Statistics from "../components/Statistics.vue";
+import VcardDetail from "../components/vcards/VcardDetail.vue";
 
 import { useUserStore } from "../stores/users";
 
@@ -141,6 +142,11 @@ const router = createRouter({
       path: "/vcards",
       name: "Vcards",
       component: Vcards,
+    },
+    {
+      path: "/vcard/:id",
+      name: "VcardDetail",
+      component: VcardDetail,
     },
     {
       path: "/users/:id",

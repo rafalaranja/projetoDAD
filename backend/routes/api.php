@@ -61,6 +61,7 @@ Route::post('transactions',[TransactionController::class,'store']);
 
 
 Route::post('vcard/new', [VcardController::class, 'store']);
-Route::delete('users/{user}/delete', [VcardController::class, 'destroy']);
+Route::delete('users/{user}/delete', [VcardController::class, 'load']);
+Route::get('vcard/{user}/load', [VcardController::class, 'load']);
 
 

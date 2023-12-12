@@ -1,96 +1,92 @@
 <script setup>
-import axios from 'axios'
-import { useRouter } from 'vue-router'
-import { ref, computed, onMounted } from 'vue'
+import axios from "axios";
+import { useRouter } from "vue-router";
+import { ref, computed, onMounted } from "vue";
 
-const router = useRouter()
+const router = useRouter();
 
 const loadVCards = async () => {
-
   try {
-    const response = await axios.get('users/' + userId + '/tasks')
-    tasks.value = response.data.data
+    const response = await axios.get("users/" + userId + "/tasks");
+    tasks.value = response.data.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const loadTransactions = async () => {
   try {
-    const response = await axios.get('transactions')
-    transactions.value = response.data.data
+    const response = await axios.get("transactions");
+    transactions.value = response.data.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const addVCard = () => {
-  router.push({ name: 'NewVCard' })
-}
+  router.push({ name: "NewVCard" });
+};
 
 const editVCard = (task) => {
-  router.push({ name: 'VCard', params: { id: task.id } })
-}
-
+  router.push({ name: "VCard", params: { id: task.id } });
+};
 
 const deletedVCard = (deletedVCard) => {
-  let idx = tasks.value.findIndex((t) => t.id === deletedVCard.id)
+  let idx = tasks.value.findIndex((t) => t.id === deletedVCard.id);
   if (idx >= 0) {
-    tasks.value.splice(idx, 1)
+    tasks.value.splice(idx, 1);
   }
-}
+};
 
 const props = defineProps({
   tasksTitle: {
     type: String,
-    default: 'Vcards'
+    default: "Vcards",
   },
   onlyCurrentVCards: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-const tasks = ref([])
-const transactions = ref([])
-const filterByTransactionId = ref(-1)
-const filterByCompleted = ref(-1)
+const tasks = ref([]);
+const transactions = ref([]);
+const filterByTransactionId = ref(-1);
+const filterByCompleted = ref(-1);
 
 const filteredVCards = computed(() => {
-  return tasks.value.filter(t =>
-    (props.onlyCurrentVCards && !t.completed)
-    ||
-    (!props.onlyCurrentVCards && (
-      (filterByTransactionId.value == -1
-        || filterByTransactionId.value == t.transaction_id
-      ) &&
-      (filterByCompleted.value == -1
-        || filterByCompleted.value == 0 && !t.completed
-        || filterByCompleted.value == 1 && t.completed
-      ))))
-
-})
+  return tasks.value.filter(
+    (t) =>
+      (props.onlyCurrentVCards && !t.completed) ||
+      (!props.onlyCurrentVCards &&
+        (filterByTransactionId.value == -1 ||
+          filterByTransactionId.value == t.transaction_id) &&
+        (filterByCompleted.value == -1 ||
+          (filterByCompleted.value == 0 && !t.completed) ||
+          (filterByCompleted.value == 1 && t.completed)))
+  );
+});
 
 const totalVCards = computed(() => {
-  return tasks.value.reduce((c, t) =>
-    (props.onlyCurrentVCards && !t.completed)
-      ||
-      (!props.onlyCurrentVCards && (
-        (filterByTransactionId.value == -1
-          || filterByTransactionId.value == t.transaction_id
-        ) &&
-        (filterByCompleted.value == -1
-          || filterByCompleted.value == 0 && !t.completed
-          || filterByCompleted.value == 1 && t.completed
-        ))) ? c + 1 : c, 0)
-
-})
-
+  return tasks.value.reduce(
+    (c, t) =>
+      (props.onlyCurrentVCards && !t.completed) ||
+      (!props.onlyCurrentVCards &&
+        (filterByTransactionId.value == -1 ||
+          filterByTransactionId.value == t.transaction_id) &&
+        (filterByCompleted.value == -1 ||
+          (filterByCompleted.value == 0 && !t.completed) ||
+          (filterByCompleted.value == 1 && t.completed)))
+        ? c + 1
+        : c,
+    0
+  );
+});
 
 onMounted(() => {
-  loadTransactions()
-  loadVCards()
-})
+  loadTransactions();
+  loadVCards();
+});
 </script>
 
 <template>
@@ -99,13 +95,13 @@ onMounted(() => {
       <h3 class="mt-4">VCard</h3>
     </div>
   </div>
-  <hr>
+  <hr />
   <div class="card text-center m-4">
     <div class="card-header bg-dark text-white">
       <h5>933282291</h5>
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{}}</h5>
+      <h5 class="card-title"></h5>
       <h3 class="pt-2">BALANCE</h3>
       <h5 class="card-text pb-3 pt-1">20.22€</h5>
     </div>
@@ -115,7 +111,6 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .filter-div {
