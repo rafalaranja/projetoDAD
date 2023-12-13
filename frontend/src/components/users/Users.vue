@@ -17,16 +17,13 @@ const totalUsers = computed(() => {
 const loadUsers = async () => {
   try {
     const response = await axios.get(`users?page=${currentPage.value}`);
-    console.log("loadUsers response", response); // Adicione esta linha
     users.value = response.data.data;
     totalPages.value = response.data.last_page;
-    console.log("Users data", users.value); // Adicione esta linha
   } catch (error) {
     console.log(error);
   }
 };
 const nextPage = () => {
-  console.log("Next page clicked"); // Adicione esta linha
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
     loadUsers();
@@ -34,7 +31,6 @@ const nextPage = () => {
 };
 
 const prevPage = () => {
-  console.log("Previous page clicked"); // Adicione esta linha
   if (currentPage.value > 1) {
     currentPage.value--;
     loadUsers();
