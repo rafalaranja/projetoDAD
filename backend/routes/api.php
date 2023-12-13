@@ -66,5 +66,5 @@ Route::delete('users/{user}/delete', [VcardController::class, 'load']);
 Route::get('vcard/{user}/load', [VcardController::class, 'load']);
 
 
-Route::get('statistics', [TransactionController::class, 'loadStatistics']);
+Route::get('statistics/{user}/load', [TransactionController::class, 'loadStatistics']);
 

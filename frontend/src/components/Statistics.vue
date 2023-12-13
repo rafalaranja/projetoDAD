@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const canvasRef = ref(null);    //graph1
 const pieCanvasRef = ref(null); //graph2
+const lineCanvasRef = ref(null); //graph3
 const statistics = ref([]);
 
 const loadStatistics = async () => {
@@ -20,6 +21,7 @@ const loadStatistics = async () => {
 onMounted(async () => {
     const ctx = canvasRef.value.getContext('2d');
     const pieCtx = pieCanvasRef.value.getContext('2d');
+    const lineCtx = lineCanvasRef.value.getContext('2d');
 
     loadStatistics();
 
@@ -45,6 +47,20 @@ onMounted(async () => {
 
     new Chart(pieCtx, {
         type: 'pie',
+        data: {
+            labels: ['MB', 'IBAN', 'VCard', 'Visa', 'Paypal', 'MBWAY'],
+            datasets: [{
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c'],
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+    new Chart(lineCtx, {
+        type: 'line',
         data: {
             labels: ['MB', 'IBAN', 'VCard', 'Visa', 'Paypal', 'MBWAY'],
             datasets: [{
@@ -94,6 +110,14 @@ onMounted(async () => {
         <div class="card-body d-flex justify-content-center">
           <div class="canvas-pie">
             <canvas ref="pieCanvasRef"></canvas>
+          </div>
+        </div>
+        </div>
+        <div class="card m-4">
+        <div class="card-header">Payment Type Distribution</div>
+        <div class="card-body d-flex justify-content-center">
+          <div class="canvas-pie">
+            <canvas ref="lineCanvasRef"></canvas>
           </div>
         </div>
       </div>
