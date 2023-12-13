@@ -63,6 +63,7 @@ const editClick = (user) => {
         <th class="align-middle">Name</th>
         <th v-if="showUsername" class="align-middle">Phone Number</th>
         <th v-if="showAdmin" class="align-middle">Admin</th>
+        <th class="align-middle">Blocked</th>
         <th></th>
       </tr>
     </thead>
@@ -75,8 +76,9 @@ const editClick = (user) => {
         <td class="align-middle">{{ user.name }}</td>
         <td v-if="showUsername" class="align-middle">{{ user.username }}</td>
         <td v-if="showAdmin" class="align-middle">
-          {{ user.user_type == "A" ? "Sim" : "Não" }}
+          {{ user.user_type == "A" ? "Yes" : "No" }}
         </td>
+        <td class="align-middle">{{ user.blocked == "1" ? "Yes" : "No" }}</td>
         <td class="text-end align-middle" v-if="showEditButton">
           <div class="d-flex justify-content-end" v-if="canViewUserDetail(user.id)">
             <button class="btn btn-xs btn-light" @click="editClick(user)" v-if="showEditButton">
