@@ -14,6 +14,8 @@ const canViewUserDetail = (userId) => {
   return userStore.user.user_type == "A" || userStore.user.id == userId;
 };
 
+
+
 const props = defineProps({
   users: {
     type: Array,

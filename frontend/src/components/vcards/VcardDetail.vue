@@ -24,20 +24,17 @@ defineExpose({ vcards });
 </script>
 
 <template>
-  <div class="card text-center m-4" v-if="vcards">
-    <!-- Verifique se vcards não é null -->
+  <div class="card text-center my-4 mx-5" v-if="vcards">
     <div class="card-header bg-dark text-white">
-      <h5>{{ vcards.phone_number }}</h5>
+      <h5>{{ vcards.name }} ({{ vcards.phone_number }})</h5>
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{ vcards.name }}</h5>
-      <!-- Acesse as propriedades de vcards -->
-      <h3 class="pt-2">BALANCE</h3>
-      <h5 class="card-text pb-3 pt-1">{{ vcards.balance }}</h5>
+      <h4 class="pt-2 text-success">BALANCE</h4>
+      <h1 class="card-text pb-3 pt-1 mt-3">{{ vcards.balance }}€</h1>
     </div>
     <div class="card-footer text-muted">
-      <h5>MAX DEBIT</h5>
-      {{ vcards.max_debit }}€
+      <h4 class="text-danger">MAX DEBIT</h4>
+      <h5 class="text-muted">{{ vcards.max_debit }}€</h5>
     </div>
   </div>
 </template>

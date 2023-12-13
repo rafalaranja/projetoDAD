@@ -10,7 +10,8 @@ const statistics = ref([]);
 
 const loadStatistics = async () => {
   try {
-    const response = await axios.get(`/statistics`);
+    const response = await axios.get(`statistics/{user}/load`);
+    statistics.value = response.data.data
 
     console.log(response.data.data)
   } catch (error) {
