@@ -74,7 +74,9 @@ class TransactionController extends Controller
 }
 
 public function loadStatistics(){
-    $statistics = Transaction::all();
+    $statistics = Transaction::select(Transaction::raw('MONTH(date) as month'), Transaction::raw('COUNT(*) as count'))
+                    ->groupBy('month')
+                    ->get();
     return $statistics;
 }
 
