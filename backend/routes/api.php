@@ -6,6 +6,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\VcardController;
+use App\Http\Controllers\CategorieController;
 use App\Models\Transaction;
 
 /*
@@ -67,4 +68,6 @@ Route::get('vcard/{user}/load', [VcardController::class, 'load']);
 
 
 Route::get('statistics/{user}/load', [TransactionController::class, 'loadStatistics']);
+
+Route::get('categories', [CategorieController::class, 'index']);
 

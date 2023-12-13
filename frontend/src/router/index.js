@@ -16,6 +16,7 @@ import Transaction from "../components/transactions/Transaction.vue";
 import SendMoney from "../components/transactions/SendMoney.vue";
 import Statistics from "../components/Statistics.vue";
 import VcardDetail from "../components/vcards/VcardDetail.vue";
+import Categories from "../components/categories/Categories.vue";
 
 import { useUserStore } from "../stores/users";
 
@@ -147,6 +148,11 @@ const router = createRouter({
       path: "/vcard/:id",
       name: "VcardDetail",
       component: VcardDetail,
+    },
+    {
+      path: "/Categories",
+      name: "Categories",
+      component: Categories,
     },
     {
       path: "/users/:id",

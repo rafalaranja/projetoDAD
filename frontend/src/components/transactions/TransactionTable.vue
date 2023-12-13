@@ -1,5 +1,4 @@
 <script setup>
-
 import { defineProps, defineEmits } from "vue";
 import { useUserStore } from "../../stores/users.js";
 import { computed } from "vue";
@@ -43,7 +42,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-})
+});
 
 if (userStore.user.type == "A") {
   props.showVcard = true;
@@ -51,7 +50,7 @@ if (userStore.user.type == "A") {
   console.log("userStore.user.type: ", userStore.user.type);
 }
 
-const emit = defineEmits(['view'])
+const emit = defineEmits(["view"]);
 
 const viewTransaction = (transaction) => {
   emit("view", transaction);
@@ -61,7 +60,6 @@ const viewTransaction = (transaction) => {
 const shouldShowVcard = computed(() => {
   return userStore.user.type == "A" || props.showVcard;
 });
-
 </script>
 
 <template>
@@ -83,13 +81,24 @@ const shouldShowVcard = computed(() => {
         <td>{{ transaction.id }}</td>
         <td v-if="shouldShowVcard">{{ transaction.vcard }}</td>
         <td>{{ transaction.date }}</td>
-        <td>{{ transaction.type }}</td>
+        <td>
+          {{
+            transaction.type == "C"
+              ? "Credito"
+              : transaction.type == "D"
+              ? "Debito"
+              : transaction.type
+          }}
+        </td>
         <td>{{ transaction.value }}</td>
         <td>{{ transaction.payment_type }}</td>
         <td>{{ transaction.payment_reference }}</td>
         <td>
-          <button class="btn btn-outline-dark p-0 mx-auto d-flex" @click="viewTransaction(transaction)"
-            v-if="showEditButton">
+          <button
+            class="btn btn-outline-dark p-0 mx-auto d-flex"
+            @click="viewTransaction(transaction)"
+            v-if="showEditButton"
+          >
             <i class="bi bi-eye mx-auto px-2"></i>
           </button>
         </td>

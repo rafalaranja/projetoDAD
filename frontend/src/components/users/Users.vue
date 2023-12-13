@@ -23,6 +23,7 @@ const loadUsers = async () => {
     console.log(error);
   }
 };
+
 const nextPage = () => {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
