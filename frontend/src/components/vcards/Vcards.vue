@@ -8,7 +8,7 @@ const router = useRouter();
 const loadVCards = async () => {
   try {
     const response = await axios.get("users/" + userId + "/tasks");
-    tasks.value = response.data.data;
+    vcards.value = response.data.data;
   } catch (error) {
     console.log(error);
   }
@@ -32,14 +32,14 @@ const editVCard = (task) => {
 };
 
 const deletedVCard = (deletedVCard) => {
-  let idx = tasks.value.findIndex((t) => t.id === deletedVCard.id);
+  let idx = vcards.value.findIndex((t) => t.id === deletedVCard.id);
   if (idx >= 0) {
-    tasks.value.splice(idx, 1);
+    vcards.value.splice(idx, 1);
   }
 };
 
 const props = defineProps({
-  tasksTitle: {
+  vcardsTitle: {
     type: String,
     default: "Vcards",
   },
@@ -49,13 +49,13 @@ const props = defineProps({
   },
 });
 
-const tasks = ref([]);
+const vcards = ref([]);
 const transactions = ref([]);
 const filterByTransactionId = ref(-1);
 const filterByCompleted = ref(-1);
 
 const filteredVCards = computed(() => {
-  return tasks.value.filter(
+  return vcards.value.filter(
     (t) =>
       (props.onlyCurrentVCards && !t.completed) ||
       (!props.onlyCurrentVCards &&
@@ -68,15 +68,15 @@ const filteredVCards = computed(() => {
 });
 
 const totalVCards = computed(() => {
-  return tasks.value.reduce(
+  return vcards.value.reduce(
     (c, t) =>
       (props.onlyCurrentVCards && !t.completed) ||
-      (!props.onlyCurrentVCards &&
-        (filterByTransactionId.value == -1 ||
-          filterByTransactionId.value == t.transaction_id) &&
-        (filterByCompleted.value == -1 ||
-          (filterByCompleted.value == 0 && !t.completed) ||
-          (filterByCompleted.value == 1 && t.completed)))
+        (!props.onlyCurrentVCards &&
+          (filterByTransactionId.value == -1 ||
+            filterByTransactionId.value == t.transaction_id) &&
+          (filterByCompleted.value == -1 ||
+            (filterByCompleted.value == 0 && !t.completed) ||
+            (filterByCompleted.value == 1 && t.completed)))
         ? c + 1
         : c,
     0

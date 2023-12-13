@@ -23,18 +23,21 @@ const pageSize = 10;
 
 
 
-const loadTransactions = async () => {
+const loadTransactions = async (page = 1) => {
   try {
-    const response = await axios.get('transactions')
-    transactions.value = response.data.data
-    //console.log('Total transactions: ', transactions.value.length);
+    const response = await axios.get(`/transactions?page=${page}`);
+    transactions.value = response.data.data;
+    currentPage.value = response.data.current_page;
+    totalPages.value = response.data.last_page;
 
+    console.log(response.data.data);
+    console.log(response.data.current_page);
   } catch (error) {
-    console.log(error)
+    console.error('Error loading transactions:', error);
   }
-}
+};
 
-const loadUsers = async () => {
+const loadUsers = async (page = 1) => {
   try {
     const response = await axios.get('users')
     users.value = response.data.data
@@ -79,33 +82,14 @@ const filteredTransactions = computed(() => {
   }
 })
 
-const totalTransactions = computed(() => {
-  return filteredTransactions.value.length
-})
 const paginatedItems = computed(() => {
-  if (Array.isArray(filteredTransactions.value)) {
-    const start = (currentPage.value - 1) * pageSize;
-    const end = start + pageSize;// Verifique se transactions.value é um array antes de chamar slice
-
-    return filteredTransactions.value.slice(start, end);
+  if (Array.isArray(transactions.value)) {
+    return transactions.value;
   } else {
-    // Trate o caso em que transactions.value não é um array, por exemplo, definindo um valor padrão
     return [];
   }
 });
-const totalPages = computed(() => Math.ceil(filteredTransactions.value.length / pageSize));
-
-const updatePage = (page) => {
-  currentPage.value = page;
-};
-
-const goToPreviousPage = () => {
-  updatePage(currentPage.value - 1);
-};
-
-const goToNextPage = () => {
-  updatePage(currentPage.value + 1);
-};
+const totalPages = ref(1);
 
 onMounted(() => {
   loadUsers()
@@ -125,19 +109,16 @@ onMounted(() => {
     <div class="mx-2">
       <h3 class="mt-4">Transactions</h3>
     </div>
-    <div class="mx-2 total-filtro">
-      <h5 class="mt-4">Total: {{ totalTransactions }}</h5>
-    </div>
   </div>
 
   <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true"
     @view="viewTransaction"></transaction-table>
 
   <div class="pagination-controls">
-    <button type="button" class="btn btn-success" @click="goToPreviousPage"
+    <button class="btn btn-success" @click="loadTransactions(currentPage - 1)"
       :disabled="currentPage === 1">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button type="button" class="btn btn-success" @click="goToNextPage"
+    <button class="btn btn-success" @click="loadTransactions(currentPage + 1)"
       :disabled="currentPage === totalPages">Next</button>
   </div>
 </template>
