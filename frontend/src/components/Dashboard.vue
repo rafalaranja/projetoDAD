@@ -4,6 +4,7 @@ import { useUserStore } from "../stores/users";
 import VcardDetail from "./vcards/VcardDetail.vue";
 
 const userStore = useUserStore();
+
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const userStore = useUserStore();
 
 
     <!--BUTTONS-->
-    <div class="d-flex justify-content-around">
+    <div v-if="userStore.user.type != 'A'" class="d-flex justify-content-around">
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'SendMoney' }"
           :to="{ name: 'SendMoney' }">
@@ -32,6 +33,9 @@ const userStore = useUserStore();
         <i class="bi bi-receipt-cutoff"></i>
         Pay Bills
       </button>
+    </div>
+    <div v-else>
+      <h2 class="d-flex mx-auto justify-content-center">Welcome {{ userStore.userName }}</h2>
     </div>
   </div>
 </template>
