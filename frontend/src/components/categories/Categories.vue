@@ -1,70 +1,52 @@
-<script setup>
-import { ref, onMounted } from "vue";
+<script>
 import axios from "axios";
-import { useUserStore } from "../../stores/users.js";
 
-const userStore = useUserStore();
-
-const categories = ref([]);
-const currentPage = ref(1);
-const totalPages = ref(0);
-
-const loadCategories = async () => {
-  try {
-    const response = await axios.get(`categories?page=${currentPage.value}`);
-    categories.value = response.data.data;
-    totalPages.value = response.data.last_page;
-  } catch (error) {
-    console.log(error);
-  }
+export default {
+  data() {
+    return {
+      categories: [],
+      currentPage: 1,
+      totalPages: 1,
+    };
+  },
+  methods: {
+    fetchCategories() {
+      axios.get(`/categories?page=${this.currentPage}`).then((response) => {
+        this.categories = response.data.data;
+        this.currentPage = response.data.current_page;
+        this.totalPages = response.data.last_page;
+      });
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchCategories();
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchCategories();
+      }
+    },
+  },
+  created() {
+    this.fetchCategories();
+  },
 };
-
-const nextPage = () => {
-  currentPage.value++;
-  loadCategories();
-};
-
-const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-    loadCategories();
-  }
-};
-
-onMounted(async () => {
-  try {
-    await loadCategories();
-  } catch (error) {
-    console.log(error);
-  }
-});
 </script>
 
 <template>
   <table class="table">
     <thead>
       <tr>
-        <th class="align-middle">Id</th>
-        <th class="align-middle">VCard</th>
-        <th class="align-middle">Type</th>
         <th class="align-middle">Name</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="category in categories" :key="category.id">
-        <td class="align-middle">{{ category.id }}</td>
-        <td class="align-middle">{{ category.vcard }}</td>
-        <td class="align-middle">
-          {{
-            category.type == "D"
-              ? "Debito"
-              : category.type == "C"
-              ? "Credito"
-              : category.type
-          }}
-        </td>
-        <td class="align-middle">{{ category.name }}</td>
+        <td class="align-middle">{{ category }}</td>
         <td class="text-end align-middle">
           <div class="d-flex justify-content-end">
             <button class="btn btn-xs btn-light" @click="editClick(category)">
