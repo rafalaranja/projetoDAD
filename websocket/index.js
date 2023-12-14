@@ -7,6 +7,7 @@ const io = require("socket.io")(httpServer, {
     credentials: true,
   },
 });
+const connectedUser={};
 httpServer.listen(8080, () => {
   console.log("listening on *:8080");
 });
@@ -23,14 +24,24 @@ io.on("connection", (socket) => {
   //     socket.leave(user.id);
   //     socket.leave("administrator");
   //   });
-
+  socket.on("ask",function(ask){
+    console.log("ask",ask);
+    try{
+    const recipientSocketId = connectedUser[ask.vcard_dest]
+    io.to(recipientSocketId).emit("askResponse",ask);
+    } catch (error) {
+    console.error("Erro ao enviar ask para o usuário de destino:", error.message);
+    }
+  });
   socket.on("login", function (user) {
-    console.log("login", user);
+    console.log("login", user.id);
+    connectedUser[user.id] = socket.id;
     socket.emit("loggedIn", user);
   });
 
   socket.on("logout", function (user) {
     console.log("logout", user);
+    delete connectedUser[user.id];
     socket.emit("loggedOut", user);
   });
 });
