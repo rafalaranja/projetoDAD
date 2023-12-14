@@ -27,12 +27,12 @@ const formatDate = (dateString) => {
   )
     .toString()
     .padStart(2, "0")}-${date.getUTCFullYear()} ${date
-    .getUTCHours()
-    .toString()
-    .padStart(2, "0")}:${date
-    .getUTCMinutes()
-    .toString()
-    .padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`;
+      .getUTCHours()
+      .toString()
+      .padStart(2, "0")}:${date
+        .getUTCMinutes()
+        .toString()
+        .padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`;
 };
 </script>
 <template>
@@ -48,9 +48,6 @@ const formatDate = (dateString) => {
         <h5 v-if="currentTransaction.pair_vcard">
           Pair VCard: {{ currentTransaction.pair_vcard }}
         </h5>
-      </div>
-      <div class="d-flex justify-content-end mx-5 mt-4">
-        <h6>Type: {{ currentTransaction.type }}</h6>
       </div>
       <div class="d-flex justify-content-between mx-5 mt-4">
         <h6>Payment Type: {{ currentTransaction.payment_type }}</h6>
@@ -73,10 +70,7 @@ const formatDate = (dateString) => {
       </div>
     </div>
   </div>
-  <router-link
-    :class="{ active: $route.name === 'Transactions' }"
-    :to="{ name: 'Transactions' }"
-  >
+  <router-link :class="{ active: $route.name === 'Transactions' }" :to="{ name: 'Transactions' }">
     <button type="button" class="btn btn-danger mt-3">Back</button>
   </router-link>
 </template>
