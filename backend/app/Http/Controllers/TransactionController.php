@@ -8,12 +8,20 @@ use App\Models\Transaction;
 use App\Http\Resources\TransactionResource;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class TransactionController extends Controller
 {
     public function index(){
-        $transactions = Transaction::paginate(10);
+        // If the user is an admin, return all transactions
+        if (Auth::user()->user_type === 'A') {
+            $transactions = Transaction::paginate(10);
+        } else {
+            // If the user is not an admin, return only their transactions
+            $transactions = Transaction::where('vcard', Auth::user()->id)->paginate(10);
+        }
+
         return $transactions;
     }
     public function show(Transaction $transaction){

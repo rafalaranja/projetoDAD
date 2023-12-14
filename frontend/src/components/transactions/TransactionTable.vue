@@ -69,7 +69,6 @@ const shouldShowVcard = computed(() => {
         <th>ID</th>
         <th v-if="shouldShowVcard">VCard</th>
         <th>Date</th>
-        <th v-if="showResponsible">Type</th>
         <th v-if="showDates">Value</th>
         <th v-if="showDates">Payment Type</th>
         <th v-if="showDates">Payment Reference</th>
@@ -80,25 +79,13 @@ const shouldShowVcard = computed(() => {
       <tr v-for="transaction in transactions" :key="transaction.id">
         <td>{{ transaction.id }}</td>
         <td v-if="shouldShowVcard">{{ transaction.vcard }}</td>
-        <td>{{ transaction.date }}</td>
-        <td>
-          {{
-            transaction.type == "C"
-              ? "Credito"
-              : transaction.type == "D"
-              ? "Debito"
-              : transaction.type
-          }}
-        </td>
+        <td>{{ new Date(transaction.date).toLocaleDateString('en-GB') }}</td>
         <td>{{ transaction.value }}</td>
         <td>{{ transaction.payment_type }}</td>
         <td>{{ transaction.payment_reference }}</td>
         <td>
-          <button
-            class="btn btn-outline-dark p-0 mx-auto d-flex"
-            @click="viewTransaction(transaction)"
-            v-if="showEditButton"
-          >
+          <button class="btn btn-outline-dark p-0 mx-auto d-flex" @click="viewTransaction(transaction)"
+            v-if="showEditButton">
             <i class="bi bi-eye mx-auto px-2"></i>
           </button>
         </td>

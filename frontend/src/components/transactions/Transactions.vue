@@ -72,15 +72,6 @@ const transactionToDeleteDescription = computed(() => transactionToDelete.value
   ? `#${transactionToDelete.value.id} (${transactionToDelete.value.name})`
   : "")
 
-const filteredTransactions = computed(() => {
-  if (transactions.value.filter(p => (userStore.userId == p.vcard)).length == 0) {
-    return transactions.value;
-  } else {
-    return transactions.value.filter(p =>
-      (userStore.userId == p.vcard)
-    );
-  }
-})
 
 const paginatedItems = computed(() => {
   if (Array.isArray(transactions.value)) {
