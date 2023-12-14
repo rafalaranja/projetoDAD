@@ -43,10 +43,9 @@ const submitForm = async () => {
       response = await axios.post("/transactions", form);
       router.push("/transactions");
     }else{
-      console.log(form);
       const response = await axios.post("/transactions", form);
-      toast.success("Transação feita com sucesso!");
       router.push("/transactions");
+      toast.success("Transação feita com sucesso!");
     }
     
   } catch (error) {

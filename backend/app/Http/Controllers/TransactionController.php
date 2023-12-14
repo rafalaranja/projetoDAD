@@ -43,12 +43,12 @@ class TransactionController extends Controller
     $vcard = VCard::find($request->input('vcard'));
 
     if (!$vcard) {
-        return response()->json(['No Vcard'], 423);
+        return response()->json(['error'=>'No Vcard','messasge'=>'Sem vcard associado'], 422);
     }
 
     if($request->input('type') == 'D'){
         if ($request->input('value') > $vcard->balance) {
-            return response()->json(['No cash'], 425);
+            return response()->json(['error' => 'No cash','message'=>'Fundos Insuficientes'], 422);
         }
     }
 
