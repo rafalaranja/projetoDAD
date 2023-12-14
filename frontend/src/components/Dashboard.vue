@@ -26,8 +26,11 @@ const userStore = useUserStore();
         </router-link>
       </button>
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
+        <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'AskMoney' }"
+          :to="{ name: 'AskMoney' }">
         <i class="bi bi-chat-dots"></i>
         Ask For Money
+        </router-link>
       </button>
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <i class="bi bi-receipt-cutoff"></i>

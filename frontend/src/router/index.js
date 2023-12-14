@@ -15,6 +15,7 @@ import DeleteVcard from "../components/vcards/DeleteVcard.vue";
 import Transaction from "../components/transactions/Transaction.vue";
 import SendMoney from "../components/transactions/SendMoney.vue";
 import Statistics from "../components/Statistics.vue";
+import AskMoney from "../components/transactions/AskMoney.vue";
 import VcardDetail from "../components/vcards/VcardDetail.vue";
 import Categories from "../components/categories/Categories.vue";
 
@@ -93,6 +94,11 @@ const router = createRouter({
       path: "/transactions/sendMoney",
       name: "SendMoney",
       component: SendMoney,
+    },
+    {
+      path: "/transactions/askMoney",
+      name: "AskMoney",
+      component: AskMoney,
     },
     {
       path: "/projects/new",
