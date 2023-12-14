@@ -23,6 +23,12 @@ const validateInput = () => {
     form.value = 0;
   }
 };
+const props = defineProps({
+  transactions: {
+    type: Array,
+    default: () => [],
+  },
+});
 
 const loadVcards = async () => {
   try {
@@ -32,6 +38,12 @@ const loadVcards = async () => {
     console.log(error);
   }
 };
+const emit = defineEmits(['view']);
+const viewTransaction = (transaction) => {
+  emit("view", transaction);
+  console.log(transaction);
+};
+
 const submitForm = async () => {
   try {
     if(form.payment_type==="MBWay"){
@@ -41,13 +53,16 @@ const submitForm = async () => {
       form.payment_reference = vcard;
       form.type='C'
       response = await axios.post("/transactions", form);
-      router.push("/transactions");
+      const idTransaction = response.data.data.id-1;
+      router.push(`/transactions/${idTransaction}`);
     }else{
       const response = await axios.post("/transactions", form);
-      router.push("/transactions");
       toast.success("Transação feita com sucesso!");
+      const idTransaction = response.data.data.id-1;
+      router.push(`/transactions/${idTransaction}`);
     }
-    
+    //const idTransaction = response.data.id;
+    //router.push(`/transactions/${idTransaction}`);
   } catch (error) {
     console.error(error);
     if (
