@@ -35,10 +35,16 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update(UpdateUserRequest $request, VCard $user)
+    public function update(UpdateUserRequest $request)
     {
+        
+        $user = VCard::where('phone_number', $request->id)->first();
+        if (!$user) {
+          
+            return response()->json(['error' => 'User not found'], 404);
+        }
         $dataToSave = $request->validated();
-
+           
         $base64ImagePhoto = array_key_exists("base64ImagePhoto", $dataToSave) ?
             $dataToSave["base64ImagePhoto"] : ($dataToSave["base64ImagePhoto"] ?? null);
         $deletePhotoOnServer = array_key_exists("deletePhotoOnServer", $dataToSave) && $dataToSave["deletePhotoOnServer"];

@@ -51,11 +51,10 @@ const loadUser = async (id) => {
 const save = async () => {
   errors.value = null;
   try {
-    const response = await axios.put("users/" + props.id, user.value);
+    const response = await axios.put("vcards/" + props.id, user.value);
     user.value = response.data.data;
     originalValueStr = JSON.stringify(user.value);
-    toast.success("User #" + user.value.id + " was updated successfully.");
-    router.back();
+    toast.success("User #" + props.id + " was updated successfully.");
   } catch (error) {
     if (error.response.status == 422) {
       errors.value = error.response.data.errors;

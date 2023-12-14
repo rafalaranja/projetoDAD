@@ -28,10 +28,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('users/me', [UserController::class, 'show_me']);
     Route::get('users', [UserController::class, 'index']);
-    Route::get('users/{user}', [UserController::class, 'show'])
-        ->middleware('can:view,user');
-    Route::put('users/{user}', [UserController::class, 'update']);
-        //->middleware('can:update,user');
+    Route::get('users/{user}', [UserController::class, 'show'])->middleware('can:view,user');
+   Route::put('vcards/{vcard}', [UserController::class, 'update'])->middleware('can:update,vcard');
+    
+    
     
     Route::get('transactions', [TransactionController::class,'index']);
     Route::get('transactions/{transaction}', [TransactionController::class,'show'])->middleware('can:view,transaction');
