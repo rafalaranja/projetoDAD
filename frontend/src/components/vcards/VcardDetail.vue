@@ -6,12 +6,12 @@ import { useUserStore } from "../../stores/users.js";
 
 const router = useRouter();
 const userStore = useUserStore();
-const tasks = ref(null); // Inicialize tasks como null
+const vcards = ref(null);
 
 const loadVCards = async () => {
   try {
     const response = await axios.get("vcard/" + userStore.user.id + "/load");
-    tasks.value = response.data.data; // Atribua response.data.data a tasks.value
+    vcards.value = response.data.data;
     console.log(response.data.data);
   } catch (error) {
     console.log(error);
@@ -24,20 +24,17 @@ defineExpose({ vcards });
 </script>
 
 <template>
-  <div class="card text-center m-4" v-if="tasks">
-    <!-- Verifique se tasks não é null -->
+  <div class="card text-center my-4 mx-5" v-if="vcards">
     <div class="card-header bg-dark text-white">
-      <h5>{{ tasks.phone_number }}</h5>
+      <h5>{{ vcards.name }} ({{ vcards.phone_number }})</h5>
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{ tasks.name }}</h5>
-      <!-- Acesse as propriedades de tasks -->
-      <h3 class="pt-2">BALANCE</h3>
-      <h5 class="card-text pb-3 pt-1">{{ tasks.balance }}</h5>
+      <h4 class="pt-2 text-success">BALANCE</h4>
+      <h1 class="card-text pb-3 pt-1 mt-3">{{ vcards.balance }}€</h1>
     </div>
     <div class="card-footer text-muted">
-      <h5>MAX DEBIT</h5>
-      {{ tasks.max_debit }}€
+      <h4 class="text-danger">MAX DEBIT</h4>
+      <h5 class="text-muted">{{ vcards.max_debit }}€</h5>
     </div>
   </div>
 </template>
