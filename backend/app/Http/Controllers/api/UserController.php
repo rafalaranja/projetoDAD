@@ -15,6 +15,7 @@ use App\Http\Requests\UpdateUserPinRequest;
 use App\Services\Base64Services;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     private function storeBase64AsFile(VCard $user, String $base64String)
@@ -24,9 +25,15 @@ class UserController extends Controller
         $base64Service = new Base64Services();
         return $base64Service->saveFile($base64String, $targetDir, $newfilename);
     }
-    public function index()
-    {
-        $users = User::paginate(10);
+    public function index(){
+        // If the user is an admin, return all users
+        if (Auth::user()->user_type === 'A') {
+            $users = User::paginate(10);
+        } else {
+            // If the user is not an admin, return only non-admin users
+            $users = User::where('user_type', '!=', 'A')->paginate(10);
+        }
+
         return response()->json($users, 200);
     }
 
