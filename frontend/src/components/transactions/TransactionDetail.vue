@@ -68,6 +68,13 @@ const formatDate = (dateString) => {
         <h6>Old Balance: {{ currentTransaction.old_balance }}</h6>
         <h6>New Balance: {{ currentTransaction.new_balance }}</h6>
       </div>
+      <div class="d-flex justify-content-center mx-auto mt-5 text-center" v-if="currentTransaction.description">
+        <h6>Description :
+          <h5>
+            <div class="mt-3 card bg-dark text-white text-center p-3">{{ currentTransaction.description }}</div>
+          </h5>
+        </h6>
+      </div>
     </div>
   </div>
   <router-link :class="{ active: $route.name === 'Transactions' }" :to="{ name: 'Transactions' }">

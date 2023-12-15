@@ -119,6 +119,23 @@ const changeSort = (field) => {
       <h3 class="mt-4">Transactions</h3>
     </div>
   </div>
+  <div class="d-flex justify-content-start mt-2">
+    <div class="d-flex me-2 mb-2">
+      <label class="input-group-text" for="inputGroupSelect01">Filter By</label>
+      <select v-model="sortField" @change="loadTransactions">
+        <option value="id">ID</option>
+        <option value="date">Date</option>
+        <option value="value">Value</option>
+      </select>
+    </div>
+    <div class="d-flex ms-2 mb-2">
+      <label class="input-group-text" for="inputGroupSelect01">Order By</label>
+      <select v-model="sortOrder" @change="loadTransactions">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+    </div>
+  </div>
 
   <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @view="viewTransaction"
     @changeSort="changeSort"></transaction-table>
