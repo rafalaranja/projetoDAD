@@ -21,11 +21,18 @@ const deleteConfirmationDialog = ref(null)
 const currentPage = ref(1);
 const pageSize = 10;
 
+const sortField = ref('date');
+const sortOrder = ref('desc');
 
 
 const loadTransactions = async (page = 1) => {
   try {
-    const response = await axios.get(`/transactions?page=${page}`);
+    const response = await axios.get(`/transactions?page=${page}`, {
+      params: {
+        sortField: sortField.value,
+        sortOrder: sortOrder.value
+      }
+    });
     transactions.value = response.data.data;
     currentPage.value = response.data.current_page;
     totalPages.value = response.data.last_page;
@@ -33,7 +40,7 @@ const loadTransactions = async (page = 1) => {
     console.log(response.data.data);
     console.log(response.data.current_page);
   } catch (error) {
-    console.error('Error loading transactions:', error);
+    console.error(error);
   }
 };
 
@@ -88,6 +95,17 @@ onMounted(() => {
   console.log('Initial currentPage:', currentPage.value);
 })
 
+const changeSort = (field) => {
+  if (sortField.value === field) {
+    sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortField.value = field;
+    sortOrder.value = 'asc';
+  }
+
+  loadTransactions(currentPage.value);
+};
+
 
 </script>
 
@@ -102,8 +120,8 @@ onMounted(() => {
     </div>
   </div>
 
-  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true"
-    @view="viewTransaction"></transaction-table>
+  <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @view="viewTransaction"
+    @changeSort="changeSort"></transaction-table>
 
   <div class="pagination-controls">
     <button class="btn btn-success" @click="loadTransactions(currentPage - 1)"

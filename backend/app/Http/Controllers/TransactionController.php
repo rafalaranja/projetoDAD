@@ -13,15 +13,16 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
-    public function index(){
-        // If the user is an admin, return all transactions
+    public function index(Request $request){
+        $sortField = $request->get('sortField', 'date');
+        $sortOrder = $request->get('sortOrder', 'desc');
+    
         if (Auth::user()->user_type === 'A') {
-            $transactions = Transaction::paginate(10);
+            $transactions = Transaction::orderBy($sortField, $sortOrder)->paginate(10);
         } else {
-            // If the user is not an admin, return only their transactions
-            $transactions = Transaction::where('vcard', Auth::user()->id)->paginate(10);
+            $transactions = Transaction::where('vcard', Auth::user()->id)->orderBy($sortField, $sortOrder)->paginate(10);
         }
-
+    
         return $transactions;
     }
     public function show(Transaction $transaction){
