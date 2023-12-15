@@ -120,15 +120,15 @@ const changeSort = (field) => {
     </div>
   </div>
   <div class="d-flex justify-content-start mt-2">
-    <div class="d-flex me-2 mb-2">
-      <label class="input-group-text bg-dark text-white" for="inputGroupSelect01">Filter By</label>
+    <div class="d-flex me-3 mb-2">
+      <label class="input-group-text me-1" for="inputGroupSelect01">Filter By</label>
       <select v-model="sortField" @change="loadTransactions">
         <option value="date">Date</option>
         <option value="value">Value</option>
       </select>
     </div>
-    <div class="d-flex ms-2 mb-2">
-      <label class="input-group-text bg-dark text-white" for="inputGroupSelect01">Order By</label>
+    <div class="d-flex ms-3 mb-2">
+      <label class="input-group-text me-1" for="inputGroupSelect01">Order By</label>
       <select v-model="sortOrder" @change="loadTransactions">
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>

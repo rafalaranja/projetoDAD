@@ -30,12 +30,12 @@ defineExpose({ vcards });
     </div>
     <div class="card-body">
       <h5 class="card-title">{{ vcards.name }}</h5>
-      <h3 class="pt-2">BALANCE</h3>
-      <h5 class="card-text pb-3 pt-1">{{ vcards.balance }}</h5>
+      <h4 class="pt-2 text-success">BALANCE</h4>
+      <h1 class="card-text pb-3 pt-1 mt-3">{{ vcards.balance }}€</h1>
     </div>
     <div class="card-footer text-muted">
-      <h5>MAX DEBIT</h5>
-      {{ vcards.max_debit }}€
+      <h4 class="text-danger">MAX DEBIT</h4>
+      <h5 class="text-muted">{{ vcards.max_debit }}€</h5>
     </div>
   </div>
 </template>
