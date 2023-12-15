@@ -123,7 +123,6 @@ const changeSort = (field) => {
     <div class="d-flex me-2 mb-2">
       <label class="input-group-text" for="inputGroupSelect01">Filter By</label>
       <select v-model="sortField" @change="loadTransactions">
-        <option value="id">ID</option>
         <option value="date">Date</option>
         <option value="value">Value</option>
       </select>
