@@ -33,12 +33,9 @@ const logout = async () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top flex-md-nowrap p-0 shadow">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top flex-md-nowrap p-0 shadow">
     <div class="container-fluid">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
-        <img src="@/assets/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
-        Vcard
-      </a>
+      <img src="./assets/logo.png" alt="" width="87" height="43" class="d-inline-block align-text-top rounded" />
       <button id="buttonSidebarExpandId" class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -108,11 +105,13 @@ const logout = async () => {
 
   <div class="container-fluid">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link" :class="{ active: $route.name === 'Dashboard' }" :to="{ name: 'Dashboard' }">
+              <router-link class="nav-link text-white"
+                :class="{ 'active-link': $route.name === 'Dashboard', active: $route.name === 'Dashboard' }"
+                :to="{ name: 'Dashboard' }">
                 <i class="bi bi-house"></i>
                 Dashboard
               </router-link>
@@ -120,22 +119,26 @@ const logout = async () => {
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'"></li>
             <li class="nav-item" v-else>
-              <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'NewTask' }"
+              <router-link class="nav-link w-100 me-3 text-white"
+                :class="{ 'active-link': $route.name === 'NewTask', active: $route.name === 'NewTask' }"
                 :to="{ name: 'NewTask' }" aria-label="Add a new task">
                 <i class="bi bi-plus-circle"></i>
                 Create Vcard
               </router-link>
             </li>
-            <hr />
+            <hr class="text-white" />
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link" :class="{ active: $route.name === 'Users' }" :to="{ name: 'Users' }">
+              <router-link class="nav-link text-white"
+                :class="{ 'active-link': $route.name === 'Users', active: $route.name === 'Users' }"
+                :to="{ name: 'Users' }">
                 <i class="bi bi-people"></i>
                 Users
               </router-link>
             </li>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link" :class="{ active: $route.name === 'Transactions' }"
+              <router-link class="nav-link text-white"
+                :class="{ 'active-link': $route.name === 'Transactions', active: $route.name === 'Transactions' }"
                 :to="{ name: 'Transactions' }">
                 <i class="bi bi-bar-chart-line"></i>
                 Transactions
@@ -143,7 +146,8 @@ const logout = async () => {
             </li>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link" :class="{ active: $route.name === 'Categories' }"
+              <router-link class="nav-link text-white"
+                :class="{ 'active-link': $route.name === 'Categories', active: $route.name === 'Categories' }"
                 :to="{ name: 'Categories' }">
                 <i class="bi bi-tag"></i>
                 Categories
@@ -151,7 +155,8 @@ const logout = async () => {
             </li>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link" :class="{ active: $route.name === 'Statistics' }"
+              <router-link class="nav-link text-white"
+                :class="{ 'active-link': $route.name === 'Statistics', active: $route.name === 'Statistics' }"
                 :to="{ name: 'Statistics' }">
                 <i class="bi bi-graph-up"></i>
                 Statistics
@@ -165,13 +170,9 @@ const logout = async () => {
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="#"><i class="bi bi-person-check-fill"></i>
-                  Register
-                </a>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" :class="{ active: $route.name === 'Login' }" :to="{ name: 'Login' }">
-                  <i class="bi bi-box-arrow-in-right"></i>
+                <router-link class="nav-link text-white" :class="{ active: $route.name === 'Login' }"
+                  :to="{ name: 'Login' }">
+                  <i class="bi bi-box-arrow-in-right text-white"></i>
                   Login
                 </router-link>
               </li>
@@ -179,7 +180,7 @@ const logout = async () => {
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <img :src="userStore.userPhotoUrl" class="rounded-circle z-depth-0 avatar-img" alt="avatar image" />
-                  <span class="avatar-text">{{ userStore.userName }}</span>
+                  <span class="avatar-text text-white">{{ userStore.userName }}</span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                   <li>
@@ -253,5 +254,9 @@ const logout = async () => {
 
 #sidebarMenu {
   overflow-y: auto;
+}
+
+.nav-item .active-link {
+  background-color: rgba(80, 53, 150, 255) !important;
 }
 </style>

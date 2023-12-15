@@ -28,8 +28,8 @@ const userStore = useUserStore();
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'AskMoney' }"
           :to="{ name: 'AskMoney' }">
-        <i class="bi bi-chat-dots"></i>
-        Ask For Money
+          <i class="bi bi-chat-dots"></i>
+          Ask For Money
         </router-link>
       </button>
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
@@ -42,4 +42,11 @@ const userStore = useUserStore();
     </div>
   </div>
 </template>
+
+<style scoped>
+.btn-success {
+  background-color: rgba(80, 53, 150, 255) !important;
+  border-color: rgba(80, 53, 150, 255) !important;
+}
+</style>
   
