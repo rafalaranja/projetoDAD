@@ -116,7 +116,7 @@ const changeSort = (field) => {
   </confirmation-dialog>
   <div class="d-flex justify-content-between">
     <div class="mx-2">
-      <h3 class="mt-4">Transactions</h3>
+      <h3 class="mt-2">Transactions</h3>
     </div>
   </div>
   <div class="d-flex justify-content-start mt-2">
@@ -139,7 +139,7 @@ const changeSort = (field) => {
   <transaction-table :transactions="paginatedItems" :showId="false" :showDates="true" @view="viewTransaction"
     @changeSort="changeSort"></transaction-table>
 
-  <div class="pagination-controls">
+  <div class="pagination-controls mb-1">
     <button class="btn btn-success" @click="loadTransactions(currentPage - 1)"
       :disabled="currentPage === 1">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>

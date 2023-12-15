@@ -259,4 +259,9 @@ const logout = async () => {
 .nav-item .active-link {
   background-color: rgba(80, 53, 150, 255) !important;
 }
+
+.btn-success {
+  background-color: rgba(80, 53, 150, 255) !important;
+  border-color: rgba(80, 53, 150, 255) !important;
+}
 </style>
