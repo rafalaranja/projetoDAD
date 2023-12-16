@@ -65,6 +65,7 @@ const submitCash = async (vcard1,value) => {
       formSend.payment_reference = vcard;
       formSend.type='C';
       response = await axios.post("/transactions", formSend);
+      socket.emit("balanceUpdate", form.vcard);
       toast.success("Dinheiro enviado");
       const idTransaction = response.data.data.id-1;
       router.push(`/transactions/${idTransaction}`);

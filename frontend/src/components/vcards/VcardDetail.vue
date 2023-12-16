@@ -18,6 +18,7 @@ const vcards = ref(null);
 const lineCanvasRef = ref(null);
 const chartData = ref([]);
 const balanceVcard=ref([]);
+const isToastDisplayed = ref(false);
 const loadVCards = async () => {
   try {
     const response = await axios.get("vcard/" + userStore.user.id + "/load");
@@ -74,21 +75,27 @@ const createChart = () => {
   });
 };
 
-socket.on("balance",async (id)=>{
-  try{
-    console.log(id);
-    await loadVCards();
-    toast.info(`Atualização no saldo ${balanceVcard.value}€`);
-  }catch (error) {
-    console.error("Erro ao processar resposta do WebSocket:", error);
-    console.log("Erro no bloco catch:", error);
-  }
-});
+
 // Run the loadVCards function and create the chart when the component is mounted
-onMounted(async () => {
+onMounted(async () => {  
   await loadTransactions();
   createChart();
   await loadVCards();
+  socket.on("balance",async ()=>{
+  if (!isToastDisplayed) {
+      isToastDisplayed = true;
+  }
+  try{
+    toast.info(`Atualização no saldo!!`);
+    console.log("hey");
+    await loadVCards();
+  }catch (error) {
+    console.error("Erro ao processar resposta do WebSocket:", error);
+    console.log("Erro no bloco catch:", error);
+  }finally{
+    isToastDisplayed=false;
+  }
+});
 });
 </script>
 

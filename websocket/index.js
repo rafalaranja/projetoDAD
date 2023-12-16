@@ -27,12 +27,12 @@ io.on("connection", (socket) => {
   socket.on("balanceUpdate",function(id){
     try{
       const recipientSocketId= connectedUser[id];
-      io.to(recipientSocketId).emit("balance",id);
+      io.to(recipientSocketId).emit("balance");
       console.log("enviado: ",id);
     }catch (error) {
       console.error("Erro ao enviar ask para o usuário de destino:", error.message);
     }
-  })
+  });
   socket.on("ask",function(ask){
     console.log("ask",ask);
     try{

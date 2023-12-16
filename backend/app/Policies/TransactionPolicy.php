@@ -24,7 +24,7 @@ class TransactionPolicy
     {
         // Permitir que o usuário veja a transação se ele for o proprietário
 
-        return $user->id == $transaction->vcard;
+        return $user->id == $transaction->vcard || $user->user_type=="A"; 
     }
 
     /**
