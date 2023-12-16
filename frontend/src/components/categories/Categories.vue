@@ -37,8 +37,11 @@ export default {
 </script>
 
 <template>
-  <table class="table">
-    <thead>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
+    <h1 class="h3">Categories</h1>
+  </div>
+  <table class="table table-hover table-sm mt-3 m-1">
+    <thead class="table-dark">
       <tr>
         <th class="align-middle">Name</th>
         <th></th>
@@ -61,9 +64,7 @@ export default {
     <button class="btn btn-success p-2 mx-2" @click="prevPage">
       <i class="bi bi-arrow-left"></i> Previous
     </button>
-    <span class="mx-3 text-secondary"
-      >Page {{ currentPage }} of {{ totalPages }}</span
-    >
+    <span class="mx-3 text-secondary">Page {{ currentPage }} of {{ totalPages }}</span>
     <button class="btn btn-success p-2 mx-2" @click="nextPage">
       Next <i class="bi bi-arrow-right"></i>
     </button>
