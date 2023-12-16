@@ -34,7 +34,7 @@ Route::middleware('auth:api')->group(function () {
     
     
     Route::get('transactions', [TransactionController::class,'index']);
-    Route::get('transactions/{transaction}', [TransactionController::class,'show'])->middleware('can:view,transaction');
+    Route::get('transactions/{transaction}', [TransactionController::class,'show']) ->middleware('can:view,transaction');
     Route::get('vcards', [VcardController::class, 'index']);
     
     
