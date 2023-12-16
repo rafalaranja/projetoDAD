@@ -19,7 +19,6 @@ import App from "./App.vue";
 import router from "./router";
 
 const app = createApp(App);
-const pinia = createPinia();
 
 const serverBaseUrl = "http://backend.test";
 app.provide("serverBaseUrl", serverBaseUrl);
@@ -51,4 +50,4 @@ app.provide("socket", io("http://127.0.0.1:8080"));
 app.component("FieldErrorMessage", FieldErrorMessage);
 app.component("ConfirmationDialog", ConfirmationDialog);
 
-app.use(pinia).mount("#app");
+app.mount("#app");
