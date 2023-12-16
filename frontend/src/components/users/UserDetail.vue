@@ -96,7 +96,7 @@ const cancel = () => {
     <div class="d-flex flex-wrap justify-content-between">
       <div class="w-75 pe-4">
 
-        <div class="mb-3" >
+        <div class="mb-3" v-if="editingUser.type != 'A'">
           <label for="" class="form-label">VCard</label>
           <input type="text" class="form-control" v-model="editingUser.id" disabled />
           <field-error-message :errors="errors" fieldName="name"></field-error-message>
@@ -120,7 +120,7 @@ const cancel = () => {
           <div class="mb-3 me-3 flex-grow-1">
             <div class="form-check" v-if="editingUser.type === 'A' || userStore.type == 'A'">
               <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['type'] : false }" type="checkbox"
-                true-value="A" false-value="M" v-model="editingUser.type" id="inputType" />
+                true-value="A" false-value="M" v-model="editingUser.type" id="inputType" disabled />
               <label class="form-check-label" for="inputType">
                 User is Administrator
               </label>
