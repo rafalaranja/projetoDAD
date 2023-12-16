@@ -156,7 +156,7 @@ const router = createRouter({
       component: VcardDetail,
     },
     {
-      path: "/Categories",
+      path: "/categories",
       name: "Categories",
       component: Categories,
     },

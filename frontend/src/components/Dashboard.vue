@@ -14,10 +14,8 @@ const userStore = useUserStore();
     </div>
 
     <vcard-detail></vcard-detail>
-
-
     <!--BUTTONS-->
-    <div v-if="userStore.user.type != 'A'" class="d-flex justify-content-around">
+    <div v-if="userStore.user.type != 'A'" class="d-flex justify-content-around shadow h-100 py-1">
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
         <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'SendMoney' }"
           :to="{ name: 'SendMoney' }">
@@ -33,8 +31,8 @@ const userStore = useUserStore();
         </router-link>
       </button>
       <button type="button" class="btn btn-success btn-lg btn-block p-4">
-        <i class="bi bi-receipt-cutoff"></i>
-        Pay Bills
+        <i class="bi bi-piggy-bank"></i>
+        Save Money
       </button>
     </div>
     <div v-else>
