@@ -194,7 +194,10 @@ const router = createRouter({
 
 let handlingFirstRoute = true;
 router.beforeEach(async (to, from, next) => {
-  if (to.meta.requiresAuth && !useUserStore.username!="Anonymous") {
+  const userStore = useUserStore();
+  console.log(userStore.userName);
+  if (to.meta.requiresAuth && userStore.userName=="Anonymous") {
+    console.log(userStore.userName);
     console.log("user not authenticated");
     next('/login');
   } else {
