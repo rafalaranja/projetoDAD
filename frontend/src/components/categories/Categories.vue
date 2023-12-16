@@ -40,7 +40,7 @@ export default {
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
     <h1 class="h3">Categories</h1>
   </div>
-  <table class="table table-hover table-sm mt-3 m-1">
+  <table class="table table-hover table-sm mt-3 m-1 border">
     <thead class="table-dark">
       <tr>
         <th class="align-middle">Name</th>

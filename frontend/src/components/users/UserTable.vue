@@ -57,8 +57,11 @@ const editClick = (user) => {
 </script>
 
 <template>
-  <table class="table">
-    <thead>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
+    <h1 class="h3">Users</h1>
+  </div>
+  <table class="table table-hover table-sm mt-3 m-1 border">
+    <thead class="table-dark">
       <tr>
         <th v-if="showId" class="align-middle">#</th>
         <th v-if="showPhoto" class="align-middle">Photo</th>
@@ -82,15 +85,8 @@ const editClick = (user) => {
         </td>
         <td class="align-middle">{{ user.blocked == "1" ? "Yes" : "No" }}</td>
         <td class="text-end align-middle" v-if="showEditButton">
-          <div
-            class="d-flex justify-content-end"
-            v-if="canViewUserDetail(user.id)"
-          >
-            <button
-              class="btn btn-xs btn-light"
-              @click="editClick(user)"
-              v-if="showEditButton"
-            >
+          <div class="d-flex justify-content-end" v-if="canViewUserDetail(user.id)">
+            <button class="btn btn-xs btn-light" @click="editClick(user)" v-if="showEditButton">
               <i class="bi bi-xs bi-pencil"></i>
             </button>
           </div>
