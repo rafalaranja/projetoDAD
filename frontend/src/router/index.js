@@ -46,32 +46,38 @@ const router = createRouter({
       path: "/password",
       name: "ChangePassword",
       component: ChangePassword,
+      meta:{requiresAuth: true},
     },
     {
       path: "/pin",
       name: "ChangePin",
       component: ChangePin,
+      meta:{requiresAuth: true},
     },
     {
       path: "/vcard",
       name: "Vcard",
       component: Vcards,
+      meta:{requiresAuth: true},
     },
     {
       path: "/deleteVcard/",
       name: "deleteVcard",
       component: DeleteVcard,
+      meta:{requiresAuth: true},
     },
     {
       path: "/tasks/current",
       name: "CurrentTasks",
       component: Vcards,
       props: { onlyCurrentTasks: true, tasksTitle: "Current Tasks" },
+      meta:{requiresAuth: true},
     },
     {
       path: "/vcard/new",
       name: "NewTask",
       component: vcardNew,
+      meta:{requiresAuth: true},
       //props: { id: -1 },
     },
     {
@@ -79,16 +85,19 @@ const router = createRouter({
       name: "Task",
       component: Task,
       props: (route) => ({ id: parseInt(route.params.id) }),
+      meta:{requiresAuth: true},
     },
     {
       path: "/statistics",
       name: "Statistics",
       component: Statistics,
+      meta:{requiresAuth: true},
     },
     {
       path: "/transactions",
       name: "Transactions",
       component: Transactions,
+      meta:{requiresAuth: true},
     },
     {
       path: "/transactions/sendMoney",
@@ -99,23 +108,27 @@ const router = createRouter({
       path: "/transactions/askMoney",
       name: "AskMoney",
       component: AskMoney,
+      meta:{requiresAuth: true},
     },
     {
       path: "/projects/new",
       name: "NewTransaction",
       component: Transaction,
       props: { id: -1 },
+      meta:{requiresAuth: true},
     },
     {
       path: "/transactions/:id",
       name: "Transaction",
       component: Transaction,
       props: (route) => ({ id: parseInt(route.params.id) }),
+      meta:{requiresAuth: true},
     },
     {
       path: "/users",
       name: "Users",
       component: Users,
+      meta:{requiresAuth: true},
     },
     {
       path: "/users/:id",
@@ -124,12 +137,14 @@ const router = createRouter({
       //props: true
       // Replaced with the following line to ensure that id is a number
       props: (route) => ({ id: parseInt(route.params.id) }),
+      meta:{requiresAuth: true},
     },
     {
       path: "/projects/:id/tasks",
       name: "TransactionTasks",
       component: TransactionTasks,
       props: (route) => ({ id: parseInt(route.params.id) }),
+      meta:{requiresAuth: true},
     },
     {
       path: "/projects/:id/tasks/new",
@@ -139,26 +154,31 @@ const router = createRouter({
         id: -1,
         fixedTransaction: parseInt(route.params.id),
       }),
+      meta:{requiresAuth: true},
     },
     {
       path: "/users",
       name: "Users",
       component: Users,
+      meta:{requiresAuth: true},
     },
     {
       path: "/vcards",
       name: "Vcards",
       component: Vcards,
+      meta:{requiresAuth: true},
     },
     {
       path: "/vcard/:id",
       name: "VcardDetail",
       component: VcardDetail,
+      meta:{requiresAuth: true},
     },
     {
       path: "/categories",
       name: "Categories",
       component: Categories,
+      meta:{requiresAuth: true},
     },
     {
       path: "/users/:id",
@@ -167,18 +187,19 @@ const router = createRouter({
       //props: true
       // Replaced with the following line to ensure that id is a number
       props: (route) => ({ id: parseInt(route.params.id) }),
+      meta:{requiresAuth: true},
     },
   ],
 });
 
 let handlingFirstRoute = true;
 router.beforeEach(async (to, from, next) => {
-  const userStore = useUserStore();
-  if (handlingFirstRoute) {
-    handlingFirstRoute = false;
-    await userStore.restoreToken();
+  if (to.meta.requiresAuth && !useUserStore.username!="Anonymous") {
+    console.log("user not authenticated");
+    next('/login');
+  } else {
+    next();
   }
-  return next();
 });
 
 export default router;
