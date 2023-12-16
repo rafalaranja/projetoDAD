@@ -148,14 +148,16 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-12 mb-1">
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-dark">Number of Transactions per Month (current year)</h6>
-        </div>
-        <div class="card-body">
-          <canvas ref="lineCanvasRef" width="100" height="24"></canvas>
+  <div v-if="userStore.user.type != 'A'">
+    <div class=" row">
+      <div class="col-lg-12 mb-1">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-dark">Number of Transactions per Month (current year)</h6>
+          </div>
+          <div class="card-body">
+            <canvas ref="lineCanvasRef" width="100" height="24"></canvas>
+          </div>
         </div>
       </div>
     </div>
