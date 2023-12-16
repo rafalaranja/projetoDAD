@@ -63,7 +63,7 @@ const shouldShowVcard = computed(() => {
 
 <template>
   <table class="table table-bordered table-hover">
-    <thead class="table-success"> 
+    <thead class="table-dark">
       <tr>
         <th>ID</th>
         <th v-if="shouldShowVcard">VCard</th>
