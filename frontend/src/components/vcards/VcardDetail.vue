@@ -1,26 +1,32 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted ,inject} from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 import { useUserStore } from "../../stores/users.js";
 import Chart from 'chart.js/auto';
 import { createApp } from 'vue'
+import { toastInjectionKey } from "vue-toastification";
 
 
 const router = useRouter();
 const userStore = useUserStore();
+
+const toast = useToast();
+const socket = inject("socket");
 const vcards = ref(null);
 const lineCanvasRef = ref(null);
 const chartData = ref([]);
-
+const balanceVcard=ref([]);
 const loadVCards = async () => {
   try {
     const response = await axios.get("vcard/" + userStore.user.id + "/load");
     vcards.value = response.data.data;
     const transactions = response.data.data;
-
+    balanceVcard.value = vcards.value.balance;
   } catch (error) {
-    console.log(error);
+    console.error("",error);
+    throw error;
   }
 };
 
@@ -68,11 +74,21 @@ const createChart = () => {
   });
 };
 
+socket.on("balance",async (id)=>{
+  try{
+    console.log(id);
+    await loadVCards();
+    toast.info(`Atualização no saldo ${balanceVcard.value}€`);
+  }catch (error) {
+    console.error("Erro ao processar resposta do WebSocket:", error);
+    console.log("Erro no bloco catch:", error);
+  }
+});
 // Run the loadVCards function and create the chart when the component is mounted
 onMounted(async () => {
   await loadTransactions();
-  loadVCards();
   createChart();
+  await loadVCards();
 });
 </script>
 
@@ -88,7 +104,7 @@ onMounted(async () => {
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                 Balance</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ vcards.balance }}€</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ balanceVcard }}€</div>
             </div>
             <div class="col-auto">
               <i class="bi bi-wallet2 text-gray"></i>

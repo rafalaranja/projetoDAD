@@ -1,12 +1,12 @@
 <script setup>
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref, reactive ,inject} from "vue";
 import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { useUserStore } from "../../stores/users.js";
 
 const userStore = useUserStore();
-
+const socket = inject("socket");
 const vcards = ref([]);
 const form = reactive({
   vcard: "",
@@ -54,6 +54,7 @@ const submitForm = async () => {
       form.type='C'
       response = await axios.post("/transactions", form);
       const idTransaction = response.data.data.id-1;
+      socket.emit("balanceUpdate", form.vcard);
       router.push(`/transactions/${idTransaction}`);
     }else{
       const response = await axios.post("/transactions", form);

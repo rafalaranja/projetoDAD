@@ -56,7 +56,6 @@ const viewTransaction = (transaction) => {
   emit("view", transaction);
   console.log(transaction);
 };
-
 const shouldShowVcard = computed(() => {
   return userStore.user.type == "A" || props.showVcard;
 });
@@ -64,7 +63,7 @@ const shouldShowVcard = computed(() => {
 
 <template>
   <table class="table table-bordered table-hover">
-    <thead class="table-dark">
+    <thead class="table-success"> 
       <tr>
         <th>ID</th>
         <th v-if="shouldShowVcard">VCard</th>

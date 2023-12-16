@@ -1,9 +1,21 @@
 <script setup>
 import { useRouter, RouterLink, RouterView } from "vue-router";
 import { useUserStore } from "../stores/users";
+import{inject,ref } from "vue";
 import VcardDetail from "./vcards/VcardDetail.vue";
 
 const userStore = useUserStore();
+const socket = inject("socket");
+const asks = ref([]);
+socket.on("askResponse", function (ask) {
+  try {
+    // Exibir um toast com a informação recebida do WebSocket
+    toast.info(`recebeu um pedido de: ${ask.vcard}\nValor: ${ask.value}`);
+    asks.value.push(ask);
+  } catch (error) {
+    console.error("Erro ao processar resposta do WebSocket:", error);
+  }
+});
 
 </script>
 
