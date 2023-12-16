@@ -48,7 +48,7 @@ socket.on("askResponse", function (ask) {
       </button>
     </div>
     <div v-else>
-      <h2 class="d-flex mx-auto justify-content-center">Welcome {{ userStore.userName }}</h2>
+      <h2 class="d-flex mx-auto justify-content-center mt-5">Welcome {{ userStore.userName }}</h2>
     </div>
   </div>
 </template>
