@@ -14,7 +14,6 @@ const socket = inject("socket");
 const logout = async () => {
   socket.emit("logout", userStore.user);
   if (await userStore.logout()) {
-    //toast.success("User has logged out of the application.");
     router.push({ name: "Dashboard" });
   } else {
     toast.error("There was a problem logging out of the application!");
@@ -127,14 +126,27 @@ const logout = async () => {
               </router-link>
             </li>
             <hr class="text-white" />
-            <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link text-white"
-                :class="{ 'active-link': $route.name === 'Users', active: $route.name === 'Users' }"
-                :to="{ name: 'Users' }">
-                <i class="bi bi-people"></i>
-                Users
-              </router-link>
-            </li>
+
+
+            <div v-if="userStore.user && userStore.user.type == 'A'">
+              <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
+                <router-link class="nav-link text-white"
+                  :class="{ 'active-link': $route.name === 'Users', active: $route.name === 'Users' }"
+                  :to="{ name: 'Users' }">
+                  <i class="bi bi-people"></i>
+                  Users
+                </router-link>
+              </li>
+
+              <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
+                <router-link class="nav-link text-white"
+                  :class="{ 'active-link': $route.name === 'Categories', active: $route.name === 'Categories' }"
+                  :to="{ name: 'Categories' }">
+                  <i class="bi bi-tag"></i>
+                  Categories
+                </router-link>
+              </li>
+            </div>
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
               <router-link class="nav-link text-white"
@@ -147,15 +159,6 @@ const logout = async () => {
 
             <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
               <router-link class="nav-link text-white"
-                :class="{ 'active-link': $route.name === 'Categories', active: $route.name === 'Categories' }"
-                :to="{ name: 'Categories' }">
-                <i class="bi bi-tag"></i>
-                Categories
-              </router-link>
-            </li>
-
-            <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link text-white"
                 :class="{ 'active-link': $route.name === 'Statistics', active: $route.name === 'Statistics' }"
                 :to="{ name: 'Statistics' }">
                 <i class="bi bi-graph-up"></i>
@@ -163,7 +166,6 @@ const logout = async () => {
               </router-link>
             </li>
           </ul>
-
           <div class="d-block d-md-none">
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>User</span>

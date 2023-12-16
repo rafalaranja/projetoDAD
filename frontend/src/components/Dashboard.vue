@@ -21,32 +21,30 @@ socket.on("askResponse", function (ask) {
 
 <template>
   <div v-if="userStore.userName != 'Anonymous'">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
       <h1 class="h2">Dashboard</h1>
     </div>
 
     <vcard-detail></vcard-detail>
-
-
     <!--BUTTONS-->
-    <div v-if="userStore.user.type != 'A'" class="d-flex justify-content-around">
-      <button type="button" class="btn btn-success btn-lg btn-block p-4">
+    <div v-if="userStore.user.type != 'A'" class="d-flex justify-content-around py-1">
+      <button type="button" class="btn btn-success btn-lg btn-block p-4 shadow-lg">
         <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'SendMoney' }"
           :to="{ name: 'SendMoney' }">
           <i class="bi bi-cash-stack"></i>
           Send Money
         </router-link>
       </button>
-      <button type="button" class="btn btn-success btn-lg btn-block p-4">
+      <button type="button" class="btn btn-success btn-lg btn-block p-4 shadow-lg">
         <router-link class="nav-link w-100 me-3" :class="{ active: $route.name === 'AskMoney' }"
           :to="{ name: 'AskMoney' }">
           <i class="bi bi-chat-dots"></i>
           Ask For Money
         </router-link>
       </button>
-      <button type="button" class="btn btn-success btn-lg btn-block p-4">
-        <i class="bi bi-receipt-cutoff"></i>
-        Pay Bills
+      <button type="button" class="btn btn-success btn-lg btn-block p-4 shadow-lg">
+        <i class="bi bi-piggy-bank"></i>
+        Save Money
       </button>
     </div>
     <div v-else>
