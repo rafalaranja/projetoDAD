@@ -15,7 +15,7 @@ const categories = ref([]);
 const loadCategories = async () => {
   try {
     if (props.transaction && props.transaction.vcard) {
-      const response = await axios.get(`categories/${props.transaction.vcard}`);
+      const response = await axios.get(`categories/send/${props.transaction.vcard}`);
       console.log(response.data);
       categories.value = response.data.data;
     } else {
@@ -32,9 +32,9 @@ const formatDate = (dateString) => {
     .getUTCHours()
     .toString()
     .padStart(2, "0")}:${date
-    .getUTCMinutes()
-    .toString()
-    .padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`;
+      .getUTCMinutes()
+      .toString()
+      .padStart(2, "0")}:${date.getUTCSeconds().toString().padStart(2, "0")}`;
 };
 
 const getCategoryName = (categoryId) => {
