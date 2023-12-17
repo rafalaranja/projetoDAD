@@ -36,13 +36,7 @@ class UserController extends Controller
 
         return response()->json($users, 200);
     }
-    public function indexAdmin(){
-        if(Auth::user()->user_type === 'A'){
-            $users = User::where('user_type', '==', 'A')->paginate(8);
-        }
-        return response()->json($users, 200);
-    }
-
+    
     public function show(User $user)
     {
         return new UserResource($user);
