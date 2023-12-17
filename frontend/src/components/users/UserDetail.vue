@@ -87,6 +87,7 @@ const save = () => {
 const cancel = () => {
   emit("cancel", editingUser.value);
 };
+
 </script>
 
 <template>
@@ -135,11 +136,11 @@ const cancel = () => {
               </div>
             </div>
             <div class="mb-3 px-1 mt-4">
-              <label class="form-check-label" for="inputType">
+              <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['type'] : false }" type="checkbox"
+                true-value="1" false-value="0" v-model="editingUser.blocked" id="inputType" disabled />
+              <label class="form-check-label ms-2" for="inputType">
                 Blocked
               </label>
-              <input type="checkbox" class="ms-3 form-check-input p-2 d-inline-flex" id="inputBlocked"
-                v-model="editingUser.blocked" />
               <field-error-message :errors="errors" fieldName="blocked"></field-error-message>
             </div>
           </div>
@@ -211,11 +212,12 @@ const cancel = () => {
               <field-error-message :errors="errors" fieldName="email"></field-error-message>
             </div>
             -->
-            <div class="mb-3 px-1 mt-4">
-              <label for="inputBlocked" class="form-label">Blocked</label>
-              <input type="checkbox" class="ms-3 form-check-input p-2 d-inline-flex" id="inputBlocked"
-                v-model="editingUser.blocked" />
-              <field-error-message :errors="errors" fieldName="blocked"></field-error-message>
+            <div class="mb-3 px-1">
+              <input class="form-check-input" :class="{ 'is-invalid': errors ? errors['type'] : false }" type="checkbox"
+                true-value="1" false-value="0" v-model="editingUser.blocked" id="inputType" disabled />
+              <label class="form-check-label ms-2" for="inputType">
+                Blocked
+              </label>
             </div>
           </div>
           <div class="w-25">
