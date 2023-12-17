@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+const emit = defineEmits(["edit"]);
 export default {
   data() {
     return {
@@ -31,6 +32,9 @@ export default {
   },
   created() {
     this.fetchCategories();
+  },
+  editClick(category){
+    emit("edit", category);
   },
 };
 </script>
