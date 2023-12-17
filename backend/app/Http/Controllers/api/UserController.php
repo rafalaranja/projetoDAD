@@ -28,14 +28,16 @@ class UserController extends Controller
     public function index(){
         // If the user is an admin, return all users
         if (Auth::user()->user_type === 'A') {
-            $users = User::paginate(8);
+            $users = User::paginate(7);
         } else {
             // If the user is not an admin, return only non-admin users
-            $users = User::where('user_type', '!=', 'A')->paginate(8);
+            $users = User::where('user_type', '!=', 'A')->paginate(7);
         }
 
         return response()->json($users, 200);
     }
+
+    
     
     public function show(User $user)
     {
