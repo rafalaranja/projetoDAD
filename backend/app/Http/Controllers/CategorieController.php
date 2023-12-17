@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class CategorieController extends Controller
 {
     public function index($user){
-        $categorie = Categorie::where('vcard',$user);
+        $categorie = Categorie::where('vcard',$user)->get();
         if ($categorie) {
             return response ()->json(['data'=>$categorie],200);
         } else {

@@ -69,6 +69,7 @@ class TransactionController extends Controller
         'payment_type' => $request->input('payment_type'),
         'payment_reference' => $request->input('payment_reference'),
         'description' => $request->input('description'),
+        'category_id' => $request->input('categorie'),
     ];
 
     $newTransaction = Transaction::create($transactionData);

@@ -16,6 +16,7 @@ const form = reactive({
   value: "",
   payment_reference: "",
   description:"",
+  categorie:"",
 });
 const toast = useToast();
 const router = useRouter();
@@ -61,7 +62,8 @@ const submitForm = async () => {
       const vcard = form.vcard;
       form.vcard = form.payment_reference;
       form.payment_reference = vcard;
-      form.type='C'
+      form.type='C';
+      form.categorie="";
       response = await axios.post("/transactions", form);
       const idTransaction = response.data.data.id-1;
       socket.emit("balanceUpdate", form.vcard);
@@ -120,9 +122,9 @@ form.vcard = userStore.user ? userStore.user.id ?? null : null;
                 <option v-for="vcard in vcards" :key="vcard.id">{{vcard.phone_number}}</option>
             </select>
             <h5 class="mt-2">Category:</h5>
-            <select id="inputState" class="form-control" v-model="form.payment_reference" >
+            <select id="inputState" class="form-control" v-model="form.categorie" >
                 <option disabled selected value > Select a Category </option>
-                <option v-for="categorie in categories" :key="categorie.id">{{ categorie.name }}</option>
+                <option v-for="categorie in categories" :key="categorie.id" :value="categorie.id">{{ categorie.name }}</option>
             </select> 
             <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Enter Quantity"  @input="validateInput" v-model="form.payment_reference" v-show="form.payment_type === 'IBAN'">
