@@ -32,7 +32,7 @@ class TransactionController extends Controller
     public function store(Request $request)
 {
     $rules = [
-        // Defina suas regras de validação aqui
+        
     ];
 
     $validator = Validator::make($request->all(), $rules);
