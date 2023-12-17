@@ -71,12 +71,13 @@ onMounted(() => {
     </button>
   </div>
   <user-table :users="users" :showId="false" @edit="editUser"></user-table>
+
   <div class="d-flex justify-content-center align-items-center my-3">
-    <button class="btn btn-success p-2 mx-2" @click="prevPage">
+    <button class="btn btn-success p-2 mx-2" @click="prevPage" :disabled="currentPage === 1">
       <i class="bi bi-arrow-left"></i> Previous
     </button>
     <span class="mx-3 text-secondary">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button class="btn btn-success p-2 mx-2" @click="nextPage">
+    <button class="btn btn-success p-2 mx-2" @click="nextPage" :disabled="currentPage === totalPages">
       Next <i class="bi bi-arrow-right"></i>
     </button>
   </div>
