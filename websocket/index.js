@@ -7,7 +7,7 @@ const io = require("socket.io")(httpServer, {
     credentials: true,
   },
 });
-const connectedUser={};
+const connectedUser = {};
 httpServer.listen(8080, () => {
   console.log("listening on *:8080");
 });
@@ -24,22 +24,28 @@ io.on("connection", (socket) => {
   //     socket.leave(user.id);
   //     socket.leave("administrator");
   //   });
-  socket.on("balanceUpdate",function(id){
-    try{
-      const recipientSocketId= connectedUser[id];
-      io.to(recipientSocketId).emit("balance");
-      console.log("enviado: ",id);
-    }catch (error) {
-      console.error("Erro ao enviar ask para o usuário de destino:", error.message);
+  socket.on("balanceUpdate", function (id) {
+    try {
+      const recipientSocketId = connectedUser[id];
+      io.to(recipientSocketId).emit("balance", id);
+      console.log("enviado: ", id);
+    } catch (error) {
+      console.error(
+        "Erro ao enviar ask para o usuário de destino:",
+        error.message
+      );
     }
   });
-  socket.on("ask",function(ask){
-    console.log("ask",ask);
-    try{
-    const recipientSocketId = connectedUser[ask.vcard_dest]
-    io.to(recipientSocketId).emit("askResponse",ask);
+  socket.on("ask", function (ask) {
+    console.log("ask", ask);
+    try {
+      const recipientSocketId = connectedUser[ask.vcard_dest];
+      io.to(recipientSocketId).emit("askResponse", ask);
     } catch (error) {
-    console.error("Erro ao enviar ask para o usuário de destino:", error.message);
+      console.error(
+        "Erro ao enviar ask para o usuário de destino:",
+        error.message
+      );
     }
   });
   socket.on("login", function (user) {

@@ -19,7 +19,7 @@ class CategorieController extends Controller
     }
     public function show(){
         $categorie = Categorie::paginate(8);
-        return response ()->json(['data'=>$categorie],200);
+        return $categorie;
     }
     
 }
