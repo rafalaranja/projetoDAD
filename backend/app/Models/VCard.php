@@ -39,6 +39,6 @@ class VCard extends Model
 
     public function categories() : HasMany
     {
-        return $this->hasMany(Category::class, 'vcard', 'phone_number');
+        return $this->hasMany(Categorie::class, 'vcard', 'phone_number');
     }
 }

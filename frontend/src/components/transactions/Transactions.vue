@@ -21,7 +21,7 @@ const deleteConfirmationDialog = ref(null)
 const currentPage = ref(1);
 const pageSize = 10;
 
-const sortField = ref('date');
+const sortField = ref('datetime');
 const sortOrder = ref('desc');
 
 
@@ -123,7 +123,7 @@ const changeSort = (field) => {
     <div class="d-flex me-3 mb-2">
       <label class="input-group-text me-1" for="inputGroupSelect01">Filter By</label>
       <select v-model="sortField" @change="loadTransactions">
-        <option value="date">Date</option>
+        <option value="datetime">Date</option>
         <option value="value">Value</option>
       </select>
     </div>

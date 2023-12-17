@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Categorie extends Model
 {
     use HasFactory;
+    protected $table = 'categories';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable =
@@ -20,16 +22,7 @@ class Categorie extends Model
     'name',
     ];
 
-    public function getTypeNameAttribute()
-    {
-        switch ($this->type) {
-            case 'D':
-                return 'Debit';
-            case 'C':
-                return 'Credit';
-        }
-    }
-
+    
     public function vcard() : BelongsTo
     {
         return $this->belongsTo(VCard::class, 'phone_number');

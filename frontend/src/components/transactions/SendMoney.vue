@@ -8,9 +8,10 @@ import { useUserStore } from "../../stores/users.js";
 const userStore = useUserStore();
 const socket = inject("socket");
 const vcards = ref([]);
+const categories = ref([]);
 const form = reactive({
   vcard: "",
-  type: 'D',
+  type: "D",
   payment_type: "",
   value: "",
   payment_reference: "",
@@ -38,6 +39,15 @@ const loadVcards = async () => {
     console.log(error);
   }
 };
+const loadCategories = async () => {
+  try {
+    const response = await axios.get(`categories/${userStore.user.id}`);
+    console.log(response.data);
+    categories.value = response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 const emit = defineEmits(['view']);
 const viewTransaction = (transaction) => {
   emit("view", transaction);
@@ -59,7 +69,7 @@ const submitForm = async () => {
     }else{
       const response = await axios.post("/transactions", form);
       toast.success("Transação feita com sucesso!");
-      const idTransaction = response.data.data.id-1;
+      const idTransaction = response.data.data.id;
       router.push(`/transactions/${idTransaction}`);
     }
     //const idTransaction = response.data.id;
@@ -81,7 +91,10 @@ const submitForm = async () => {
   }
 };
 
-onMounted(loadVcards);
+onMounted(()=>{
+  loadVcards();
+  loadCategories();
+});
 
 form.vcard = userStore.user ? userStore.user.id ?? null : null;
 
@@ -106,6 +119,11 @@ form.vcard = userStore.user ? userStore.user.id ?? null : null;
                 <option disabled selected value > Select a VCard </option>
                 <option v-for="vcard in vcards" :key="vcard.id">{{vcard.phone_number}}</option>
             </select>
+            <h5 class="mt-2">Category:</h5>
+            <select id="inputState" class="form-control" v-model="form.payment_reference" >
+                <option disabled selected value > Select a Category </option>
+                <option v-for="categorie in categories" :key="categorie.id">{{ categorie.name }}</option>
+            </select> 
             <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Enter Quantity"  @input="validateInput" v-model="form.payment_reference" v-show="form.payment_type === 'IBAN'">
             
@@ -116,6 +134,14 @@ form.vcard = userStore.user ? userStore.user.id ?? null : null;
                         placeholder="Enter Quantity"  @input="validateInput" v-model="form.value">
                     <small id="emailHelp" class="form-text text-muted">Enter a number (use a dot to separate decimal
                         places)</small>
+                </div>
+            </form>
+            <h5 class="mt-4">Description:</h5>
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Quantity"  @input="validateInput" v-model="form.description">
+                    <small id="emailHelp" class="form-text text-muted">Enter a description (if youu want)</small>
                 </div>
             </form>
 
