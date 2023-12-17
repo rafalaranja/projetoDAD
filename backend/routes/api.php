@@ -70,6 +70,6 @@ Route::get('vcard/{user}/load', [VcardController::class, 'load']);
 Route::get('statistics/{user}/load', [TransactionController::class, 'loadStatistics']);
 
 Route::get('categories',[CategorieController::class, 'index']);
-Route::get('categories/send',[CategorieController::class, 'indexSend']);
+Route::get('categories/send/{user}',[CategorieController::class, 'indexSend']);
 Route::get('categories/{user}', [CategorieController::class,'show']);
 Route::post('categories',[CategorieController::class,'store']);
