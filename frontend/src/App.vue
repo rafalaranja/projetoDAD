@@ -157,14 +157,16 @@ const logout = async () => {
               </router-link>
             </li>
 
-            <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
-              <router-link class="nav-link text-white"
-                :class="{ 'active-link': $route.name === 'Statistics', active: $route.name === 'Statistics' }"
-                :to="{ name: 'Statistics' }">
-                <i class="bi bi-graph-up"></i>
-                Statistics
-              </router-link>
-            </li>
+            <div v-if="userStore.user && userStore.user.type != 'A'">
+              <li class="nav-item" v-if="userStore.userName != 'Anonymous'">
+                <router-link class="nav-link text-white"
+                  :class="{ 'active-link': $route.name === 'Statistics', active: $route.name === 'Statistics' }"
+                  :to="{ name: 'Statistics' }">
+                  <i class="bi bi-graph-up"></i>
+                  Statistics
+                </router-link>
+              </li>
+            </div>
           </ul>
           <div class="d-block d-md-none">
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
