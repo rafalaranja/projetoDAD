@@ -11,9 +11,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Categorie extends Model
 {
     use HasFactory;
-    protected $table = 'categories';
-    protected $primaryKey = 'id';
-    public $timestamps = false;
 
     protected $fillable =
     ['id',
@@ -21,7 +18,6 @@ class Categorie extends Model
     'type',
     'name',
     ];
-
     
     public function vcard() : BelongsTo
     {

@@ -1,8 +1,9 @@
 <script setup>
-import avatarNoneUrl from "@/assets/avatar-none.png";
+import { defineProps, defineEmits } from "vue";
 import { useUserStore } from "../../stores/users.js";
+import { computed } from "vue";
 
-const serverBaseUrl = inject("serverBaseUrl");
+const userStore = useUserStore();
 
 const props = defineProps({
   categories: {
@@ -13,50 +14,61 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  showUsername: {
+  showResponsible: {
     type: Boolean,
     default: true,
   },
-  showAdmin: {
+  showDates: {
+    type: Boolean,
+    default: false,
+  },
+  showTotalHours: {
     type: Boolean,
     default: true,
   },
-  showPhoto: {
+  showBillInformation: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   showEditButton: {
     type: Boolean,
     default: true,
   },
+  showDeleteButton: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const emit = defineEmits(["show"]);
+const emit = defineEmits(["view"]);
 
-const editClick = (categorie) => {
-  emit("edit", categorie);
+const viewCategorie = (categorie) => {
+  emit("view", categorie);
+  console.log(categorie);
 };
 </script>
 
 <template>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
-    <h1 class="h3">categories</h1>
-  </div>
-  <table class="table table-hover table-sm mt-3 m-1 border">
+  <table class="table table-bordered table-hover">
     <thead class="table-dark">
       <tr>
-        <th class="align-middle">Name</th>
+        <th>ID</th>
+        <th>VCard</th>
+        <th>Type</th>
+        <th>Name</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="categorie in categories" :key="categorie.id">
-        <td class="align-middle">{{ categorie.name }}</td>
-        <td class="text-end align-middle" >
-          <div class="d-flex justify-content-end" >
-            <button class="btn btn-xs btn-light" @click="editClick(categorie)" v-if="showEditButton">
-              <i class="bi bi-xs bi-pencil"></i>
-            </button>
-          </div>
+        <td>{{ categorie.id }}</td>
+        <td>{{ categorie.vcard }}</td>
+        <td>{{ categorie.type }}</td>
+        <td>{{ categorie.name }}</td>
+        <td>
+          <button class="btn btn-outline-dark p-0 mx-auto d-flex" @click="viewCategorie(categorie)" v-if="showEditButton">
+            <i class="bi bi-pencil mx-auto px-2"></i>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -67,10 +79,5 @@ const editClick = (categorie) => {
 button {
   margin-left: 3px;
   margin-right: 3px;
-}
-
-.img_photo {
-  width: 3.2rem;
-  height: 3.2rem;
 }
 </style>
