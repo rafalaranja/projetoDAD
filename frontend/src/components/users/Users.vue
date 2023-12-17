@@ -47,6 +47,11 @@ const searchUsers = () => {
   loadUsers();
 };
 
+const clearSearch = () => {
+  searchTerm.value = '';
+  loadUsers();
+};
+
 onMounted(() => {
   loadUsers();
 });
@@ -58,7 +63,8 @@ onMounted(() => {
   </div>
   <div class="input-group">
     <div class="form-outline">
-      <input type="search" id="form1" class="form-control" placeholder="Search User" v-model="searchTerm" />
+      <input type="search" id="form1" class="form-control" placeholder="Search User" v-model="searchTerm"
+        @click="clearSearch" />
     </div>
     <button type="button" class="btn btn-success btn-sm pb-0" @click="searchUsers">
       <i class="bi bi-search d-flex justify-content-center align-items-center"></i>
