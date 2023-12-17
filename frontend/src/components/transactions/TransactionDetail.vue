@@ -61,7 +61,7 @@ const formatDate = (dateString) => {
           <h2 v-if="currentTransaction.type == 'C'">
             {{ currentTransaction.value }}€
           </h2>
-          <h2 v-else>-{{ currentTransaction.value }}€</h2>
+          <h2 v-else> - {{  currentTransaction.value }}€</h2>
         </div>
       </div>
       <div class="d-flex justify-content-between mx-5 mt-4">

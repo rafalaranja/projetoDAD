@@ -1,3 +1,5 @@
 node_modules
 vendor
 websocket/node_modules
+frontend/.env.production
+backend/app/Http/Controllers/TransactionController.php

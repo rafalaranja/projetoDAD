@@ -69,5 +69,5 @@ Route::get('vcard/{user}/load', [VcardController::class, 'load']);
 
 Route::get('statistics/{user}/load', [TransactionController::class, 'loadStatistics']);
 
-Route::get('categories', [CategorieController::class, 'index']);
+Route::get('categories/{user}',[CategorieController::class, 'index']);
 
