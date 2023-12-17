@@ -125,7 +125,7 @@ onMounted(async () => {
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                 Savings</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">320€</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">0€</div>
             </div>
             <div class="col-auto">
               <i class="bi bi-piggy-bank"></i>
@@ -159,7 +159,7 @@ onMounted(async () => {
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                 PENDING REQUESTS</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
             </div>
             <div class="col-auto">
               <i class="bi bi-envelope-exclamation"></i>
