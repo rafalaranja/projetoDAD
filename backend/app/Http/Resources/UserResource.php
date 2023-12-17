@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'gender' => $this->gender,
             'gender_name' => $this->genderName,
             'photo_url' => $this->photo_url,
+            'blocked' => $this->blocked,
         ];
     }
 }

@@ -106,9 +106,67 @@ const cancel = () => {
 
       <!-- IN CASE THE EDITED USER IS NOT ADMIN-->
       <div v-if="editingUser.type != 'A'">
-        NOT ADMIN
-      </div>
+        <div class="d-flex flex-wrap justify-content-between">
+          <div class="w-75 pe-4">
+            <div class="mb-3" v-if="editingUser.type != 'A'">
+              <label for="" class="form-label">VCard</label>
+              <input type="text" class="form-control" v-model="editingUser.id" disabled />
+              <field-error-message :errors="errors" fieldName="name"></field-error-message>
+            </div>
 
+            <div class="mb-3">
+              <label for="inputName" class="form-label">Name</label>
+              <input type="text" class="form-control" disabled id="inputName" required v-model="editingUser.name" />
+              <field-error-message :errors="errors" fieldName="name"></field-error-message>
+            </div>
+
+            <div class="mb-3 px-1">
+              <label for="inputEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" disabled id="inputEmail" required v-model="editingUser.email" />
+              <field-error-message :errors="errors" fieldName="email"></field-error-message>
+            </div>
+            <!--
+            <div class="mb-3 px-1">
+              <label for="input" class="form-label">Balance</label>
+              <input type="email" class="form-control" disabled id="inputEmail" required v-model="editingUser.balance" />
+              <field-error-message :errors="errors" fieldName="email"></field-error-message>
+            </div>
+            <div class="mb-3 px-1">
+              <label for="input" class="form-label">Max Debit</label>
+              <input type="email" class="form-control" disabled id="inputEmail" required v-model="editingUser.debit" />
+              <field-error-message :errors="errors" fieldName="email"></field-error-message>
+            </div>
+            -->
+            <div class="mb-3 px-1 mt-4">
+              <label for="inputBlocked" class="form-label">Blocked</label>
+              <input type="checkbox" class="ms-3 form-check-input p-2 d-inline-flex" id="inputBlocked"
+                v-model="editingUser.blocked" />
+              <field-error-message :errors="errors" fieldName="blocked"></field-error-message>
+            </div>
+          </div>
+          <div class="w-25">
+            <div class="d-flex flex-column">
+              <label class="form-label">Photo</label>
+              <div class="form-control text-center">
+                <img :src="photoFullUrl" class="w-100" />
+              </div>
+              <div>
+                <field-error-message :errors="errors" fieldName="base64ImagePhoto"></field-error-message>
+              </div>
+            </div>
+            <div class="mb-3 d-flex justify-content-end mt-3">
+              <button type="button" class="btn btn-success px-5" @click="save">
+                Save
+              </button>
+              <button type="button" class="btn btn-light px-5" @click="cancel">
+                Cancel
+              </button>
+            </div>
+            <input type="file" class="form-control visually-hidden" id="inputPhoto" accept="image/*" ref="inputPhotoFile"
+              @change="changePhotoFile" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- IN CASE THE USER IS EDITING HIMSELF-->
@@ -155,14 +213,14 @@ const cancel = () => {
               <img :src="photoFullUrl" class="w-100" />
             </div>
             <div class="mt-3 d-flex justify-content-between flex-wrap">
-              <label for="inputPhoto" class="btn btn-dark flex-grow-1 mx-1">Carregar</label>
+              <label for="inputPhoto" class="btn btn-dark flex-grow-1 mx-1">Load</label>
               <button class="btn btn-secondary flex-grow-1 mx-1" @click.prevent="resetToOriginalPhoto"
                 v-if="editingUser.photo_url">
-                Repor
+                Reset
               </button>
               <button class="btn btn-danger flex-grow-1 mx-1" @click.prevent="cleanPhoto"
                 v-show="editingUser.photo_url || editingImageAsBase64">
-                Apagar
+                Delete
               </button>
             </div>
             <div>
