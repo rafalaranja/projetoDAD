@@ -8,15 +8,17 @@ const pieCanvasRef = ref(null); //graph2
 const bubbleCanvasRef = ref(null); //graph3
 const linearCanvasRef = ref(null); //graph4
 const chartData = ref([]);
+const totalTransactions = ref(0);
 
 const loadStatistics = async () => {
   try {
     const response = await axios.get("/transactions");
     const statistics = response.data.data
+    totalTransactions.value = response.data.data.length;
 
     const monthlyTransactionCounts = Array(12).fill(0);
 
-    for (const transaction of statistics) {   
+    for (const transaction of statistics) {
       const date = new Date(transaction.date);
       monthlyTransactionCounts[date.getMonth()]++;
     }
@@ -41,7 +43,7 @@ const createChart = () => {
         'November', 'December'],
       datasets: [{
         label: '# of Transactions',
-        data:chartData.value,
+        data: chartData.value,
         borderWidth: 1
       }]
     },
@@ -60,7 +62,7 @@ const createChart = () => {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
         'November', 'December'],
       datasets: [{
-        data: chartData.value,
+        data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 1],
         backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c'],
       }]
     },
@@ -88,7 +90,11 @@ const createChart = () => {
     data: {
       labels: ['0-2000', '2000-5000', '5000-10000', '10000-50000', '50000-100000', '100000+'],
       datasets: [{
-        data: chartData.value,
+        data: [
+          { x: 10, y: 20, r: 5 },
+          { x: 15, y: 10, r: 10 },
+          { x: 20, y: 30, r: 15 },
+        ],
         backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c'],
       }]
     },
@@ -99,13 +105,14 @@ const createChart = () => {
 
 };
 
-onMounted(async () => {  
+onMounted(async () => {
   await loadStatistics();
   createChart();
 });
 </script>
 
 <template>
+  <h2 class="mt-2">TOTAL TRANSACTIONS: {{ totalTransactions }}</h2>
   <div class="graph-container">
     <div class="card m-4">
       <div class="card-header">Average Transaction Amount</div>
