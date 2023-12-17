@@ -42,7 +42,7 @@ const loadVcards = async () => {
 };
 const loadCategories = async () => {
   try {
-    const response = await axios.get(`categories/${userStore.user.id}`);
+    const response = await axios.get(`categories/send/${userStore.user.id}`);
     console.log(response.data);
     categories.value = response.data.data;
   } catch (error) {

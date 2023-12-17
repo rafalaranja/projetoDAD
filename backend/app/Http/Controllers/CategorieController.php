@@ -7,6 +7,7 @@ use App\Http\Resources\CategorieResource;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategorieController extends Controller
 {
@@ -30,6 +31,20 @@ class CategorieController extends Controller
 
     return response()->json($categories, 200);
 }
+
+public function indexSend(Request $request)
+    {
+        $categoryNames = Categorie::select('name')->distinct()->get()->pluck('name')->toArray();
+
+        $perPage = 10;
+        $page = $request->get('page', 1);
+        if ($page > count($categoryNames) or $page < 1) { $page = 1; }
+        $offset = ($page * $perPage) - $perPage;
+
+        $categories = new LengthAwarePaginator(array_slice($categoryNames, $offset, $perPage, true), count($categoryNames), $perPage, $page, ['path' => $request->url(), 'query' => $request->query()]);
+
+        return response()->json($categories, 200);
+    }
 
     public function show(Categorie $category)
     {
