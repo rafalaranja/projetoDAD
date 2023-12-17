@@ -19,6 +19,7 @@ import AskMoney from "../components/transactions/AskMoney.vue";
 import VcardDetail from "../components/vcards/VcardDetail.vue";
 import Categories from "../components/categories/Categories.vue";
 import CategoriesDetail from "../components/categories/CategoriesDetail.vue";
+import Categorie from "../components/categories/Categorie.vue";
 
 import { useUserStore } from "../stores/users";
 
@@ -182,10 +183,10 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path:"/categories/:category",
-      name:"CategoriesDetail",
-      component: CategoriesDetail,
-      props: (route) => ({ categorty: route.params }),
+      path: "/categories/:id",
+      name: "Categorie",
+      component: Categorie,
+      props: (route) => ({ id: parseInt(route.params.id) }),
       meta: { requiresAuth: true },
     },
     {

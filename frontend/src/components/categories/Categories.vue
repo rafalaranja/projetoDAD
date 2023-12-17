@@ -36,9 +36,6 @@ const loadCategories = async (page = 1) => {
     categories.value = response.data.data;
     currentPage.value = response.data.current_page;
     totalPages.value = response.data.last_page;
-
-    console.log(response.data.data);
-    console.log(response.data.current_page);
   } catch (error) {
     console.error(error);
   }
@@ -56,6 +53,7 @@ const loadUsers = async (page = 1) => {
 
 const viewCategorie = (categorie) => {
   router.push({ name: 'Categorie', params: { id: categorie.id } })
+
 }
 
 
