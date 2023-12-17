@@ -12,12 +12,14 @@ class CategorieController extends Controller
     public function index($user){
         $categorie = Categorie::where('vcard',$user)->get();
         if ($categorie) {
-            return response ()->json(['data'=>$categorie],200);
+            return response ()->json(['data'=>$categorie],200); 
         } else {
             return response()->json(['error' => 'Category not found'], 404);
         }
     }
-        //return response ()->json(['data'=>$categorie],200);
-    
+    public function show(){
+        $categorie = Categorie::paginate(8);
+        return response ()->json(['data'=>$categorie],200);
+    }
     
 }

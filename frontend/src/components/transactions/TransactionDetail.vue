@@ -77,7 +77,7 @@ watch(
     <div class="card-body">
       <div class="d-flex justify-content-between mx-5 mt-3">
         <h5>VCard: {{ props.transaction.vcard }}</h5>
-        <h5 v-if="props.transaction.category_id!=null">
+        <h5 v-if="getCategoryName(props.transaction.category_id) != 'Unknown Category'">
           Category: {{ getCategoryName(props.transaction.category_id) }}
         </h5>
         <h5 v-if="props.transaction.pair_vcard">

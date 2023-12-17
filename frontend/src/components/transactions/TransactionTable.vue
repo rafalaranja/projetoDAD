@@ -80,7 +80,7 @@ const shouldShowVcard = computed(() => {
         <td v-if="shouldShowVcard">{{ transaction.vcard }}</td>
         <td>{{ new Date(transaction.date).toLocaleDateString('en-GB') }}</td>
         <td v-if="transaction.type == 'C'">{{ transaction.value }}</td>
-        <td v-else> - {{ transaction.value }}</td>
+        <td v-else>-{{ transaction.value }}</td>
         <td>{{ transaction.payment_type }}</td>
         <td>{{ transaction.payment_reference }}</td>
         <td>
