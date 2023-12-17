@@ -69,7 +69,7 @@ const editClick = (user) => {
         <th v-if="showUsername" class="align-middle">Phone Number</th>
         <th v-if="showAdmin" class="align-middle">Admin</th>
         <th class="align-middle">Blocked</th>
-        <th></th>
+        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -78,16 +78,16 @@ const editClick = (user) => {
         <td v-if="showPhoto" class="align-middle">
           <img :src="photoFullUrl(user)" class="rounded-circle img_photo" />
         </td>
-        <td class="align-middle">{{ user.name }}</td>
+        <td class="align-middle ">{{ user.name }}</td>
         <td v-if="showUsername" class="align-middle">{{ user.username }}</td>
         <td v-if="showAdmin" class="align-middle">
           {{ user.user_type == "A" ? "Yes" : "No" }}
         </td>
         <td class="align-middle">{{ user.blocked == "1" ? "Yes" : "No" }}</td>
-        <td class="text-end align-middle" v-if="showEditButton">
-          <div class="d-flex justify-content-end" v-if="canViewUserDetail(user.id)">
-            <button class="btn btn-xs btn-light" @click="editClick(user)" v-if="showEditButton">
-              <i class="bi bi-xs bi-pencil"></i>
+        <td class="text-end align-middle">
+          <div class="d-flex justify-content-start">
+            <button class="btn btn-xs btn-light" @click="editClick(user)">
+              <i class="bi bi-xs bi-pencil edi"></i>
             </button>
           </div>
         </td>

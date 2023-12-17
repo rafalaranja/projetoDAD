@@ -28,7 +28,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('users/me', [UserController::class, 'show_me']);
     Route::get('users', [UserController::class, 'index']);
-    Route::get('admins', [UserController::class,'indexAdmin']);
     Route::get('users/{user}', [UserController::class, 'show'])->middleware('can:view,user');
    Route::put('vcards/{vcard}', [UserController::class, 'update'])->middleware('can:update,vcard');
     

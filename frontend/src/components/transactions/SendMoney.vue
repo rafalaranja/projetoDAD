@@ -143,12 +143,10 @@ form.vcard = userStore.user ? userStore.user.id ?? null : null;
       <form>
         <div class="form-group">
           <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Enter Quantity" @input="validateInput" v-model="form.description">
-          <small id="emailHelp" class="form-text text-muted">Enter a description (if youu want)</small>
+            placeholder="Enter Description" @input="validateInput" v-model="form.description">
+          <small id="emailHelp" class="form-text text-muted">Enter a description (optional)</small>
         </div>
       </form>
-
-
       <div class="d-flex justify-content-center mx-5 mt-4">
         <button type="button" class="btn btn-success btn-lg mt-3" @click="submitForm">SEND</button>
       </div>
