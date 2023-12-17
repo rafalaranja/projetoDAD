@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted ,inject} from "vue";
+import { ref, onMounted, inject } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
@@ -17,7 +17,7 @@ const socket = inject("socket");
 const vcards = ref(null);
 const lineCanvasRef = ref(null);
 const chartData = ref([]);
-const balanceVcard=ref([]);
+const balanceVcard = ref([]);
 const isToastDisplayed = ref(false);
 const loadVCards = async () => {
   try {
@@ -26,7 +26,7 @@ const loadVCards = async () => {
     const transactions = response.data.data;
     balanceVcard.value = vcards.value.balance;
   } catch (error) {
-    console.error("",error);
+    console.error("", error);
     throw error;
   }
 };
@@ -36,19 +36,19 @@ const loadTransactions = async () => {
     const response = await axios.get("/transactions");
     const transactions = response.data.data;
 
-    
+
     const monthlyTransactionCounts = Array(12).fill(0);
 
-  
+
     for (const transaction of transactions) {
-      
+
       const date = new Date(transaction.date);
 
-     
+
       monthlyTransactionCounts[date.getMonth()]++;
     }
 
-    
+
     chartData.value = monthlyTransactionCounts;
   } catch (error) {
     console.log(error);
@@ -77,30 +77,29 @@ const createChart = () => {
 
 
 
-onMounted(async () => {  
+onMounted(async () => {
   await loadTransactions();
   createChart();
   await loadVCards();
-  socket.on("balance",async ()=>{
-  if (!isToastDisplayed) {
+  socket.on("balance", async () => {
+    if (!isToastDisplayed) {
       isToastDisplayed = true;
-  }
-  try{
-    toast.info(`Atualização no saldo!!`);
-    console.log("hey");
-    await loadVCards();
-  }catch (error) {
-    console.error("Erro ao processar resposta do WebSocket:", error);
-    console.log("Erro no bloco catch:", error);
-  }finally{
-    isToastDisplayed=false;
-  }
-});
+    }
+    try {
+      toast.info(`Atualização no saldo!!`);
+      console.log("hey");
+      await loadVCards();
+    } catch (error) {
+      console.error("Erro ao processar resposta do WebSocket:", error);
+      console.log("Erro no bloco catch:", error);
+    } finally {
+      isToastDisplayed = false;
+    }
+  });
 });
 </script>
 
 <template>
- 
   <div class="row" v-if="vcards">
 
     <div class="col-xl-3 col-md-6 mb-4">
@@ -158,7 +157,8 @@ onMounted(async () => {
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                PENDING REQUESTS</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
             </div>
             <div class="col-auto">
