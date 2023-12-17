@@ -59,7 +59,7 @@ const submitForm = () => {
         if (
           error.response.data.message.includes("Integrity constraint violation")
         ) {
-          toast.error("Este número de telefone já existe.");
+          toast.error("This phone number is already registered!");
         } else {
           toast.error(error.response.data.message);
         }
@@ -71,73 +71,32 @@ const submitForm = () => {
 </script>
 
 <template>
-  <form
-    class="row g-3 needs-validation"
-    novalidate
-    @submit.prevent="submitForm"
-  >
+  <form class="row g-3 needs-validation" novalidate @submit.prevent="submitForm">
     <h3 class="mt-5 mb-3">Create Vcard</h3>
     <hr />
     <div class="mb-3">
       <label for="inputName" class="form-label">Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="inputName"
-        required
-        v-model="form.name"
-      />
+      <input type="text" class="form-control" id="inputName" required v-model="form.name" />
     </div>
     <div class="mb-3">
       <label for="inputPhone" class="form-label">Phone Number</label>
-      <input
-        type="tel"
-        class="form-control"
-        id="inputPhone"
-        required
-        v-model="form.phone"
-        pattern="[0-9]{9}"
-      />
+      <input type="tel" class="form-control" id="inputPhone" required v-model="form.phone" pattern="[0-9]{9}" />
     </div>
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
-      <input
-        type="email"
-        class="form-control"
-        id="inputEmail"
-        required
-        v-model="form.email"
-      />
+      <input type="email" class="form-control" id="inputEmail" required v-model="form.email" />
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="inputPassword"
-        required
-        v-model="form.password"
-      />
+      <input type="password" class="form-control" id="inputPassword" required v-model="form.password" />
     </div>
     <div class="mb-3">
       <label for="inputPin" class="form-label">PIN</label>
-      <input
-        type="password"
-        class="form-control"
-        id="inputPin"
-        required
-        v-model="form.pin"
-      />
+      <input type="password" class="form-control" id="inputPin" required v-model="form.pin" />
     </div>
     <div class="mb-3">
       <label for="inputPhoto" class="form-label">Photo</label>
-      <input
-        type="file"
-        class="form-control"
-        id="inputPhoto"
-        required
-        @change="onFileChange"
-      />
+      <input type="file" class="form-control" id="inputPhoto" required @change="onFileChange" />
     </div>
     <div class="mb-3 d-flex justify-content-center">
       <button type="button" class="btn btn-success px-5" @click="submitForm">

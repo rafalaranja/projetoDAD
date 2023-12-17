@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import { defineComponent, defineEmits } from 'vue';
 const emit = defineEmits(["edit"]);
 export default {
   data() {
@@ -33,7 +34,7 @@ export default {
   created() {
     this.fetchCategories();
   },
-  editClick(category){
+  editClick(category) {
     emit("edit", category);
   },
 };
