@@ -33,10 +33,6 @@ const props = defineProps({
 
 const emit = defineEmits(["show"]);
 
-const viewCategory=(categorie)=>{
-    emit("show",categorie);
-}
-
 const editClick = (categorie) => {
   emit("edit", categorie);
 };
@@ -57,7 +53,7 @@ const editClick = (categorie) => {
         <td class="align-middle">{{ categorie.name }}</td>
         <td class="text-end align-middle" >
           <div class="d-flex justify-content-end" >
-            <button class="btn btn-xs btn-light" @click="editClick(user)" v-if="showEditButton">
+            <button class="btn btn-xs btn-light" @click="editClick(categorie)" v-if="showEditButton">
               <i class="bi bi-xs bi-pencil"></i>
             </button>
           </div>

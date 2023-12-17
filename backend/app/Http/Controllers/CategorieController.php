@@ -21,4 +21,12 @@ class CategorieController extends Controller
     
         return response()->json($categories, 200);
     }
+    public function show($user){
+        $categorie = Categorie::where('vcard',$user)->get();
+        if ($categorie) {
+            return response ()->json(['data'=>$categorie],200); 
+        } else {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
+    }
 }

@@ -18,6 +18,7 @@ import Statistics from "../components/Statistics.vue";
 import AskMoney from "../components/transactions/AskMoney.vue";
 import VcardDetail from "../components/vcards/VcardDetail.vue";
 import Categories from "../components/categories/Categories.vue";
+import CategoriesDetail from "../components/categories/CategoriesDetail.vue";
 
 import { useUserStore } from "../stores/users";
 
@@ -183,7 +184,7 @@ const router = createRouter({
     {
       path:"/categories/:category",
       name:"CategoriesDetail",
-      component: Categories,
+      component: CategoriesDetail,
       props: (route) => ({ categorty: route.params }),
       meta: { requiresAuth: true },
     },
