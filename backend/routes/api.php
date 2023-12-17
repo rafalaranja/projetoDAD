@@ -70,3 +70,5 @@ Route::get('vcard/{user}/load', [VcardController::class, 'load']);
 Route::get('statistics/{user}/load', [TransactionController::class, 'loadStatistics']);
 
 Route::get('categories',[CategorieController::class, 'index']);
+Route::put('categories/{categorie}', [CategorieController::class,'update']);
+Route::post('categories',[CategorieController::class,'store']);

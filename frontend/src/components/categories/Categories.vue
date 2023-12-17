@@ -1,8 +1,8 @@
 <script>
 import axios from "axios";
 import { defineComponent, defineEmits } from 'vue';
-const emit = defineEmits(["edit"]);
-export default {
+
+export default defineComponent({
   data() {
     return {
       categories: [],
@@ -30,16 +30,16 @@ export default {
         this.fetchCategories();
       }
     },
+    editClick(category) {
+      console.log(category);
+      this.$emit("edit", category);
+    },
   },
   created() {
     this.fetchCategories();
   },
-  editClick(category) {
-    emit("edit", category);
-  },
-};
+});
 </script>
-
 <template>
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
     <h1 class="h3">Categories</h1>
@@ -74,6 +74,8 @@ export default {
     </button>
   </div>
 </template>
+
+
 
 <style scoped>
 button {

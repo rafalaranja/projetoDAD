@@ -181,6 +181,13 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path:"/categories/:category",
+      name:"CategoriesDetail",
+      component: Categories,
+      props: (route) => ({ categorty: route.params }),
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/users/:id",
       name: "User",
       component: User,
