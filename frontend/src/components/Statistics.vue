@@ -7,20 +7,26 @@ const canvasRef = ref(null);    //graph1
 const pieCanvasRef = ref(null); //graph2
 const bubbleCanvasRef = ref(null); //graph3
 const linearCanvasRef = ref(null); //graph4
-const statistics = ref([]);
+const chartData = ref([]);
 
 const loadStatistics = async () => {
   try {
-    const response = await axios.get(`statistics/{user}/load`);
-    statistics.value = response.data.data
+    const response = await axios.get("/transactions");
+    const statistics = response.data.data
 
-    console.log(response.data.data)
+    const monthlyTransactionCounts = Array(12).fill(0);
+
+    for (const transaction of statistics) {   
+      const date = new Date(transaction.date);
+      monthlyTransactionCounts[date.getMonth()]++;
+    }
+    chartData.value = monthlyTransactionCounts;
   } catch (error) {
     console.log(error);
   }
 };
 
-onMounted(async () => {
+const createChart = () => {
   const ctx = canvasRef.value.getContext('2d');
   const pieCtx = pieCanvasRef.value.getContext('2d');
   const bubbleCtx = bubbleCanvasRef.value.getContext('2d');
@@ -35,7 +41,7 @@ onMounted(async () => {
         'November', 'December'],
       datasets: [{
         label: '# of Transactions',
-        data: [12, 19, 3, 5, 2, 3],
+        data:chartData.value,
         borderWidth: 1
       }]
     },
@@ -54,7 +60,7 @@ onMounted(async () => {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
         'November', 'December'],
       datasets: [{
-        data: [12, 19, 30, 5, 22, 3, 11, 2, 10, 44, 5, 67],
+        data: chartData.value,
         backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c'],
       }]
     },
@@ -68,7 +74,7 @@ onMounted(async () => {
     data: {
       labels: ['MB', 'IBAN', 'VCard', 'Visa', 'Paypal', 'MBWAY'],
       datasets: [{
-        data: [12, 19, 3, 5, 2, 3],
+        data: chartData.value,
         backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c'],
       }]
     },
@@ -82,7 +88,7 @@ onMounted(async () => {
     data: {
       labels: ['0-2000', '2000-5000', '5000-10000', '10000-50000', '50000-100000', '100000+'],
       datasets: [{
-        data: [12, 19, 3, 5, 2, 3],
+        data: chartData.value,
         backgroundColor: ['#3498db', '#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e74c3c'],
       }]
     },
@@ -91,27 +97,11 @@ onMounted(async () => {
     }
   });
 
-  watch(statistics, () => {
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-          'November', 'December'],
-        datasets: [{
-          label: '# of Transactions',
-          data: statistics.value,
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  });
+};
+
+onMounted(async () => {  
+  await loadStatistics();
+  createChart();
 });
 </script>
 
