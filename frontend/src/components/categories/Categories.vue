@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import { defineComponent, defineEmits } from 'vue';
 const emit = defineEmits(["edit"]);
 export default {
   data() {
