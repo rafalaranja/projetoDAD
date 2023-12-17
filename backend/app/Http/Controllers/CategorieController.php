@@ -12,7 +12,7 @@ class CategorieController extends Controller
     {
         $categoryNames = Categorie::select('name')->distinct()->get()->pluck('name')->toArray();
     
-        $perPage = 13;
+        $perPage = 10;
         $page = $request->get('page', 1);
         if ($page > count($categoryNames) or $page < 1) { $page = 1; }
         $offset = ($page * $perPage) - $perPage;

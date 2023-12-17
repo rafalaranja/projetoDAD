@@ -60,6 +60,14 @@ const editClick = (user) => {
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
     <h1 class="h3">Users</h1>
   </div>
+  <div class="input-group">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" placeholder="Search User" />
+    </div>
+    <button type="button" class="btn btn-success btn-sm pb-0" data-mdb-ripple-init>
+      <i class="bi bi-search d-flex justify-content-center align-items-center"></i>
+    </button>
+  </div>
   <table class="table table-hover table-sm mt-3 m-1 border">
     <thead class="table-dark">
       <tr>
