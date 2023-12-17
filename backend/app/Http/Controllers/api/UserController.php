@@ -25,15 +25,23 @@ class UserController extends Controller
         $base64Service = new Base64Services();
         return $base64Service->saveFile($base64String, $targetDir, $newfilename);
     }
-    public function index(){
+    public function index(Request $request){
+        $searchTerm = $request->input('search');
+    
         // If the user is an admin, return all users
         if (Auth::user()->user_type === 'A') {
-            $users = User::paginate(7);
+            $query = User::query();
         } else {
             // If the user is not an admin, return only non-admin users
-            $users = User::where('user_type', '!=', 'A')->paginate(7);
+            $query = User::where('user_type', '!=', 'A');
         }
-
+    
+        if ($searchTerm) {
+            $query->where('name', 'LIKE', '%' . $searchTerm . '%');
+        }
+    
+        $users = $query->paginate(7);
+    
         return response()->json($users, 200);
     }
 
