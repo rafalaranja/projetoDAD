@@ -36,26 +36,26 @@ const loadTransactions = async () => {
     const response = await axios.get("/transactions");
     const transactions = response.data.data;
 
-    // Initialize an array to hold the count of transactions for each month
+    
     const monthlyTransactionCounts = Array(12).fill(0);
 
-    // Iterate over the transactions
+  
     for (const transaction of transactions) {
-      // Parse the date of the transaction
+      
       const date = new Date(transaction.date);
 
-      // Increment the count for the month of the transaction
+     
       monthlyTransactionCounts[date.getMonth()]++;
     }
 
-    // Update the chart data
+    
     chartData.value = monthlyTransactionCounts;
   } catch (error) {
     console.log(error);
   }
 };
 
-// Define the function to create the chart
+
 const createChart = () => {
   const barCtx = lineCanvasRef.value.getContext('2d');
 
@@ -76,7 +76,7 @@ const createChart = () => {
 };
 
 
-// Run the loadVCards function and create the chart when the component is mounted
+
 onMounted(async () => {  
   await loadTransactions();
   createChart();
@@ -100,10 +100,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- Content Row -->
+ 
   <div class="row" v-if="vcards">
 
-    <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
@@ -159,8 +158,7 @@ onMounted(async () => {
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                Pending Requests</div>
+
               <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
             </div>
             <div class="col-auto">
